@@ -12,6 +12,8 @@ from pydantic import (
 )
 from pydantic_settings import BaseSettings
 
+from .rate_limit import RateLimitConfig, EndpointLimit
+
 # Project base directory
 BASE_DIR = Path(__file__).resolve().parents[3]
 
@@ -66,6 +68,17 @@ class Settings(BaseSettings):
     REDIS_PASSWORD: Optional[str] = None
     REDIS_URI: Optional[RedisDsn] = None
     
+    # Rate Limiting
+    rate_limit_config: RateLimitConfig = Field(
+        default_factory=lambda: RateLimitConfig(
+            default_window=60,
+            default_max_requests=100,
+            endpoint_limits={},
+            redis_host="localhost",
+            redis_port=6379
+        )
+    )
+    
     # Monitoring
     SENTRY_DSN: Optional[AnyHttpUrl] = None
     SENTRY_ENVIRONMENT: Optional[str] = None
@@ -108,5 +121,42 @@ class Settings(BaseSettings):
                 raise ValueError("Production environment cannot have wildcard ALLOWED_HOSTS")
         return v
 
-# Global settings instance
-settings = Settings()
+def create_settings() -> Settings:
+    """Create settings instance with environment variables."""
+    return Settings()
+
+def create_test_settings() -> Settings:
+    """Create settings instance with test-specific defaults.
+    
+    This provides a consistent test configuration that:
+    1. Uses testing environment
+    2. Sets secure defaults for required fields
+    3. Uses in-memory/local services
+    """
+    from .rate_limit import EndpointLimit
+    
+    test_values = {
+        "ENVIRONMENT": EnvironmentType.TESTING,
+        "SECRET_KEY": "test_secret_key_thats_at_least_32_chars_long",
+        "POSTGRES_PASSWORD": "test_db_password",
+        "POSTGRES_DB": "test_db",
+        "POSTGRES_USER": "test_user",
+        "POSTGRES_HOST": "localhost",
+        "POSTGRES_PORT": 5432,
+        "REDIS_HOST": "localhost",
+        "REDIS_PORT": 6379,
+        "DEBUG": True,
+        "rate_limit_config": RateLimitConfig(
+            default_window=60,
+            default_max_requests=100,
+            endpoint_limits={
+                "/test/endpoint": EndpointLimit(
+                    window=30,
+                    max_requests=50
+                )
+            },
+            redis_host="localhost",
+            redis_port=6379
+        )
+    }
+    return Settings(**test_values)
