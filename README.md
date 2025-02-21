@@ -2,6 +2,10 @@
 
 A modern web application with multiple interfaces and robust authentication.
 
+![CI Tests](https://github.com/gdavis1361/iota/actions/workflows/ci-test.yml/badge.svg)
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+[![Type checked with mypy](https://img.shields.io/badge/type%20checked-mypy-blue.svg)](https://github.com/python/mypy)
+
 ## Project Structure
 
 ```
@@ -410,6 +414,101 @@ def test_settings():
 ```
 
 The test settings provide sensible defaults and proper test isolation.
+
+## Development Guide
+
+### Prerequisites
+
+- Python 3.11+
+- Redis
+- Prometheus
+- Grafana
+
+### Local Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/gdavis1361/iota.git
+cd iota
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+pip install -r requirements-dev.txt
+```
+
+3. Set up pre-commit hooks:
+```bash
+pre-commit install
+```
+
+4. Configure environment variables:
+```bash
+cp .env.example .env
+# Edit .env with your configuration
+```
+
+### Running Tests
+
+We maintain comprehensive test coverage with pytest:
+
+```bash
+# Run all tests with coverage
+pytest
+
+# Run specific test file
+pytest tests/monitoring/test_performance_report.py
+
+# Run with verbose output
+pytest -v
+```
+
+### Code Quality
+
+We enforce strict code quality standards:
+
+- Black for code formatting
+- isort for import sorting
+- flake8 for linting
+- mypy for type checking
+
+These checks run automatically:
+- On pre-commit (local development)
+- In CI/CD pipeline (pull requests)
+
+### Documentation
+
+- [Testing Guide](docs/testing.md)
+- [Observability Guide](docs/observability.md)
+- [Incident Response](docs/incident_response.md)
+- [Architecture Decisions](docs/adr/)
+
+### Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests and quality checks
+5. Submit a pull request
+
+Commit messages should follow [Conventional Commits](https://www.conventionalcommits.org/):
+```
+feat: add hat wobble
+^--^  ^------------^
+|     |
+|     +-> Summary in present tense
+|
++-------> Type: feat, fix, docs, style, refactor, test, or chore
+```
+
+### Release Process
+
+1. Update version in pyproject.toml
+2. Create release notes
+3. Tag release in git
+4. Push to main branch
+5. CI/CD will handle deployment
 
 ## Future Enhancements
 
