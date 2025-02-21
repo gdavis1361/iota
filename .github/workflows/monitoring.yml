@@ -1,0 +1,79 @@
+name: Monitoring and Performance
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'  # Every 6 hours
+  workflow_dispatch:  # Manual trigger
+
+jobs:
+  performance-report:
+    runs-on: ubuntu-latest
+    
+    services:
+      prometheus:
+        image: prom/prometheus:latest
+        ports:
+          - 9090:9090
+          
+      grafana:
+        image: grafana/grafana:latest
+        ports:
+          - 3000:3000
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+          
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install prometheus-api-client requests
+          
+      - name: Wait for services
+        run: |
+          timeout 30 bash -c 'until curl -s http://localhost:9090/-/ready > /dev/null; do sleep 1; done'
+          timeout 30 bash -c 'until curl -s http://localhost:3000/api/health > /dev/null; do sleep 1; done'
+          
+      - name: Generate performance report
+        run: |
+          mkdir -p artifacts
+          python scripts/monitoring/generate_performance_report.py \
+            --prometheus-url http://localhost:9090 \
+            --duration 360 \
+            --output artifacts/performance_report.txt
+            
+      - name: Export Grafana dashboards
+        if: github.event_name == 'schedule'  # Only on scheduled runs
+        env:
+          GRAFANA_API_KEY: ${{ secrets.GRAFANA_API_KEY }}
+        run: |
+          python scripts/monitoring/export_dashboards.py \
+            --grafana-url http://localhost:3000 \
+            --api-key $GRAFANA_API_KEY \
+            --output-dir monitoring/grafana/dashboards \
+            --backup
+            
+      - name: Archive performance report
+        uses: actions/upload-artifact@v3
+        with:
+          name: performance-report
+          path: artifacts/performance_report.txt
+          retention-days: 90
+          
+      - name: Create PR for dashboard changes
+        if: github.event_name == 'schedule'
+        uses: peter-evans/create-pull-request@v5
+        with:
+          commit-message: "chore: Update Grafana dashboards [skip ci]"
+          title: "chore: Update Grafana dashboards"
+          body: |
+            Automated dashboard export from Grafana.
+            
+            - Updates dashboard configurations
+            - Creates backup of previous versions
+          branch: update-dashboards
+          delete-branch: true
