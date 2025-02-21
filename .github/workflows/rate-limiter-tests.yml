@@ -1,0 +1,115 @@
+name: Rate Limiter Tests
+
+on:
+  push:
+    branches: [ main, feature/**, develop ]
+    paths:
+      - 'scripts/cleanup_rate_limits.py'
+      - 'prometheus/rules/**'
+      - 'tests/scripts/test_cleanup_rate_limits.py'
+      - 'tests/integration/test_rate_limit_alerts.py'
+      - '.github/workflows/rate-limiter-tests.yml'
+  pull_request:
+    branches: [ main, develop ]
+    paths:
+      - 'scripts/cleanup_rate_limits.py'
+      - 'prometheus/rules/**'
+      - 'tests/scripts/test_cleanup_rate_limits.py'
+      - 'tests/integration/test_rate_limit_alerts.py'
+      - '.github/workflows/rate-limiter-tests.yml'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:5.0.1
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    strategy:
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r tests/requirements-test.txt
+
+    - name: Run unit tests
+      run: |
+        pytest tests/scripts/test_cleanup_rate_limits.py -v --cov=scripts.cleanup_rate_limits
+
+    - name: Run integration tests
+      run: |
+        pytest tests/integration/test_rate_limit_alerts.py -v --cov=prometheus.rules
+
+    - name: Validate Prometheus rules
+      run: |
+        pip install promtool-prometheus
+        promtool check rules prometheus/rules/rate_limiter.yml
+
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      with:
+        files: ./coverage.xml
+        fail_ci_if_error: true
+
+  performance:
+    needs: test
+    runs-on: ubuntu-latest
+    services:
+      redis:
+        image: redis:5.0.1
+        ports:
+          - 6379:6379
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r tests/requirements-test.txt
+        pip install locust
+
+    - name: Run performance tests
+      run: |
+        # TODO: Add performance test execution
+        echo "Performance tests will be implemented in the next phase"
+
+    - name: Run load tests
+      run: |
+        # TODO: Add load test execution
+        echo "Load tests will be implemented in the next phase"
+
+    - name: Check Redis performance
+      run: |
+        redis-cli info | grep ops
+        redis-cli info | grep used_memory
+        redis-cli info | grep connected_clients
