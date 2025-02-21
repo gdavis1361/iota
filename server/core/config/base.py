@@ -3,13 +3,14 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, Any, Optional
 from pydantic import (
-    BaseModel,
     AnyHttpUrl,
     PostgresDsn,
     RedisDsn,
     Field,
-    validator
+    field_validator,
+    ConfigDict
 )
+from pydantic_settings import BaseSettings
 
 # Project base directory
 BASE_DIR = Path(__file__).resolve().parents[3]
@@ -26,7 +27,7 @@ class EnvironmentType(str, Enum):
         """Check if environment is production."""
         return env.lower() == cls.PRODUCTION.value
 
-class Settings(BaseModel):
+class Settings(BaseSettings):
     """
     Core application settings with comprehensive validation.
     
@@ -36,6 +37,11 @@ class Settings(BaseModel):
     3. Cross-field validation
     4. Default values
     """
+    model_config = ConfigDict(
+        case_sensitive=True,
+        env_file=".env"
+    )
+    
     # Basic settings
     APP_NAME: str = "iota"
     VERSION: str = "1.0.0"
@@ -64,42 +70,41 @@ class Settings(BaseModel):
     SENTRY_DSN: Optional[AnyHttpUrl] = None
     SENTRY_ENVIRONMENT: Optional[str] = None
     
-    class Config:
-        case_sensitive = True
-        env_file = ".env"
-        
-    @validator("SQLALCHEMY_DATABASE_URI", pre=True)
-    def assemble_db_uri(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    @field_validator("SQLALCHEMY_DATABASE_URI", mode="before")
+    def assemble_db_uri(cls, v: Optional[str], info: Dict[str, Any]) -> Any:
         """Construct database URI from components."""
         if isinstance(v, str):
             return v
             
-        return PostgresDsn.build(
+        values = info.data
+        return str(PostgresDsn.build(
             scheme="postgresql",
-            user=values.get("POSTGRES_USER"),
+            username=values.get("POSTGRES_USER"),
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_HOST", "localhost"),
             port=values.get("POSTGRES_PORT", 5432),
             path=f"/{values.get('POSTGRES_DB', '')}"
-        )
+        ))
     
-    @validator("REDIS_URI", pre=True)
-    def assemble_redis_uri(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    @field_validator("REDIS_URI", mode="before")
+    def assemble_redis_uri(cls, v: Optional[str], info: Dict[str, Any]) -> Any:
         """Construct Redis URI from components."""
         if isinstance(v, str):
             return v
             
+        values = info.data
         password_part = f":{values.get('REDIS_PASSWORD')}@" if values.get("REDIS_PASSWORD") else ""
         return f"redis://{password_part}{values.get('REDIS_HOST', 'localhost')}:{values.get('REDIS_PORT', 6379)}/0"
     
-    @validator("ENVIRONMENT")
-    def validate_environment(cls, v: str) -> str:
+    @field_validator("ENVIRONMENT")
+    def validate_environment(cls, v: str, info: Dict[str, Any]) -> str:
         """Ensure environment is valid and apply production safeguards."""
         if EnvironmentType.is_production(v):
             # Production environment requires strict settings
-            if not cls.SECRET_KEY or len(cls.SECRET_KEY) < 32:
+            values = info.data
+            if not values.get("SECRET_KEY") or len(values.get("SECRET_KEY", "")) < 32:
                 raise ValueError("Production environment requires a strong SECRET_KEY")
-            if "*" in cls.ALLOWED_HOSTS:
+            if "*" in values.get("ALLOWED_HOSTS", []):
                 raise ValueError("Production environment cannot have wildcard ALLOWED_HOSTS")
         return v
 
