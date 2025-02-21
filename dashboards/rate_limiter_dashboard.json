@@ -1,0 +1,247 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "IOTA Rate Limiter Monitoring Dashboard",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "Rate Limit Overview",
+      "type": "row",
+      "collapsed": false,
+      "panels": [
+        {
+          "title": "Rate Limit Violations",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate(rate_limit_exceeded_total[5m])",
+              "legendFormat": "{{endpoint}}"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 0
+          }
+        },
+        {
+          "title": "Failed Login Attempts",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate(failed_login_attempts_total[5m])",
+              "legendFormat": "{{ip}}"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 0
+          }
+        }
+      ]
+    },
+    {
+      "title": "Rate Limit Capacity",
+      "type": "row",
+      "collapsed": false,
+      "panels": [
+        {
+          "title": "Remaining Requests",
+          "type": "gauge",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate_limit_remaining",
+              "legendFormat": "{{endpoint}}"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 8
+          },
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "red" },
+              { "value": 10, "color": "yellow" },
+              { "value": 50, "color": "green" }
+            ]
+          }
+        },
+        {
+          "title": "Window Reset Time",
+          "type": "gauge",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "rate_limit_window_reset_seconds",
+              "legendFormat": "{{endpoint}}"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 8,
+            "y": 8
+          }
+        },
+        {
+          "title": "Request Processing Time",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "histogram_quantile(0.95, rate(rate_limit_check_duration_seconds_bucket[5m]))",
+              "legendFormat": "95th percentile"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 16,
+            "y": 8
+          }
+        }
+      ]
+    },
+    {
+      "title": "Redis Health",
+      "type": "row",
+      "collapsed": false,
+      "panels": [
+        {
+          "title": "Redis Connection Errors",
+          "type": "stat",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "redis_connection_errors_total",
+              "legendFormat": ""
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 8,
+            "x": 0,
+            "y": 16
+          }
+        },
+        {
+          "title": "Redis Memory Usage",
+          "type": "graph",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "redis_memory_used_bytes",
+              "legendFormat": "Memory Used"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 16,
+            "x": 8,
+            "y": 16
+          }
+        }
+      ]
+    },
+    {
+      "title": "Endpoint Details",
+      "type": "row",
+      "collapsed": false,
+      "panels": [
+        {
+          "title": "Top Rate Limited Endpoints",
+          "type": "table",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "topk(10, rate(rate_limit_exceeded_total[1h]))",
+              "legendFormat": "{{endpoint}}"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 24
+          }
+        },
+        {
+          "title": "Top Failed Login IPs",
+          "type": "table",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "topk(10, rate(failed_login_attempts_total[1h]))",
+              "legendFormat": "{{ip}}"
+            }
+          ],
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 24
+          }
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": ["rate-limiter", "monitoring"],
+  "templating": {
+    "list": [
+      {
+        "name": "endpoint",
+        "type": "query",
+        "datasource": "Prometheus",
+        "query": "label_values(rate_limit_exceeded_total, endpoint)"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "IOTA Rate Limiter Dashboard",
+  "uid": "iota_rate_limiter_v1",
+  "version": 1
+}

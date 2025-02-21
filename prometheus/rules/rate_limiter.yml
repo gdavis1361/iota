@@ -1,0 +1,106 @@
+groups:
+  - name: rate_limiter_alerts
+    rules:
+      # High rate of violations
+      - alert: HighRateLimitViolations
+        expr: rate(rate_limit_exceeded_total[1h]) > 100
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: High rate limit violations detected
+          description: "{{ $value }} violations/hour for endpoint {{ $labels.endpoint }}"
+
+      # Sustained high rate of violations
+      - alert: CriticalRateLimitViolations
+        expr: rate(rate_limit_exceeded_total[1h]) > 500
+        for: 15m
+        labels:
+          severity: critical
+        annotations:
+          summary: Critical rate of limit violations
+          description: "{{ $value }} violations/hour for endpoint {{ $labels.endpoint }}"
+
+      # Failed login attempts
+      - alert: HighFailedLoginAttempts
+        expr: rate(failed_login_attempts_total[15m]) > 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: High number of failed login attempts
+          description: "{{ $value }} failed attempts from {{ $labels.ip }} in the last 15 minutes"
+
+      # Rate limit check latency
+      - alert: RateLimitLatencyHigh
+        expr: histogram_quantile(0.95, rate(rate_limit_check_duration_seconds_bucket[5m])) > 0.1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Rate limit checks are slow
+          description: "95th percentile latency is {{ $value }}s"
+
+      # Low remaining capacity
+      - alert: LowRateLimitCapacity
+        expr: rate_limit_remaining / scalar(max(rate_limit_remaining)) < 0.1
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: Low rate limit capacity
+          description: "Only {{ $value | humanizePercentage }} capacity remaining for {{ $labels.endpoint }}"
+
+      # Redis connection issues
+      - alert: RedisConnectionIssues
+        expr: rate(redis_connection_errors_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Redis connection issues detected
+          description: "{{ $value }} Redis connection errors in the last 5 minutes"
+
+      # High cardinality warning
+      - alert: HighMetricCardinality
+        expr: |
+          count by (__name__) ({__name__=~"rate_limit.*"}) > 10000
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: High metric cardinality detected
+          description: "{{ $value }} unique series for metric {{ $labels.__name__ }}"
+
+      # Endpoint-specific alerts
+      - alert: AuthEndpointOverload
+        expr: |
+          rate(rate_limit_exceeded_total{endpoint="/api/v1/auth/token"}[15m]) > 10
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: Auth endpoint experiencing high rate limit violations
+          description: "{{ $value }} violations/minute on auth endpoint"
+
+      # Failed login burst
+      - alert: FailedLoginBurst
+        expr: |
+          rate(failed_login_attempts_total[1m]) > 10
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Burst of failed login attempts detected
+          description: "{{ $value }} failed attempts/minute from {{ $labels.ip }}"
+
+      # Rate limit window resets
+      - alert: RateLimitWindowStuck
+        expr: |
+          rate_limit_window_reset_seconds > 900
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Rate limit window not resetting properly
+          description: "Window reset time stuck at {{ $value }}s for {{ $labels.endpoint }}"
