@@ -55,7 +55,9 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         # Record metrics
         remaining = int(headers.get("X-RateLimit-Remaining", 0))
         reset_time = int(headers.get("X-RateLimit-Reset", 0))
-        self.metrics_middleware(start_time, path, client_ip, remaining, reset_time)
+        self.monitor.record_request(
+            path, client_ip, allowed, remaining, reset_time
+        )
         
         if not allowed:
             # Record rate limit exceeded
@@ -63,7 +65,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
                 path, client_ip, wait_time, remaining, reset_time
             )
             return Response(
-                content='{"detail": "Too many requests"}',
+                content={"error": "Rate limit exceeded", "retry_after": wait_time},
                 status_code=429,
                 headers=headers,
                 media_type="application/json"
@@ -80,8 +82,13 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         if (
             path == "/api/v1/auth/token"
             and response.status_code == 401
+            and remaining < self.config.default_max_requests // 2
         ):
-            self.monitor.record_failed_login(client_ip)
-            self.limiter.record_failed_login(client_ip)
-
+            self.monitor.record_failed_login_attempt(client_ip, remaining)
+        
+        # Record response time
+        self.monitor.record_response_time(
+            path, time.time() - start_time
+        )
+        
         return response

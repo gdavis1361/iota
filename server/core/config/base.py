@@ -3,7 +3,7 @@ from enum import Enum
 from pathlib import Path
 from typing import Dict, Any, Optional
 from pydantic import (
-    BaseSettings,
+    BaseModel,
     AnyHttpUrl,
     PostgresDsn,
     RedisDsn,
@@ -26,7 +26,7 @@ class EnvironmentType(str, Enum):
         """Check if environment is production."""
         return env.lower() == cls.PRODUCTION.value
 
-class Settings(BaseSettings):
+class Settings(BaseModel):
     """
     Core application settings with comprehensive validation.
     

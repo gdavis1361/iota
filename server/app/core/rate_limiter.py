@@ -1,132 +1,126 @@
-"""Rate Limiting Implementation
-
-This module provides a Redis-based rate limiting implementation that:
-1. Uses centralized configuration
-2. Supports endpoint-specific limits
-3. Includes comprehensive monitoring
-4. Provides detailed error handling
-"""
-
+"""Rate limiter implementation with Redis backend."""
 import time
-import logging
-from typing import Tuple, Optional, Dict, Any
-from redis import Redis
+from typing import Dict, Tuple, Optional
+import redis
 from redis.exceptions import RedisError
 
 from server.core.config import RateLimitConfig
-from server.core.config.validation import ConfigurationMetrics
-
-logger = logging.getLogger(__name__)
 
 class RateLimiter:
-    """Rate limiter with configuration integration."""
+    """Rate limiter with Redis-based storage and flexible limits."""
     
-    def __init__(self, config: RateLimitConfig, redis_client: Optional[Redis] = None):
+    def __init__(self, config: RateLimitConfig, redis_client: Optional[redis.Redis] = None):
         """Initialize rate limiter with configuration.
         
         Args:
             config: Rate limiting configuration
-            redis_client: Optional Redis client (will create if not provided)
+            redis_client: Optional Redis client for testing
         """
         self.config = config
-        self.metrics = ConfigurationMetrics.get_instance()
         
-        # Initialize Redis client if not provided
-        self.redis = redis_client or Redis(
-            host=config.redis_host,
-            port=config.redis_port,
-            password=config.redis_password,
-            decode_responses=True
-        )
-        
-        # Validate Redis connection
+        # Initialize Redis connection if not provided
+        if redis_client is None:
+            self.redis = redis.Redis(
+                host=config.redis_host,
+                port=config.redis_port,
+                decode_responses=True
+            )
+        else:
+            self.redis = redis_client
+            
+        # Verify Redis connection
         try:
             self.redis.ping()
         except RedisError as e:
-            logger.error(f"Redis connection failed: {e}")
-            self.metrics.record_error("Redis connection failed", "rate_limiter")
-            raise
+            raise RedisError(f"Failed to connect to Redis: {e}")
     
-    def _get_key(self, ip: str, endpoint: Optional[str] = None) -> str:
+    def _get_key(self, identifier: str, endpoint: Optional[str] = None) -> str:
         """Generate Redis key for rate limiting.
         
         Args:
-            ip: Client IP address
-            endpoint: Optional endpoint path
+            identifier: Client identifier (e.g. IP)
+            endpoint: Optional endpoint for endpoint-specific limits
             
         Returns:
             Redis key string
         """
-        base_key = f"rate_limit:{ip}"
-        return f"{base_key}:{endpoint}" if endpoint else base_key
+        base_key = f"rate_limit:{identifier}"
+        if endpoint:
+            return f"{base_key}:{endpoint}"
+        return base_key
     
     def check_rate_limit(
         self,
-        ip: str,
-        endpoint: Optional[str] = None,
-        window: Optional[int] = None,
-        max_requests: Optional[int] = None
-    ) -> Tuple[bool, int, Dict[str, Any]]:
-        """Check if request is within rate limits.
+        identifier: str,
+        endpoint: Optional[str] = None
+    ) -> Tuple[bool, int, Dict[str, str]]:
+        """Check if request is allowed under rate limit.
         
         Args:
-            ip: Client IP address
-            endpoint: Optional endpoint path
-            window: Optional override for time window
-            max_requests: Optional override for max requests
+            identifier: Client identifier (e.g. IP)
+            endpoint: Optional endpoint for endpoint-specific limits
             
         Returns:
-            Tuple of (allowed: bool, wait_time: int, headers: Dict[str, Any])
+            Tuple of:
+            - bool: Whether request is allowed
+            - int: Seconds to wait if rate limited
+            - dict: Rate limit headers
         """
-        start_time = time.time()
-        
         try:
-            # Get limits from config if not overridden
-            if endpoint and not (window and max_requests):
-                limits = self.config.get_endpoint_limits(endpoint)
-                window = window or limits["window"]
-                max_requests = max_requests or limits["max_requests"]
+            # Get appropriate limits
+            if endpoint and endpoint in self.config.endpoint_limits:
+                window = self.config.endpoint_limits[endpoint]["window"]
+                max_requests = self.config.endpoint_limits[endpoint]["max_requests"]
             else:
-                window = window or self.config.default_window
-                max_requests = max_requests or self.config.default_max_requests
+                window = self.config.default_window
+                max_requests = self.config.default_max_requests
             
-            # Get current count
-            key = self._get_key(ip, endpoint)
+            # Get current count and TTL
+            key = self._get_key(identifier, endpoint)
             current = int(self.redis.get(key) or 0)
             ttl = self.redis.ttl(key)
             
-            # Calculate remaining time and requests
-            if ttl < 0:
-                # Key doesn't exist or has expired
+            # If key doesn't exist, initialize it
+            if ttl == -2:  # Key doesn't exist
                 self.redis.setex(key, window, 1)
                 current = 1
                 ttl = window
+            else:
+                # Increment counter
+                current = self.redis.incr(key)
             
-            allowed = current <= max_requests
-            wait_time = ttl if not allowed else 0
-            
-            # Increment counter if allowed
-            if allowed:
-                self.redis.incr(key)
+            # Calculate remaining requests and reset time
+            remaining = max(0, max_requests - current)
+            reset_time = int(time.time()) + ttl
             
             # Prepare headers
             headers = {
                 "X-RateLimit-Limit": str(max_requests),
-                "X-RateLimit-Remaining": str(max(0, max_requests - current)),
-                "X-RateLimit-Reset": str(int(time.time() + ttl))
+                "X-RateLimit-Remaining": str(remaining),
+                "X-RateLimit-Reset": str(reset_time)
             }
             
-            if not allowed:
-                headers["Retry-After"] = str(wait_time)
+            # Check if rate limit exceeded
+            if current > max_requests:
+                headers["Retry-After"] = str(ttl)
+                return False, ttl, headers
+                
+            return True, 0, headers
             
-            # Record metrics
-            duration_ms = (time.time() - start_time) * 1000
-            self.metrics.record_validation(duration_ms)
-            
-            return allowed, wait_time, headers
-            
-        except RedisError as e:
-            logger.error(f"Rate limit check failed: {e}")
-            self.metrics.record_error(str(e), "rate_limiter")
-            # Fail open to prevent blocking all traffic
+        except RedisError:
+            # If Redis fails, fail open but return no headers
             return True, 0, {}
+    
+    def reset_limit(self, identifier: str, endpoint: Optional[str] = None) -> None:
+        """Reset rate limit for identifier.
+        
+        Args:
+            identifier: Client identifier to reset
+            endpoint: Optional endpoint-specific limit to reset
+        """
+        try:
+            key = self._get_key(identifier, endpoint)
+            self.redis.delete(key)
+        except RedisError:
+            # Ignore Redis errors on reset
+            pass
