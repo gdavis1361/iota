@@ -1,0 +1,19 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+COPY requirements-test.txt .
+RUN pip install -r requirements-test.txt
+
+# Copy test files
+COPY server/tests/failover/test_abrupt_failover_with_concurrency.py ./failover_test.py
+COPY server/tests/failover/test_network_partition.py ./partition_test.py
+
+# Create test runner script
+RUN echo '#!/bin/bash\n\
+echo "Running Abrupt Failover Test..."\n\
+python failover_test.py\n\
+echo "\nRunning Network Partition Test..."\n\
+python partition_test.py' > run_tests.sh && chmod +x run_tests.sh
+
+CMD ["./run_tests.sh"]

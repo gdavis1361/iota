@@ -1,0 +1,2 @@
+{"timestamp": "2025-02-21T09:17:45-05:00", "level": "ERROR", "message": "Configuration validation error", "category": "CONFIG_VALIDATION", "extra": {"field": "API_KEY", "error": "Field required", "source": "api_validator"}}
+{"timestamp": "2025-02-21T09:17:50-05:00", "level": "CRITICAL", "message": "Failed to initialize API client", "category": "CONFIG_INIT", "extra": {"error": "Missing API configuration", "error_type": "ValidationError"}}

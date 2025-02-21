@@ -1,0 +1,16 @@
+{
+  "start_time": 1739960001.5450299,
+  "detection_time": null,
+  "promotion_time": null,
+  "recovery_time": null,
+  "write_success": 0,
+  "write_failures": 0,
+  "events": [
+    {
+      "timestamp": 1739960002.759951,
+      "relative_time": 1.214921236038208,
+      "type": "test_error",
+      "details": "Could not discover initial master"
+    }
+  ]
+}

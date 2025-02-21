@@ -1,0 +1,450 @@
+2025-02-19T13:30:37.025253 - MainThread - jsquared.infrastructure - ERROR - Failed to create Redis Sentinel pool
+2025-02-19T13:30:37.025411 - MainThread - jsquared.infrastructure - ERROR - Error getting metrics for Redis test-redis
+2025-02-19T13:30:37.025614 - MainThread - jsquared.infrastructure - ERROR - Redis metrics test failed
+2025-02-19T13:31:30.991589 - MainThread - jsquared.infrastructure - ERROR - Failed to create Redis Sentinel pool
+2025-02-19T13:31:30.991750 - MainThread - jsquared.infrastructure - ERROR - Error getting metrics for Redis test-redis
+2025-02-19T13:31:30.991958 - MainThread - jsquared.infrastructure - ERROR - Redis metrics test failed
+2025-02-19T16:50:30.715095 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:50:30.715480 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:50:30.718358 - MainThread - jsquared.infrastructure - DEBUG - Generated secure password
+2025-02-19T16:50:54.756829 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:50:54.757076 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:50:54.759822 - MainThread - jsquared.infrastructure - DEBUG - Generated secure password
+2025-02-19T16:51:19.488545 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:51:19.488747 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:51:19.491480 - MainThread - jsquared.infrastructure - DEBUG - Generated secure password
+2025-02-19T16:51:45.272327 - MainThread - jsquared.infrastructure - ERROR - Failed to initialize Docker client: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T16:51:45.344562 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:51:45.344802 - MainThread - jsquared.infrastructure - INFO - Initializing SSL configuration
+2025-02-19T16:51:45.347698 - MainThread - jsquared.infrastructure - DEBUG - Generated secure password
+2025-02-19T17:19:47.301441 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:48.307980 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:49.315791 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:49.316046 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:19:49.317781 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:50.328564 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:51.335741 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:51.335993 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:19:51.337712 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:52.345791 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:53.354197 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:53.354473 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:19:53.356730 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:54.363208 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:55.374942 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:55.375306 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:19:55.377557 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:56.388849 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:57.393853 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:57.393963 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:19:57.394862 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:58.402024 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:59.411397 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:19:59.411786 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:19:59.414947 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:00.422830 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:01.428614 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:01.429070 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:20:01.431550 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:02.442715 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:03.452925 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:03.453329 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:20:03.455799 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:04.462600 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:05.465066 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:05.465247 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:20:05.466418 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:06.473901 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:07.477290 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:07.477410 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:20:07.503958 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:08.508186 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:09.513232 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:09.513380 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:20:09.618312 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:10.622211 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:11.629230 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:20:11.629667 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:23:44.777664 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:45.784199 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:46.792019 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:46.792321 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:23:46.883349 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:47.890883 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:48.893632 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:48.893764 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:23:48.952408 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:49.959598 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:50.967482 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:50.967734 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:23:51.033072 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:52.041169 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:53.049493 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:53.049803 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:23:53.141479 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:54.144918 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:55.150197 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:23:55.150378 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:24:27.170690 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:28.177060 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:29.182321 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:29.182568 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:24:29.275143 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:30.282932 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:31.290891 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:31.291162 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:24:31.358934 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:32.364672 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:33.377596 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:33.378010 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:24:33.448321 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:34.451193 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:35.454874 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:35.455173 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:24:35.545161 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:36.551713 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:37.556873 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:24:37.557024 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:05.534742 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:06.541024 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:07.549134 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:07.549560 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:07.640515 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:08.648422 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:09.655626 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:09.655852 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:09.721039 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:10.725808 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:11.731432 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:11.731548 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:11.783453 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:12.790348 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:13.801390 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:13.802135 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:13.896032 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:14.904085 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:15.911120 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:15.911310 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:49.141146 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:50.144849 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:51.150893 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:51.151094 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:51.233204 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:52.243318 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:53.251469 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:53.251721 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:53.318230 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:54.322983 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:55.327716 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:55.328044 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:55.386269 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:56.390953 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:57.401644 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:57.402245 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:25:57.497001 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:58.504097 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:59.507392 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization failed
+2025-02-19T17:25:59.507570 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:35:43.476016 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:35:43.476295 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:35:43.593834 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:43.594151 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:43.594243 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:43.600728 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:43.600895 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:44.602775 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:35:44.723714 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:44.724037 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:44.724130 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:44.725898 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:44.726057 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:45.729766 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:35:45.851820 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:45.852186 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:45.852304 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:45.854136 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:45.854263 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:35:45.968501 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:46.274675 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:35:46.356477 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:35:46.356627 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:35:46.469634 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:46.470023 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:46.470168 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:46.471883 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:46.472006 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:47.477429 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:35:47.598263 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:47.598937 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:47.599088 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:47.601356 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:47.601481 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:48.602496 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:35:48.717421 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:48.717740 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:48.717823 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:48.719353 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:48.719443 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:35:48.832351 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:48.986228 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:35:49.041527 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:35:49.041661 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:35:49.156621 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:49.156939 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:49.157036 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:49.158511 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:49.158628 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:50.159672 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:35:50.279830 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:50.280370 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:50.280466 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:50.282172 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:50.282263 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:51.283878 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:35:51.405014 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:51.405334 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:51.405443 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:51.407276 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:51.407418 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:35:51.524198 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:51.681380 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:35:51.738797 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:35:51.738965 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:35:51.854164 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:51.854470 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:51.854560 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:51.856031 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:51.856162 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:52.861549 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:35:52.986534 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:52.986860 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:52.986949 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:52.988538 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:52.988675 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:35:53.988989 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:35:54.109187 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:54.109492 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:35:54.109588 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:35:54.111198 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:35:54.111293 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:35:54.228365 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:35:54.384517 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:36:35.740729 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:36:35.740893 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:36:35.855374 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:35.855682 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:35.855774 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:35.862313 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:35.862482 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:36.867468 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:36:36.993033 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:36.993469 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:36.993581 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:36.995761 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:36.995958 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:37.997293 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:36:38.120357 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:38.120856 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:38.120965 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:38.122654 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:38.122753 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:36:38.239669 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:38.454726 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:36:38.536347 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:36:38.536494 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:36:38.652769 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:38.653072 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:38.653166 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:38.654678 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:38.654767 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:39.660362 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:36:39.786169 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:39.786467 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:39.786554 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:39.788152 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:39.788277 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:40.789068 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:36:40.907839 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:40.908203 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:40.908292 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:40.909915 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:40.910033 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:36:41.024707 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:41.174074 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:36:41.229837 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:36:41.229966 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:36:41.343897 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:41.344202 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:41.344286 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:41.345684 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:41.345799 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:42.351167 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:36:42.479323 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:42.479631 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:42.479734 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:42.481543 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:42.481685 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:43.484840 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:36:43.614129 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:43.614518 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:43.614610 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:43.616380 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:43.616470 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:36:43.733915 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:43.890085 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:36:43.944262 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:36:43.944397 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:36:44.059378 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:44.059643 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:44.059738 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:44.061082 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:44.061172 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:45.066509 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:36:45.185919 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:45.186223 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:45.186319 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:45.188330 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:45.188480 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:36:46.193725 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:36:46.308162 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:46.308447 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:36:46.308539 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:36:46.309972 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:36:46.310087 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:36:46.424492 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:36:46.575706 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:37:28.029953 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:37:28.030105 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:37:28.145435 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:28.145728 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:28.145814 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:28.151792 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:28.151940 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:29.155350 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:37:29.272485 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:29.272776 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:29.272867 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:29.274358 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:29.274469 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:30.279902 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:37:30.400933 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:30.401536 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:30.401690 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:30.403495 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:30.403635 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:37:30.518549 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:37:30.671895 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:37:30.751830 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:37:30.751985 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:37:30.865148 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:30.865461 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:30.865549 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:30.867023 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:30.867116 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:31.869842 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:37:31.994099 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:31.994411 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:31.994523 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:31.996583 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:31.996711 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:33.002130 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:37:33.125524 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:33.125807 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:33.125908 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:33.127357 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:33.127486 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:37:33.241703 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:37:33.393267 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:37:33.449102 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:37:33.449236 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:37:33.563294 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:33.563561 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:33.563651 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:33.565230 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:33.565349 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:34.570699 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:37:34.691728 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:34.692023 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:34.692131 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:34.693811 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:34.693920 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:35.697900 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:37:35.813830 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:35.814106 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:35.814192 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:35.816168 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:35.816289 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:37:35.930777 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:37:36.079233 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:37:36.137527 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:37:36.137689 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:37:36.250974 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:36.251239 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:36.251326 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:36.252735 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:36.252827 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:37.258248 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:37:37.379625 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:37.379916 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:37.380001 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:37.381668 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:37.381811 - MainThread - jsquared.infrastructure - INFO - Waiting 1.0 seconds before next attempt
+2025-02-19T17:37:38.387143 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:37:38.503580 - MainThread - jsquared.infrastructure - INFO - Using Docker context socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:38.503858 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:37:38.503947 - MainThread - jsquared.infrastructure - INFO - Creating Docker client
+2025-02-19T17:37:38.505452 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt failed
+2025-02-19T17:37:38.505544 - MainThread - jsquared.infrastructure - ERROR - Running final diagnostics after all retries failed
+2025-02-19T17:37:38.620516 - MainThread - jsquared.infrastructure - INFO - Docker environment diagnostics
+2025-02-19T17:37:38.771055 - MainThread - jsquared.infrastructure - ERROR - Docker client initialization failed after all retries
+2025-02-19T17:47:30.543287 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:47:30.543448 - MainThread - jsquared.infrastructure - INFO - Attempt 1: Getting Docker socket path
+2025-02-19T17:47:30.656016 - MainThread - jsquared.infrastructure - INFO - Attempting connection with: unix:///var/run/docker.sock
+2025-02-19T17:47:30.656117 - MainThread - jsquared.infrastructure - INFO - Found valid Unix socket: unix:///var/run/docker.sock
+2025-02-19T17:47:30.656149 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:47:30.660663 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt 1 failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:47:31.666020 - MainThread - jsquared.infrastructure - INFO - Attempt 2: Getting Docker socket path
+2025-02-19T17:47:31.781306 - MainThread - jsquared.infrastructure - INFO - Attempting connection with: unix:///var/run/docker.sock
+2025-02-19T17:47:31.781387 - MainThread - jsquared.infrastructure - INFO - Found valid Unix socket: unix:///var/run/docker.sock
+2025-02-19T17:47:31.781414 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:47:31.782432 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt 2 failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:47:32.785467 - MainThread - jsquared.infrastructure - INFO - Attempt 3: Getting Docker socket path
+2025-02-19T17:47:32.906896 - MainThread - jsquared.infrastructure - INFO - Attempting connection with: unix:///var/run/docker.sock
+2025-02-19T17:47:32.906975 - MainThread - jsquared.infrastructure - INFO - Found valid Unix socket: unix:///var/run/docker.sock
+2025-02-19T17:47:32.907002 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:47:32.907870 - MainThread - jsquared.infrastructure - WARNING - Docker client initialization attempt 3 failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:47:58.781100 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:47:58.790903 - MainThread - jsquared.infrastructure - WARNING - Auto-detection failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:47:58.790973 - MainThread - jsquared.infrastructure - INFO - Attempting TCP connection to tcp://localhost:2375
+2025-02-19T17:47:58.792603 - MainThread - jsquared.infrastructure - WARNING - TCP connection failed: Error while fetching server API version: HTTPConnectionPool(host='localhost', port=2375): Max retries exceeded with url: /version (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x107319890>: Failed to establish a new connection: [Errno 61] Connection refused'))
+2025-02-19T17:47:58.905542 - MainThread - jsquared.infrastructure - INFO - Attempting connection with: unix:///var/run/docker.sock
+2025-02-19T17:47:58.905626 - MainThread - jsquared.infrastructure - INFO - Found valid Unix socket: unix:///var/run/docker.sock
+2025-02-19T17:47:58.905656 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:47:58.906622 - MainThread - jsquared.infrastructure - WARNING - Socket connection attempt 1 failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:00.022230 - MainThread - jsquared.infrastructure - INFO - Attempting connection with: unix:///var/run/docker.sock
+2025-02-19T17:48:00.022354 - MainThread - jsquared.infrastructure - INFO - Found valid Unix socket: unix:///var/run/docker.sock
+2025-02-19T17:48:00.022398 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:48:00.023706 - MainThread - jsquared.infrastructure - WARNING - Socket connection attempt 2 failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:01.152585 - MainThread - jsquared.infrastructure - INFO - Attempting connection with: unix:///var/run/docker.sock
+2025-02-19T17:48:01.152724 - MainThread - jsquared.infrastructure - INFO - Found valid Unix socket: unix:///var/run/docker.sock
+2025-02-19T17:48:01.152779 - MainThread - jsquared.infrastructure - INFO - Using socket path: unix:///var/run/docker.sock
+2025-02-19T17:48:01.154605 - MainThread - jsquared.infrastructure - WARNING - Socket connection attempt 3 failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:01.154670 - MainThread - jsquared.infrastructure - ERROR - Failed to initialize Docker client after all attempts. Last error: Error while fetching server API version: Not supported URL scheme http+docker. Please ensure Docker Desktop is running and properly configured.
+2025-02-19T17:48:25.318547 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:48:25.319859 - MainThread - jsquared.infrastructure - INFO - Attempting Docker Desktop socket: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:48:25.323786 - MainThread - jsquared.infrastructure - WARNING - Docker Desktop connection failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:25.324434 - MainThread - jsquared.infrastructure - WARNING - Auto-detection failed: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:25.324499 - MainThread - jsquared.infrastructure - INFO - Attempting socket path: unix:///var/run/docker.sock
+2025-02-19T17:48:25.324961 - MainThread - jsquared.infrastructure - WARNING - Connection failed for /var/run/docker.sock: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:25.325020 - MainThread - jsquared.infrastructure - INFO - Attempting socket path: unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:48:25.325433 - MainThread - jsquared.infrastructure - WARNING - Connection failed for /Users/allan/.docker/run/docker.sock: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:25.325471 - MainThread - jsquared.infrastructure - ERROR - Failed to initialize Docker client. Please ensure Docker Desktop is running and properly configured. If the issue persists, try restarting Docker Desktop.
+2025-02-19T17:48:56.692662 - MainThread - jsquared.infrastructure - INFO - Starting Docker client initialization
+2025-02-19T17:48:56.811645 - MainThread - jsquared.infrastructure - WARNING - Failed to connect using Docker host unix:///Users/allan/.docker/run/docker.sock: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:56.811712 - MainThread - jsquared.infrastructure - INFO - Attempting connection with unix:///var/run/docker.sock
+2025-02-19T17:48:56.812210 - MainThread - jsquared.infrastructure - WARNING - Failed to connect using unix:///var/run/docker.sock: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:56.812256 - MainThread - jsquared.infrastructure - INFO - Attempting connection with unix:///Users/allan/.docker/run/docker.sock
+2025-02-19T17:48:56.812652 - MainThread - jsquared.infrastructure - WARNING - Failed to connect using unix:///Users/allan/.docker/run/docker.sock: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:56.812686 - MainThread - jsquared.infrastructure - INFO - Attempting connection with unix:///Users/allan/.docker/desktop/docker.sock
+2025-02-19T17:48:56.813030 - MainThread - jsquared.infrastructure - WARNING - Failed to connect using unix:///Users/allan/.docker/desktop/docker.sock: Error while fetching server API version: Not supported URL scheme http+docker
+2025-02-19T17:48:56.813064 - MainThread - jsquared.infrastructure - ERROR - Could not connect to Docker daemon. Please ensure Docker Desktop is running and properly configured. If the issue persists, try restarting Docker Desktop.

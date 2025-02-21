@@ -1,0 +1,37 @@
+groups:
+  - name: redis_metrics
+    rules:
+      # Memory usage percentage
+      - record: redis_mem_usage_percent
+        expr: (redis_memory_used_bytes / redis_memory_total_bytes) * 100
+        labels:
+          service: redis
+
+      # Command throughput
+      - record: redis_commands_rate
+        expr: rate(redis_commands_processed_total[1m])
+        labels:
+          service: redis
+
+      # Network I/O rates
+      - record: redis_network_in_rate
+        expr: rate(redis_net_input_bytes_total[1m])
+        labels:
+          service: redis
+
+      - record: redis_network_out_rate
+        expr: rate(redis_net_output_bytes_total[1m])
+        labels:
+          service: redis
+
+      # Sentinel metrics
+      - record: redis_healthy_sentinels
+        expr: count(redis_sentinel_master_status == 1)
+        labels:
+          service: redis
+
+      # Failover tracking
+      - record: redis_failover_hourly
+        expr: increase(redis_sentinel_failover_count[1h])
+        labels:
+          service: redis

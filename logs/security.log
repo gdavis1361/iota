@@ -1,0 +1,256 @@
+2025-02-18T22:47:49.355506 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:47:49.355463'}
+2025-02-18T22:47:49.355604 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:47:49.355563'}
+2025-02-18T22:48:00.287362 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:48:00.287326'}
+2025-02-18T22:48:00.321340 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:48:00.321300'}
+2025-02-18T22:50:09.674983 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:50:09.674941'}
+2025-02-18T22:50:09.714837 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:50:09.714788'}
+2025-02-18T22:56:23.246637 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:56:23.246555'}
+2025-02-18T22:56:23.248315 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:56:23.248276'}
+2025-02-18T22:56:35.943999 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:56:35.943960'}
+2025-02-18T22:56:35.948746 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:56:35.948712'}
+2025-02-18T22:56:37.853899 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:56:37.853817'}
+2025-02-18T22:56:37.853997 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T22:56:37.853817'}
+2025-02-18T23:53:59.843752 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T23:53:59.843684'}
+2025-02-18T23:54:39.112118 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T23:54:39.112077'}
+2025-02-18T23:57:15.973046 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-18T23:57:15.973008'}
+2025-02-19T00:01:57.338319 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:01:57.332036'}
+2025-02-19T00:02:57.348105 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:02:57.347291'}
+2025-02-19T00:03:57.351022 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:03:57.350721'}
+2025-02-19T00:16:24.271058 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:16:24.250722'}
+2025-02-19T00:16:35.648125 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:16:35.635183'}
+2025-02-19T00:16:58.185950 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:16:58.165063'}
+2025-02-19T00:17:17.237524 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:17:17.217593'}
+2025-02-19T00:17:43.768502 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:17:43.749299'}
+2025-02-19T00:17:58.591155 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:17:58.571399'}
+2025-02-19T00:19:42.512354 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:19:42.492000'}
+2025-02-19T00:20:14.170195 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:20:14.149330'}
+2025-02-19T00:20:31.479353 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:20:31.458245'}
+2025-02-19T00:30:32.981711 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:30:32.961678'}
+2025-02-19T00:40:43.363073 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:40:43.344247'}
+2025-02-19T00:41:25.483094 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:41:25.463271'}
+2025-02-19T00:42:29.963782 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:42:29.943567'}
+2025-02-19T00:44:49.450421 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:44:49.430328'}
+2025-02-19T00:46:24.520715 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T00:46:24.500187'}
+2025-02-19T01:02:47.327211 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:02:47.306364'}
+2025-02-19T01:02:48.879652 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:02:48.879736 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:02:48.921839 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:02:48.921955 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:02:48.922041 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T01:02:48.936248 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:02:48.936376 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:02:48.936457 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T01:02:48.950347 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:02:48.950460 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:02:48.950543 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T01:17:05.057905 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:17:05.036069'}
+2025-02-19T01:17:06.807729 - AnyIO worker thread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:17:06.807797 - AnyIO worker thread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:17:06.807921 - AnyIO worker thread - jsquared.security - INFO - Constructing TokenPayload and checking 'sub' field
+2025-02-19T01:19:27.719760 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:19:27.698489'}
+2025-02-19T01:19:29.354476 - AnyIO worker thread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:19:29.354559 - AnyIO worker thread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:19:29.354706 - AnyIO worker thread - jsquared.security - INFO - Constructing TokenPayload and checking 'sub' field
+2025-02-19T01:21:18.063361 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:21:18.042677'}
+2025-02-19T01:21:19.684554 - AnyIO worker thread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:21:19.684643 - AnyIO worker thread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:21:19.684779 - AnyIO worker thread - jsquared.security - INFO - Constructing TokenPayload and checking 'sub' field
+2025-02-19T01:22:13.702584 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:22:13.680501'}
+2025-02-19T01:22:15.309133 - AnyIO worker thread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:22:15.309200 - AnyIO worker thread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:22:15.309322 - AnyIO worker thread - jsquared.security - INFO - Constructing TokenPayload and checking 'sub' field
+2025-02-19T01:23:03.717661 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:23:03.695966'}
+2025-02-19T01:23:47.496668 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:23:47.475310'}
+2025-02-19T01:26:18.091382 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:26:18.069613'}
+2025-02-19T01:26:19.711374 - AnyIO worker thread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:26:19.711441 - AnyIO worker thread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:26:19.711567 - AnyIO worker thread - jsquared.security - INFO - Constructing TokenPayload and checking 'sub' field
+2025-02-19T01:30:51.702336 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:30:51.680827'}
+2025-02-19T01:30:53.335101 - AnyIO worker thread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:30:53.335196 - AnyIO worker thread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:30:53.335344 - AnyIO worker thread - jsquared.security - INFO - Constructing TokenPayload and checking 'sub' field
+2025-02-19T01:31:57.444596 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:31:57.422986'}
+2025-02-19T01:32:24.045568 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:32:24.023767'}
+2025-02-19T01:33:25.408229 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:33:25.386677'}
+2025-02-19T01:54:46.937153 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:54:46.917139'}
+2025-02-19T01:55:09.492116 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:55:09.470947'}
+2025-02-19T01:56:05.157686 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:56:05.136942'}
+2025-02-19T01:57:20.254464 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T01:57:20.238730'}
+2025-02-19T01:57:28.280111 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:57:28.280203 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:57:28.280263 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T01:57:28.280944 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:57:28.281002 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:57:28.281049 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T01:57:28.281613 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T01:57:28.281662 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T01:57:28.281703 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:17:39.201634 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:17:39.181163'}
+2025-02-19T02:19:50.456591 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:19:50.435709'}
+2025-02-19T02:20:26.495069 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:20:26.474205'}
+2025-02-19T02:20:34.074618 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:20:34.074688 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:20:34.074742 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:20:34.075344 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:20:34.075393 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:20:34.075436 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:20:34.076028 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:20:34.076075 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:20:34.076118 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:23:04.142907 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:23:04.142265'}
+2025-02-19T02:23:11.665771 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:23:11.665837 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:23:11.665889 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:23:11.666538 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:23:11.666610 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:23:11.666668 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:23:11.667394 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:23:11.667453 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:23:11.667500 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:23:49.967732 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:23:49.946934'}
+2025-02-19T02:23:57.754574 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:23:57.754640 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:23:57.754696 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:23:57.755310 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:23:57.755359 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:23:57.755402 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:23:57.755972 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:23:57.756019 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:23:57.756063 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:25:01.237464 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:25:01.216804'}
+2025-02-19T02:25:31.766506 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:25:31.745619'}
+2025-02-19T02:25:39.489302 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:25:39.489372 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:25:39.489427 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:25:39.490078 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:25:39.490143 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:25:39.490192 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:25:39.490775 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:25:39.490837 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:25:39.490882 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:26:18.921755 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:26:18.901452'}
+2025-02-19T02:26:21.830125 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:26:21.830211 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:26:21.830262 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:26:21.830865 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:26:21.830917 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:26:21.830964 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:26:21.831521 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:26:21.831566 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:26:21.831608 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:27:10.826397 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:27:10.805075'}
+2025-02-19T02:27:13.729479 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:27:13.729565 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:27:13.729623 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:27:13.730306 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:27:13.730363 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:27:13.730409 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:27:13.730965 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:27:13.731019 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:27:13.731061 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:27:48.581381 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:27:48.559209'}
+2025-02-19T02:27:51.447391 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:27:51.447481 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:27:51.447539 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:27:51.448184 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:27:51.448231 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:27:51.448276 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:27:51.448849 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:27:51.448901 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:27:51.448949 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:31:46.371780 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:31:46.351137'}
+2025-02-19T02:32:00.406604 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:32:00.385443'}
+2025-02-19T02:32:10.205603 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:32:10.184475'}
+2025-02-19T02:36:28.475070 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:36:28.453971'}
+2025-02-19T02:36:31.438079 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:36:31.438166 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:36:31.438223 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:36:31.438835 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:36:31.438887 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:36:31.438936 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:36:31.439499 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:36:31.439546 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:36:31.439589 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:37:21.700283 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:37:21.678608'}
+2025-02-19T02:37:24.616619 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:37:24.616703 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:37:24.616755 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:37:24.617351 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:37:24.617403 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:37:24.617451 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:37:24.617979 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:37:24.618026 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:37:24.618067 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:38:04.357484 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T02:38:04.335817'}
+2025-02-19T02:38:07.282512 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:38:07.282607 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:38:07.282672 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:38:07.283316 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:38:07.283366 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:38:07.283410 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T02:38:07.283958 - MainThread - jsquared.security - INFO - Extracting token using oauth2_scheme
+2025-02-19T02:38:07.284006 - MainThread - jsquared.security - INFO - Decoding token using jwt.decode
+2025-02-19T02:38:07.284049 - MainThread - jsquared.security - ERROR - JWTError occurred: Not enough segments
+2025-02-19T05:03:19.372663 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T05:03:19.372176'}
+2025-02-19T05:03:34.288149 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T05:03:34.259855'}
+2025-02-19T05:03:54.850898 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T05:03:54.843335'}
+2025-02-19T06:31:22.913852 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T06:31:22.894380'}
+2025-02-19T06:31:42.183521 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T06:31:42.183474'}
+2025-02-19T06:32:08.980788 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T06:32:08.960405'}
+2025-02-19T06:33:12.468180 - Thread-3 - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T06:33:12.467606'}
+2025-02-19T09:21:11.688431 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T09:21:11.685720'}
+2025-02-19T09:22:11.718842 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T09:22:11.718502'}
+2025-02-19T09:23:02.692032 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T09:23:02.683831'}
+2025-02-19T09:24:02.707819 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T09:24:02.707502'}
+2025-02-19T12:21:52.341350 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T12:21:52.335579'}
+2025-02-19T12:59:04.112016 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T12:59:04.111800'}
+2025-02-19T12:59:23.873791 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T12:59:23.873708'}
+2025-02-19T12:59:37.732961 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T12:59:37.732916'}
+2025-02-19T12:59:42.301308 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T12:59:42.288527'}
+2025-02-19T12:59:57.605826 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T12:59:57.605780'}
+2025-02-19T13:00:02.263730 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:00:02.257300'}
+2025-02-19T13:00:07.390870 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:00:07.390787'}
+2025-02-19T13:00:11.824962 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:00:11.824884'}
+2025-02-19T13:08:51.312929 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:08:51.311289'}
+2025-02-19T13:09:10.560625 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:09:10.560565'}
+2025-02-19T13:09:31.604799 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:09:31.603738'}
+2025-02-19T13:10:04.312617 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:10:04.310776'}
+2025-02-19T13:10:18.046947 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:10:18.045490'}
+2025-02-19T13:14:29.113189 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:14:29.106073'}
+2025-02-19T13:14:37.018068 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:14:37.016839'}
+2025-02-19T13:15:08.384621 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:15:08.383391'}
+2025-02-19T13:15:27.541517 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:15:27.540492'}
+2025-02-19T13:16:15.787397 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:16:15.785654'}
+2025-02-19T13:16:53.197513 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:16:53.196219'}
+2025-02-19T13:17:08.211148 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:17:08.202889'}
+2025-02-19T13:29:35.697232 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:29:35.696531'}
+2025-02-19T13:30:04.239212 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:30:04.237679'}
+2025-02-19T13:30:36.915439 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:30:36.913545'}
+2025-02-19T13:31:30.881916 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T13:31:30.881352'}
+2025-02-19T16:06:46.701169 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:06:46.699513'}
+2025-02-19T16:07:04.281911 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:07:04.280882'}
+2025-02-19T16:07:29.994656 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:07:29.992852'}
+2025-02-19T16:08:33.981571 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:08:33.980604'}
+2025-02-19T16:09:11.560399 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:09:11.558729'}
+2025-02-19T16:50:30.499985 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:50:30.493145'}
+2025-02-19T16:50:54.541399 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:50:54.540673'}
+2025-02-19T16:51:19.273583 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:51:19.271624'}
+2025-02-19T16:51:45.132485 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T16:51:45.130555'}
+2025-02-19T17:19:47.160643 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:19:47.159647'}
+2025-02-19T17:23:10.882204 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:23:10.867694'}
+2025-02-19T17:23:44.644008 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:23:44.642104'}
+2025-02-19T17:24:27.031599 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:24:27.029933'}
+2025-02-19T17:25:05.394434 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:25:05.392470'}
+2025-02-19T17:25:49.003019 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:25:49.001131'}
+2025-02-19T17:34:56.583350 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:34:56.581946'}
+2025-02-19T17:35:43.312778 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:35:43.311956'}
+2025-02-19T17:36:35.587616 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:36:35.586771'}
+2025-02-19T17:37:27.896430 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:37:27.894945'}
+2025-02-19T17:47:30.524742 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:47:30.524614'}
+2025-02-19T17:47:58.768624 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:47:58.768583'}
+2025-02-19T17:48:25.300388 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:48:25.300280'}
+2025-02-19T17:48:56.675116 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': '2025-02-19T17:48:56.675045'}
+1740062013 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': 1740062013}
+1740062051 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': 1740062051}
+1740062108 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': 1740062108}
+1740062382 - Thread-3 (monitor) - jsquared.security - INFO - {'event': 'security_metrics', 'metrics': {'failed_auth_attempts': 0, 'suspicious_requests': 0, 'rate_limited_ips': 0, 'jwt_validation_failures': 0}, 'timestamp': 1740062382}

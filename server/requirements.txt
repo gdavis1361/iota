@@ -1,0 +1,63 @@
+# FastAPI and ASGI server
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+pydantic[email]==2.6.0
+pydantic-settings==2.1.0
+python-multipart==0.0.6
+email-validator==2.1.0
+
+# Database
+sqlalchemy==2.0.25
+alembic==1.13.1
+asyncpg==0.29.0  # Async PostgreSQL driver
+psycopg2-binary==2.9.9  # Sync PostgreSQL driver
+greenlet==3.0.1
+
+# Authentication and Security
+python-jose[cryptography]==3.3.0  # JWT tokens
+passlib[bcrypt]==1.7.4  # Password hashing
+pyjwt==2.8.0
+python-dotenv==1.0.0
+
+# File Handling
+python-magic==0.4.27  # File type detection
+boto3>=1.32.4,<1.33.2  # AWS S3 integration
+aioboto3>=12.0.0,<13.0.0
+aiofiles==23.2.1  # Async file operations
+
+# Caching and Tasks
+redis==5.0.1
+celery==5.3.6
+flower==2.0.1  # Celery monitoring
+
+# Rate Limiting
+slowapi==0.1.8
+redis==5.0.1
+
+# Testing
+pytest==7.4.4
+pytest-asyncio==0.23.3
+pytest-cov==4.1.0
+httpx==0.26.0
+faker==22.5.0
+
+# Monitoring and Logging
+sentry-sdk[fastapi]==1.39.1
+prometheus-fastapi-instrumentator==6.1.0
+python-json-logger==2.0.7
+
+# Development Tools
+black==23.12.1
+isort==5.13.2
+flake8==7.0.0
+mypy==1.8.0
+pre-commit==3.6.0
+
+# WebSocket Support
+websockets==12.0
+
+# Documentation
+mkdocs==1.5.3
+mkdocs-material==9.5.3
+
+psutil==5.9.8

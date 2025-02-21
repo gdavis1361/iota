@@ -1,0 +1,24 @@
+FROM redis:7.0-bullseye
+
+# Install required system utilities with minimal layer size
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    iproute2 \
+    stress-ng \
+    procps \
+    iperf3 \
+    traceroute \
+    && rm -rf /var/lib/apt/lists/* \
+    && apt-get clean
+
+# Add health check
+HEALTHCHECK --interval=5s --timeout=3s --retries=3 \
+    CMD redis-cli ping || exit 1
+
+# Create and configure Redis config
+RUN mkdir -p /etc/redis && \
+    echo "protected-mode yes" > /etc/redis/redis.conf && \
+    echo "maxmemory-policy allkeys-lru" >> /etc/redis/redis.conf && \
+    echo "maxmemory 1gb" >> /etc/redis/redis.conf
+
+# Default command remains the same as redis image
+CMD ["redis-server", "/etc/redis/redis.conf"]

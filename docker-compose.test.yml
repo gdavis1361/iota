@@ -1,0 +1,140 @@
+version: '3.8'
+
+services:
+  redis-master:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-test
+    container_name: redis-master
+    networks:
+      redis-net:
+        ipv4_address: 172.28.1.2
+    command: redis-server --appendonly yes
+    volumes:
+      - redis-master-data:/data
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  redis-replica-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-test
+    container_name: redis-replica-1
+    networks:
+      redis-net:
+        ipv4_address: 172.28.1.3
+    command: redis-server --replicaof redis-master 6379 --appendonly yes
+    volumes:
+      - redis-replica-1-data:/data
+    ports:
+      - "6380:6379"
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  redis-replica-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-test
+    container_name: redis-replica-2
+    networks:
+      redis-net:
+        ipv4_address: 172.28.1.4
+    command: redis-server --replicaof redis-master 6379 --appendonly yes
+    volumes:
+      - redis-replica-2-data:/data
+    ports:
+      - "6381:6379"
+    depends_on:
+      redis-master:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+
+  redis-sentinel-1:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-test
+    container_name: redis-sentinel-1
+    networks:
+      redis-net:
+        ipv4_address: 172.28.1.5
+    command: redis-sentinel /etc/redis/sentinel.conf
+    volumes:
+      - ./config/sentinel1.conf:/etc/redis/sentinel.conf
+    ports:
+      - "26379:26379"
+    depends_on:
+      redis-master:
+        condition: service_healthy
+      redis-replica-1:
+        condition: service_healthy
+      redis-replica-2:
+        condition: service_healthy
+
+  redis-sentinel-2:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-test
+    container_name: redis-sentinel-2
+    networks:
+      redis-net:
+        ipv4_address: 172.28.1.6
+    command: redis-sentinel /etc/redis/sentinel.conf
+    volumes:
+      - ./config/sentinel2.conf:/etc/redis/sentinel.conf
+    ports:
+      - "26380:26379"
+    depends_on:
+      redis-master:
+        condition: service_healthy
+      redis-replica-1:
+        condition: service_healthy
+      redis-replica-2:
+        condition: service_healthy
+
+  redis-sentinel-3:
+    build:
+      context: .
+      dockerfile: Dockerfile.redis-test
+    container_name: redis-sentinel-3
+    networks:
+      redis-net:
+        ipv4_address: 172.28.1.7
+    command: redis-sentinel /etc/redis/sentinel.conf
+    volumes:
+      - ./config/sentinel3.conf:/etc/redis/sentinel.conf
+    ports:
+      - "26381:26379"
+    depends_on:
+      redis-master:
+        condition: service_healthy
+      redis-replica-1:
+        condition: service_healthy
+      redis-replica-2:
+        condition: service_healthy
+
+networks:
+  redis-net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16
+
+volumes:
+  redis-master-data:
+  redis-replica-1-data:
+  redis-replica-2-data:

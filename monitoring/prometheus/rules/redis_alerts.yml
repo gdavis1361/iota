@@ -1,0 +1,46 @@
+groups:
+  - name: redis_alerts
+    rules:
+      # High Memory Usage
+      - alert: RedisHighMemoryUsage
+        expr: redis_mem_usage_percent > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "High Redis Memory Usage"
+          description: "Redis memory usage is {{ $value }}% for 5 minutes"
+
+      # Frequent Failovers
+      - alert: RedisFrequentFailovers
+        expr: redis_failover_hourly > 3
+        for: 0m
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Multiple Redis Failovers"
+          description: "{{ $value }} failovers detected in the last hour"
+
+      # Low Sentinel Count
+      - alert: RedisLowSentinelCount
+        expr: redis_healthy_sentinels < 2
+        for: 1m
+        labels:
+          severity: critical
+          service: redis
+        annotations:
+          summary: "Redis Sentinel Quorum at Risk"
+          description: "Only {{ $value }} healthy sentinels detected"
+
+      # High Command Rate
+      - alert: RedisHighCommandRate
+        expr: redis_commands_rate > 10000
+        for: 5m
+        labels:
+          severity: warning
+          service: redis
+        annotations:
+          summary: "High Redis Command Rate"
+          description: "{{ $value }} commands/sec for 5 minutes"
