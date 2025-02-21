@@ -1,0 +1,197 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "panels": [
+    {
+      "title": "Rate Limiter Overview",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "panels": [
+        {
+          "title": "Requests/Second",
+          "type": "stat",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "sum(rate(rate_limit_requests_total[5m]))",
+              "legendFormat": "Total Requests"
+            }
+          ]
+        },
+        {
+          "title": "Rejection Rate",
+          "type": "gauge",
+          "datasource": "Prometheus",
+          "targets": [
+            {
+              "expr": "sum(rate(rate_limit_requests_total{limited=\"true\"}[5m])) / sum(rate(rate_limit_requests_total[5m])) * 100",
+              "legendFormat": "% Rejected"
+            }
+          ],
+          "thresholds": {
+            "steps": [
+              { "value": null, "color": "green" },
+              { "value": 10, "color": "yellow" },
+              { "value": 20, "color": "red" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "Rate Limiter Latency",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 8
+      },
+      "id": 2,
+      "type": "graph",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(rate_limit_duration_sum[5m]) / rate(rate_limit_duration_count[5m])",
+          "legendFormat": "Average Latency"
+        }
+      ],
+      "yaxes": [
+        {
+          "format": "s",
+          "label": "Duration"
+        }
+      ]
+    },
+    {
+      "title": "Redis Performance",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 8
+      },
+      "id": 3,
+      "type": "graph",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(redis_operation_duration_sum[5m]) / rate(redis_operation_duration_count[5m])",
+          "legendFormat": "Redis Operation Latency"
+        }
+      ],
+      "yaxes": [
+        {
+          "format": "s",
+          "label": "Duration"
+        }
+      ]
+    },
+    {
+      "title": "Error Rates",
+      "gridPos": {
+        "h": 8,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 4,
+      "type": "graph",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(redis_errors_total[5m])",
+          "legendFormat": "Redis Errors"
+        },
+        {
+          "expr": "rate(rate_limit_errors_total[5m])",
+          "legendFormat": "Rate Limit Errors"
+        }
+      ]
+    },
+    {
+      "title": "Memory Usage",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 24
+      },
+      "id": 5,
+      "type": "graph",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "process_resident_memory_bytes{job=\"iota\"}",
+          "legendFormat": "Memory Usage"
+        }
+      ],
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": "Memory"
+        }
+      ]
+    },
+    {
+      "title": "Configuration Load Times",
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 24
+      },
+      "id": 6,
+      "type": "graph",
+      "datasource": "Prometheus",
+      "targets": [
+        {
+          "expr": "rate(config_load_duration_sum[5m]) / rate(config_load_duration_count[5m])",
+          "legendFormat": "Config Load Time"
+        }
+      ],
+      "yaxes": [
+        {
+          "format": "s",
+          "label": "Duration"
+        }
+      ]
+    }
+  ],
+  "refresh": "10s",
+  "schemaVersion": 27,
+  "style": "dark",
+  "tags": ["rate-limiter", "redis", "performance"],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Rate Limiter Performance",
+  "uid": "rate-limiter-performance",
+  "version": 1
+}
