@@ -1,0 +1,52 @@
+groups:
+  - name: rate_limiter_alerts
+    rules:
+      - alert: HighRateLimitLatency
+        expr: rate(rate_limit_duration_sum[5m]) / rate(rate_limit_duration_count[5m]) > 0.001
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: High rate limit check latency
+          description: Rate limit checks taking longer than 1ms on average
+          runbook_url: https://github.com/gdavis1361/iota/blob/main/docs/observability.md#troubleshooting
+
+      - alert: RedisErrors
+        expr: rate(redis_errors_total[5m]) > 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: Redis errors detected
+          description: Rate limiter encountering Redis errors
+          runbook_url: https://github.com/gdavis1361/iota/blob/main/docs/observability.md#troubleshooting
+
+      - alert: HighRejectionRate
+        expr: sum(rate(rate_limit_requests_total{limited="true"}[5m])) / sum(rate(rate_limit_requests_total[5m])) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: High rate limit rejection rate
+          description: More than 20% of requests are being rate limited
+          runbook_url: https://github.com/gdavis1361/iota/blob/main/docs/observability.md#troubleshooting
+
+      - alert: LowThroughput
+        expr: sum(rate(rate_limit_requests_total[5m])) < 10
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Low request throughput
+          description: Request throughput is below 10 requests per second
+          runbook_url: https://github.com/gdavis1361/iota/blob/main/docs/observability.md#troubleshooting
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes{job="iota"} > 1e9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: High memory usage
+          description: Application memory usage exceeds 1GB
+          runbook_url: https://github.com/gdavis1361/iota/blob/main/docs/observability.md#troubleshooting

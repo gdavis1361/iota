@@ -136,6 +136,52 @@ Rate limits can be adjusted in:
 1. Nginx configuration: `/opt/homebrew/etc/nginx/nginx.conf`
 2. Application code: `server/app/core/rate_limit.py`
 
+## Observability
+
+IOTA includes comprehensive observability features using OpenTelemetry for distributed tracing and Prometheus/Grafana for metrics and monitoring. For detailed information, see our [Observability Guide](docs/observability.md).
+
+### Quick Start
+
+1. Start monitoring services:
+```bash
+docker-compose up -d prometheus grafana
+```
+
+2. Import Grafana dashboard:
+   - Open Grafana at http://localhost:3000
+   - Navigate to Dashboards > Import
+   - Upload `monitoring/grafana/rate_limiter_dashboard.json`
+
+### Key Metrics
+
+Monitor these metrics in production:
+- Rate limiter response time (target: < 1ms)
+- Redis operation latency (target: < 3ms)
+- Error rates (target: 0)
+- Request throughput
+
+### Alert Rules
+
+Configured alerts:
+- High latency (> 1ms for 5m)
+- Redis errors (any in 1m)
+- High rejection rate (> 20% for 5m)
+- Low throughput (< 10 RPS for 5m)
+- High memory usage (> 1GB for 5m)
+
+See [Alert Rules](monitoring/prometheus/alert_rules.yml) for details.
+
+### Distributed Tracing
+
+Key trace points:
+- Rate limit checks
+- Redis operations
+- Configuration loading
+
+Configure sampling rates:
+- Development: 100% (default)
+- Production: 10% recommended
+
 ## Performance Testing and Monitoring
 
 IOTA includes comprehensive performance testing and monitoring capabilities. For detailed information, see our [Performance Testing Guide](docs/performance_testing.md).
