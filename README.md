@@ -136,6 +136,54 @@ Rate limits can be adjusted in:
 1. Nginx configuration: `/opt/homebrew/etc/nginx/nginx.conf`
 2. Application code: `server/app/core/rate_limit.py`
 
+## Performance Testing and Monitoring
+
+IOTA includes comprehensive performance testing and monitoring capabilities. For detailed information, see our [Performance Testing Guide](docs/performance_testing.md).
+
+### Running Performance Tests
+
+1. Ensure Redis is running:
+```bash
+redis-cli ping  # Should return PONG
+```
+
+2. Run the performance test suite:
+```bash
+pytest tests/performance/test_rate_limiter.py --benchmark-only -v
+```
+
+### Performance Thresholds
+
+Our CI pipeline enforces these performance thresholds:
+- Rate limiter single operation: < 1ms
+- Redis operations (set+get+delete): < 3ms
+- Configuration load time: < 5ms
+- Memory usage per rate limit key: < 100 bytes
+
+### Monitoring Guidelines
+
+Monitor these key metrics in production:
+- Rate limiter response time
+- Redis CPU and memory usage
+- Request throughput
+- Error rates
+
+Alert thresholds:
+- Redis CPU usage > 80%
+- Redis memory usage > 90%
+- Rate limit check latency > 10ms
+- Error rate > 1%
+
+### CI/CD Integration
+
+Performance tests run automatically on:
+- Push to main branch
+- Pull requests to main branch
+
+Failed performance tests block merging to maintain performance standards.
+
+See [GitHub Actions Performance Workflow](.github/workflows/performance-tests.yml) for implementation details.
+
 ## System Complexity Analysis
 
 Ranking of system components from easiest to most complex to implement and maintain:
