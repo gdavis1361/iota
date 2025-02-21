@@ -253,6 +253,70 @@ Using PostgreSQL with SQLAlchemy ORM.
 2. Additional Migrations (`server/alembic/versions/`):
    - initial_migration.py
 
+## Configuration
+
+IOTA uses Pydantic v2 for configuration management, providing type-safe settings with comprehensive validation.
+
+### Environment Variables
+
+Required environment variables:
+```bash
+# Application Environment
+ENVIRONMENT=development  # Options: development, testing, staging, production
+
+# Security
+SECRET_KEY=your-secret-key  # Minimum 32 characters
+
+# Database
+POSTGRES_PASSWORD=your-db-password
+POSTGRES_DB=your-db-name
+POSTGRES_USER=postgres  # Optional, defaults to 'postgres'
+POSTGRES_HOST=localhost  # Optional, defaults to 'localhost'
+POSTGRES_PORT=5432  # Optional, defaults to 5432
+
+# Redis
+REDIS_HOST=localhost  # Optional, defaults to 'localhost'
+REDIS_PORT=6379  # Optional, defaults to 6379
+REDIS_PASSWORD=  # Optional
+```
+
+### Rate Limiting
+
+Rate limiting is configured through the settings system. Default configuration:
+
+```python
+RateLimitConfig(
+    default_window=60,  # Default time window in seconds
+    default_max_requests=100,  # Default max requests per window
+    endpoint_limits={  # Optional endpoint-specific limits
+        "/api/endpoint": EndpointLimit(
+            window=30,
+            max_requests=50
+        )
+    }
+)
+```
+
+Rate limit headers in responses:
+- `X-RateLimit-Limit`: Maximum requests allowed
+- `X-RateLimit-Remaining`: Remaining requests in window
+- `X-RateLimit-Reset`: Seconds until window reset
+- `Retry-After`: Present when rate limited
+
+### Testing
+
+For testing, use the provided test configuration helper:
+
+```python
+from server.core.config import create_test_settings
+
+@pytest.fixture
+def test_settings():
+    return create_test_settings()
+```
+
+The test settings provide sensible defaults and proper test isolation.
+
 ## Future Enhancements
 
 ### Security & Rate Limiting

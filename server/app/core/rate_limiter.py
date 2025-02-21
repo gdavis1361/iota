@@ -1,4 +1,47 @@
-"""Rate limiter implementation."""
+"""Rate limiter implementation.
+
+This module provides a Redis-backed rate limiter with support for:
+- Global default rate limits
+- Endpoint-specific rate limits
+- Configurable time windows
+- Rate limit headers
+- Graceful Redis failure handling
+
+Example:
+    ```python
+    from redis import Redis
+    from server.core.config import create_settings
+    
+    settings = create_settings()
+    redis = Redis(host='localhost', port=6379)
+    
+    limiter = RateLimiter(settings.rate_limit_config, redis)
+    allowed, wait_time, headers = limiter.check_rate_limit('127.0.0.1')
+    
+    if not allowed:
+        return {'error': 'Rate limited'}, 429, headers
+    ```
+
+Rate Limit Headers:
+    - X-RateLimit-Limit: Maximum requests allowed
+    - X-RateLimit-Remaining: Remaining requests in window
+    - X-RateLimit-Reset: Seconds until window reset
+    - Retry-After: Present when rate limited
+
+Configuration:
+    Rate limits are configured through RateLimitConfig:
+    ```python
+    RateLimitConfig(
+        default_window=60,  # Default time window in seconds
+        default_max_requests=100,  # Default max requests per window
+        endpoint_limits={  # Optional endpoint-specific limits
+            "/api/endpoint": EndpointLimit(
+                window=30,
+                max_requests=50
+            )
+        }
+    )
+    """
 from typing import Dict, Optional, Tuple
 from redis import Redis
 from redis.exceptions import RedisError
@@ -6,7 +49,22 @@ from redis.exceptions import RedisError
 from server.core.config import RateLimitConfig
 
 class RateLimiter:
-    """Rate limiter using Redis."""
+    """Rate limiter using Redis.
+    
+    This class provides rate limiting functionality with:
+    - Redis-based storage for distributed rate limiting
+    - Support for global and endpoint-specific limits
+    - Configurable time windows and request limits
+    - Comprehensive rate limit headers
+    - Graceful failure handling
+    
+    The rate limiter uses Redis sorted sets to track requests
+    and automatically handles cleanup of expired entries.
+    
+    Attributes:
+        config: Rate limit configuration
+        redis: Redis client instance
+    """
 
     def __init__(self, config: RateLimitConfig, redis_client: Redis):
         """Initialize rate limiter.
@@ -14,6 +72,9 @@ class RateLimiter:
         Args:
             config: Rate limit configuration
             redis_client: Redis client instance
+            
+        Raises:
+            RedisError: If Redis connection fails
         """
         self.config = config
         self.redis = redis_client
@@ -32,7 +93,9 @@ class RateLimiter:
             endpoint: Optional endpoint name
             
         Returns:
-            Redis key string
+            Redis key string in format:
+            - rate_limit:{identifier} for global limits
+            - rate_limit:{identifier}:{endpoint} for endpoint limits
         """
         base = f"rate_limit:{identifier}"
         if endpoint:
@@ -46,6 +109,11 @@ class RateLimiter:
     ) -> Tuple[bool, int, Dict[str, str]]:
         """Check if request is allowed under rate limit.
         
+        This method:
+        1. Gets appropriate limits (endpoint-specific or default)
+        2. Checks and updates request count
+        3. Returns allow/deny decision with headers
+        
         Args:
             identifier: Client identifier (e.g. IP)
             endpoint: Optional endpoint for endpoint-specific limits
@@ -55,6 +123,16 @@ class RateLimiter:
             - bool: Whether request is allowed
             - int: Seconds to wait if rate limited
             - dict: Rate limit headers
+            
+        Headers:
+            - X-RateLimit-Limit: Maximum requests allowed
+            - X-RateLimit-Remaining: Remaining requests in window
+            - X-RateLimit-Reset: Seconds until window reset
+            - Retry-After: Present when rate limited
+            
+        Note:
+            On Redis errors, requests are allowed (fail open) with
+            empty headers to prevent service disruption.
         """
         try:
             # Get appropriate limits
