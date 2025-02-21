@@ -1,0 +1,141 @@
+[tool.poetry]
+name = "iota"
+version = "0.1.0"
+description = "Iota Project"
+authors = ["Team <team@example.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+fastapi = "0.109.0"
+uvicorn = {extras = ["standard"], version = "0.27.0"}
+pydantic = {extras = ["email"], version = "2.6.1"}
+pydantic-settings = "2.1.0"
+python-multipart = "0.0.6"
+email-validator = "2.1.0"
+sqlalchemy = "2.0.25"
+alembic = "1.13.1"
+asyncpg = "0.29.0"
+psycopg2-binary = "2.9.9"
+greenlet = "3.0.1"
+python-jose = {extras = ["cryptography"], version = "3.3.0"}
+passlib = {extras = ["bcrypt"], version = "1.7.4"}
+pyjwt = "2.8.0"
+python-dotenv = "1.0.1"
+python-magic = "0.4.27"
+boto3 = "1.32.4"
+aioboto3 = "12.0.0"
+aiofiles = "23.2.1"
+redis = "5.0.1"
+celery = "5.3.6"
+flower = "2.0.1"
+slowapi = "0.1.8"
+sentry-sdk = {extras = ["fastapi"], version = "2.22.0"}
+prometheus-fastapi-instrumentator = "6.1.0"
+python-json-logger = "2.0.7"
+structlog = "24.1.0"
+aiohttp = "3.9.1"
+websockets = "12.0"
+psutil = "5.9.8"
+typing-extensions = "^4.0.0"
+statistics = "^1.0.3.5"
+requests = "^2.31.0"
+Flask = "^2.3.0"
+Werkzeug = "^2.3.0"
+
+[tool.poetry.group.dev.dependencies]
+black = "23.12.1"
+flake8 = "6.1.0"
+mypy = "1.8.0"
+isort = "5.13.2"
+pre-commit = "3.6.0"
+mkdocs = "1.5.3"
+mkdocs-material = "9.5.3"
+
+[tool.poetry.group.test.dependencies]
+pytest = "8.0.0"
+pytest-asyncio = "0.25.3"
+pytest-cov = "4.1.0"
+pytest-playwright = "0.7.0"
+playwright = "1.50.0"
+pytest-timeout = "2.1.0"
+pytest-xdist = "3.3.0"
+httpx = "0.26.0"
+faker = "22.5.0"
+pytest-mock = "^3.10.0"
+prometheus-client = "^0.16.0"
+pyyaml = "^6.0.0"
+locust = "^2.15.0"
+beautifulsoup4 = "^4.11.0"
+aioredis = "^2.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 100
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 100
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+ensure_newline_before_comments = true
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+markers = [
+    "unit: marks tests as unit tests",
+    "integration: marks tests as integration tests",
+    "performance: marks tests as performance tests",
+    "security: marks tests as security tests"
+]
+testpaths = [
+    "tests",
+    "server/tests"
+]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+addopts = "-ra -q --cov=server --cov=scripts --cov-report=term-missing"
+asyncio_mode = "auto"
+filterwarnings = [
+    "error",
+    "ignore::DeprecationWarning",
+    "ignore::UserWarning",
+]
+
+[tool.coverage.run]
+branch = true
+source = ["server", "scripts"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "pass",
+    "raise ImportError",
+]
+ignore_errors = true
+fail_under = 80
