@@ -116,3 +116,45 @@ def base_test_settings():
     
     # Create and return new settings instance
     return Settings()
+
+"""Test configuration and fixtures."""
+import os
+import pytest
+from typing import Generator
+
+from server.core.config import Settings, RateLimitConfig
+from server.core.config.base import EnvironmentType
+from server.core.config.rate_limit import EndpointLimit
+
+@pytest.fixture(scope="session")
+def test_settings() -> Generator[Settings, None, None]:
+    """Create test settings."""
+    os.environ["ENVIRONMENT"] = "testing"
+    os.environ["SECRET_KEY"] = "test_secret_key_thats_at_least_32_chars_long"
+    os.environ["POSTGRES_PASSWORD"] = "test_password"
+    os.environ["POSTGRES_DB"] = "test_db"
+    
+    settings = Settings()
+    assert settings.ENVIRONMENT == EnvironmentType.TESTING
+    
+    yield settings
+    
+    # Cleanup
+    for key in ["ENVIRONMENT", "SECRET_KEY", "POSTGRES_PASSWORD", "POSTGRES_DB"]:
+        os.environ.pop(key, None)
+
+@pytest.fixture
+def rate_limit_config() -> RateLimitConfig:
+    """Create test rate limit configuration."""
+    return RateLimitConfig(
+        default_window=60,
+        default_max_requests=100,
+        endpoint_limits={
+            "/test/endpoint": EndpointLimit(
+                window=30,
+                max_requests=50
+            )
+        },
+        redis_host="localhost",
+        redis_port=6379
+    )

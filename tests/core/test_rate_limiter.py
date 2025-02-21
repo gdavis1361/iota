@@ -4,7 +4,6 @@ import time
 from unittest.mock import Mock, patch
 from redis.exceptions import RedisError
 
-from server.core.config import RateLimitConfig
 from server.app.core.rate_limiter import RateLimiter
 
 @pytest.fixture
@@ -32,17 +31,17 @@ def rate_limiter(rate_limit_config, mock_redis):
     """Create rate limiter with mock Redis."""
     return RateLimiter(rate_limit_config, mock_redis)
 
-def test_rate_limiter_initialization(rate_limit_config, mock_redis):
+def test_rate_limiter_initialization(test_settings, mock_redis):
     """Test rate limiter initialization."""
-    limiter = RateLimiter(rate_limit_config, mock_redis)
-    assert limiter.config == rate_limit_config
+    limiter = RateLimiter(test_settings.rate_limit_config, mock_redis)
+    assert limiter.config == test_settings.rate_limit_config
     mock_redis.ping.assert_called_once()
 
-def test_rate_limiter_redis_failure(rate_limit_config, mock_redis):
+def test_rate_limiter_redis_failure(test_settings, mock_redis):
     """Test rate limiter handles Redis connection failure."""
     mock_redis.ping.side_effect = RedisError("Connection failed")
     with pytest.raises(RedisError):
-        RateLimiter(rate_limit_config, mock_redis)
+        RateLimiter(test_settings.rate_limit_config, mock_redis)
 
 def test_rate_limit_check_first_request(rate_limiter, mock_redis):
     """Test first request is always allowed."""
