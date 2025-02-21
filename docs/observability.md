@@ -149,6 +149,51 @@ annotations:
   description: Rate limiter encountering Redis errors
 ```
 
+## Alert Routing and Notifications
+
+### Configuration
+
+Alerts are routed based on severity:
+- Critical alerts -> PagerDuty (1h repeat interval)
+- Warning alerts -> Slack (#iota-alerts channel)
+
+### Environment Variables
+
+Required for alert routing:
+```bash
+SLACK_API_URL=https://hooks.slack.com/services/xxx/yyy/zzz
+PAGERDUTY_ROUTING_KEY=your-pagerduty-key
+```
+
+### Alert Groups
+
+Alerts are grouped by:
+- Alert name
+- Severity level
+- Component/service
+
+This reduces noise while maintaining visibility of related issues.
+
+### Response Procedures
+
+1. Critical Alerts (PagerDuty)
+   - Immediate response required (< 15 minutes)
+   - Follow incident response playbook
+   - Update status in #incidents channel
+
+2. Warning Alerts (Slack)
+   - Review within 1 business hour
+   - Update thread with investigation status
+   - Create ticket if persistent issue
+
+### Runbooks
+
+Each alert includes a runbook URL with:
+- Detailed alert description
+- Common causes
+- Investigation steps
+- Resolution procedures
+
 ## Production Guidelines
 
 ### Sampling Strategy

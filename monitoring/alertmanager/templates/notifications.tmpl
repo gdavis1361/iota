@@ -1,0 +1,31 @@
+{{ define "slack.title" }}
+[{{ .Status | toUpper }}{{ if eq .Status "firing" }}:{{ .Alerts.Firing | len }}{{ end }}] {{ .CommonLabels.alertname }}
+{{ end }}
+
+{{ define "slack.text" }}
+{{ range .Alerts }}
+*Alert:* {{ .Labels.alertname }}{{ if .Labels.severity }} - `{{ .Labels.severity }}`{{ end }}
+*Description:* {{ .Annotations.description }}
+*Details:*
+{{ range .Labels.SortedPairs }}• *{{ .Name }}:* `{{ .Value }}`
+{{ end }}
+*Runbook:* {{ .Annotations.runbook_url }}
+{{ end }}
+{{ end }}
+
+{{ define "slack.footer" }}
+View in Grafana: {{ template "grafana.url" . }}
+{{ end }}
+
+{{ define "pagerduty.description" }}
+[{{ .Status | toUpper }}] {{ .CommonLabels.alertname }}
+{{ range .Alerts }}
+Alert: {{ .Labels.alertname }}
+Severity: {{ .Labels.severity }}
+Description: {{ .Annotations.description }}
+{{ end }}
+{{ end }}
+
+{{ define "grafana.url" }}
+http://localhost:3000/d/rate-limiter/rate-limiter-dashboard
+{{ end }}
