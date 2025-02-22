@@ -1,0 +1,7 @@
+apiVersion: 1
+
+alerting:
+  folders:
+    - name: "Test Alert Rules"
+  rule_files:
+    - /etc/grafana/provisioning/alerting/alert_rules.yaml

@@ -34,9 +34,9 @@ Branch naming:
 ### 2. Make Changes
 
 Follow our coding standards:
-- [Pre-commit Guide](pre-commit.md)
-- [Testing Guide](testing.md)
-- [Observability Guide](observability.md)
+- [Pre-commit Guide](/Users/allan/Projects/iota/docs/pre-commit.md)
+- [Testing Guide](/Users/allan/Projects/iota/docs/testing.md)
+- [Observability Guide](/Users/allan/Projects/iota/docs/observability.md)
 
 ### 3. Commit Changes
 
@@ -110,6 +110,13 @@ Update documentation for:
 - API changes
 - Configuration updates
 - Breaking changes
+
+Follow our [Documentation Style Guide](/Users/allan/Projects/iota/docs/style-guide.md) for:
+- File organization
+- Header formatting
+- Link formatting
+- Code examples
+- Security documentation
 
 ### 7. Pull Request
 
@@ -190,7 +197,8 @@ After approval:
 
 ## Resources
 
-- [Pre-commit Guide](pre-commit.md)
-- [Testing Guide](testing.md)
-- [Observability Guide](observability.md)
-- [Architecture Decisions](adr/)
+- [Documentation Style Guide](/Users/allan/Projects/iota/docs/style-guide.md)
+- [Pre-commit Guide](/Users/allan/Projects/iota/docs/pre-commit.md)
+- [Testing Guide](/Users/allan/Projects/iota/docs/testing.md)
+- [Observability Guide](/Users/allan/Projects/iota/docs/observability.md)
+- [Architecture Decisions](/Users/allan/Projects/iota/docs/adr)

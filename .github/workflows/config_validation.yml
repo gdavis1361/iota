@@ -1,0 +1,57 @@
+name: Validate Configuration Schema
+
+on:
+  push:
+    paths:
+      - 'config/validation_rules.json'
+      - 'server/core/config_schema.py'
+      - 'scripts/validate_config.py'
+  pull_request:
+    paths:
+      - 'config/validation_rules.json'
+      - 'server/core/config_schema.py'
+      - 'scripts/validate_config.py'
+
+jobs:
+  validate-config:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.9'
+          cache: 'pip'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pydantic
+
+      - name: Validate Configuration Schema
+        run: python scripts/validate_config.py
+
+      - name: Run Template Tests
+        run: |
+          python -m pytest tests/test_template_validation.py -v
+
+      - name: Check Schema Version
+        run: |
+          # Extract current schema version from config
+          SCHEMA_VERSION=$(python -c "
+          import json
+          with open('config/validation_rules.json') as f:
+              config = json.load(f)
+          print(config.get('version', '0.0.0'))
+          ")
+
+          # Store version for future reference
+          echo "SCHEMA_VERSION=${SCHEMA_VERSION}" >> $GITHUB_ENV
+
+          # Fail if version is not semantic
+          if ! [[ $SCHEMA_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Invalid schema version: ${SCHEMA_VERSION}"
+            exit 1
+          fi

@@ -8,7 +8,7 @@ WORKDIR /app
 FROM base as builder
 RUN apt-get update && apt-get install --no-install-recommends -y build-essential curl \
     && rm -rf /var/lib/apt/lists/*
-COPY server/requirements.txt ./
+COPY requirements.txt ./
 RUN python -m venv /opt/venv \
     && . /opt/venv/bin/activate \
     && pip install --upgrade pip \

@@ -66,6 +66,8 @@ def mock_prometheus_data():
 
 def test_metric_calculation(mock_prom):
     # Test implementation
+    assert mock_prom is not None
+    # Add actual test logic here
 ```
 
 ### Grafana API Mocks
@@ -99,6 +101,9 @@ Example:
 ])
 def test_error_handling(mock_prom, error_type):
     # Test implementation
+    with pytest.raises(error_type):
+        # Add error handling test logic here
+        pass
 ```
 
 ## CI/CD Integration
@@ -127,23 +132,115 @@ We enforce:
 - Type annotation compliance
 - Consistent code formatting
 
+## Test Data Factories
+
+We use test data factories to generate consistent, isolated test data. These factories are located in `tests/utils/factories.py`.
+
+### Benefits
+- **Test Isolation**: Each test gets unique data, preventing conflicts
+- **Reduced Duplication**: Common test data creation is centralized
+- **Easy Customization**: Factories support optional parameters for different scenarios
+- **Maintainability**: Changes to model structure only need to be updated in one place
+
+### Example Usage
+
+```python
+from tests.utils.factories import create_test_user, create_test_refresh_token
+
+# Create a test user
+user = create_test_user()
+
+# Create a user with custom attributes
+admin = create_test_user(
+    email="admin@example.com",
+    is_active=True,
+    full_name="Admin User"
+)
+
+# Create a refresh token for the user
+token = create_test_refresh_token(user_id=user.id)
+```
+
+## Test Database Management
+
+### Transaction Isolation
+Each test runs in its own transaction, ensuring changes don't affect other tests.
+The `async_session` fixture handles proper setup and teardown:
+
+```python
+@pytest.mark.asyncio
+async def test_example(async_session):
+    # Test data is automatically cleaned up after the test
+    user = create_test_user()
+    async_session.add(user)
+    await async_session.commit()
+```
+
+### Cleanup Strategy
+We use CASCADE table drops to ensure complete cleanup between tests:
+1. All tables are dropped with CASCADE after each test
+2. Tables are recreated fresh for the next test
+3. This ensures no leftover data affects subsequent tests
+
 ## Best Practices
 
-### Writing Tests
+1. **Use Factories**: Always use test data factories instead of direct model instantiation
+2. **Unique Data**: Let factories generate unique identifiers (don't hardcode emails, etc.)
+3. **Isolation**: Each test should create its own data and not depend on other tests
+4. **Explicit Setup**: Make test setup clear by using factory parameters instead of modifying objects after creation
+
+## Coverage Requirements
+
+- Minimum coverage: 80%
+- Current coverage: 80.98%
+- Run coverage reports: `pytest --cov`
+
+## Authentication Testing
+
+Authentication tests cover several scenarios:
+1. Successful login
+2. Invalid password
+3. Inactive user
+4. Non-existent user
+
+Example:
+```python
+@pytest.mark.asyncio
+async def test_login_success(async_session, async_client):
+    user = create_test_user()
+    async_session.add(user)
+    await async_session.commit()
+
+    response = await async_client.post(
+        "/api/v1/login/access-token",
+        headers={"Content-Type": "application/x-www-form-urlencoded"},
+        data={"username": user.email, "password": "testpass123"}
+    )
+    assert response.status_code == 200
+```
+
+## Future Improvements
+
+1. Additional factory methods for other models
+2. More edge case coverage
+3. Performance optimizations for database cleanup
+4. Integration test patterns
+
+## Writing Tests
 
 1. Use descriptive test names
 2. One assertion per test
 3. Proper setup and teardown
 4. Clear error messages
 
-### Mock Data
+## Mock Data
 
 1. Use realistic test data
 2. Avoid sensitive information
 3. Document data structure
 4. Version control mock files
 
-### Error Testing
+## Error Testing
 
 1. Test both success and failure
 2. Verify error messages

@@ -68,9 +68,9 @@
 2025-02-18 17:21:37,162 - sqlalchemy.engine.Engine - INFO - COMMIT
 2025-02-18 17:21:37,162 - app.main - INFO - Database initialization completed
 2025-02-18 17:29:15,970 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2025-02-18 17:29:15,972 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.is_verified AS users_is_verified, users.is_superuser AS users_is_superuser, users.role AS users_role, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.last_login AS users_last_login 
-FROM users 
-WHERE users.email = %(email_1)s 
+2025-02-18 17:29:15,972 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.is_verified AS users_is_verified, users.is_superuser AS users_is_superuser, users.role AS users_role, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.last_login AS users_last_login
+FROM users
+WHERE users.email = %(email_1)s
  LIMIT %(param_1)s
 2025-02-18 17:29:15,972 - sqlalchemy.engine.Engine - INFO - [generated in 0.00015s] {'email_1': 'test@example.com', 'param_1': 1}
 2025-02-18 17:29:15,975 - passlib.handlers.bcrypt - WARNING - (trapped) error reading bcrypt version
@@ -82,8 +82,8 @@ AttributeError: module 'bcrypt' has no attribute '__about__'
 2025-02-18 17:29:16,182 - sqlalchemy.engine.Engine - INFO - [generated in 0.00014s] {'updated_at': datetime.datetime(2025, 2, 18, 22, 29, 16, 182713), 'last_login': datetime.datetime(2025, 2, 18, 22, 29, 16, 181655), 'users_id': 1}
 2025-02-18 17:29:16,185 - sqlalchemy.engine.Engine - INFO - COMMIT
 2025-02-18 17:29:16,187 - sqlalchemy.engine.Engine - INFO - BEGIN (implicit)
-2025-02-18 17:29:16,187 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.is_verified AS users_is_verified, users.is_superuser AS users_is_superuser, users.role AS users_role, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.last_login AS users_last_login 
-FROM users 
+2025-02-18 17:29:16,187 - sqlalchemy.engine.Engine - INFO - SELECT users.id AS users_id, users.email AS users_email, users.hashed_password AS users_hashed_password, users.full_name AS users_full_name, users.is_active AS users_is_active, users.is_verified AS users_is_verified, users.is_superuser AS users_is_superuser, users.role AS users_role, users.created_at AS users_created_at, users.updated_at AS users_updated_at, users.last_login AS users_last_login
+FROM users
 WHERE users.id = %(pk_1)s
 2025-02-18 17:29:16,187 - sqlalchemy.engine.Engine - INFO - [generated in 0.00011s] {'pk_1': 1}
 2025-02-18 17:29:16,190 - sqlalchemy.engine.Engine - INFO - ROLLBACK

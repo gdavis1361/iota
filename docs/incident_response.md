@@ -136,6 +136,6 @@
 - [System Overview](http://localhost:3000/d/system-overview)
 
 ### Documentation
-- [Observability Guide](docs/observability.md)
-- [Configuration Guide](docs/configuration.md)
-- [Architecture Overview](docs/architecture.md)
+- [Observability Guide](/Users/allan/Projects/iota/docs/../docs/observability.md)
+- [Configuration Guide](/Users/allan/Projects/iota/docs/../docs/configuration.md)
+- [Architecture Overview](/Users/allan/Projects/iota/docs/../docs/architecture.md)

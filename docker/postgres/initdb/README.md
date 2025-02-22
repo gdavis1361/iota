@@ -1,33 +1,17 @@
 # PostgreSQL Initialization Scripts
 
-This directory contains initialization scripts that run when the PostgreSQL container first starts up. Scripts are executed in alphabetical order.
+## Installation
 
-## Scripts
+[Add installation instructions here]
 
-- `00-create-databases.sql`: Creates the main and test databases, sets up the application user, and grants necessary permissions
-- `01-schema.sql`: (To be created by Alembic migrations) Creates the database schema
-- `02-seed-data.sql`: (Optional) Adds initial data for development
+## Configuration
 
-## Environment Variables
+[Add configuration details here]
 
-The following environment variables are used:
-- `POSTGRES_USER`: Superuser username (default: postgres)
-- `POSTGRES_PASSWORD`: Superuser password
-- `POSTGRES_DB`: Default database (default: postgres)
+## Usage
 
-## Application Database Details
+[Add usage instructions here]
 
-### Main Database
-- Name: jsquared
-- User: app_user
-- Password: app_password (for development only)
+## Contributing
 
-### Test Database
-- Name: jsquared_test
-- User: app_user
-- Password: app_password (for development only)
-
-## Notes
-- These scripts only run when the container is first created
-- For schema updates, use Alembic migrations
-- Never store production credentials in these files
+Please see our [Contributing Guide](/Users/allan/Projects/iota/docker/postgres/initdb/../../../CONTRIBUTING.md) for details on our code of conduct and development process.

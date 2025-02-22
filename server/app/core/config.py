@@ -1,17 +1,9 @@
 from enum import Enum
+from functools import lru_cache
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Union
 
-from pydantic import (
-    AnyHttpUrl,
-    EmailStr,
-    Field,
-    PostgresDsn,
-    RedisDsn,
-    SecretStr,
-    field_validator,
-    validator,
-)
+from pydantic import AnyHttpUrl, EmailStr, Field, PostgresDsn, RedisDsn, SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 # Project base directory
@@ -19,6 +11,8 @@ BASE_DIR = Path(__file__).resolve().parents[3]
 
 
 class EnvironmentType(str, Enum):
+    """Environment types."""
+
     DEVELOPMENT = "development"
     TESTING = "testing"
     STAGING = "staging"
@@ -26,22 +20,26 @@ class EnvironmentType(str, Enum):
 
 
 class Settings(BaseSettings):
-    """
-    Application settings with comprehensive validation and documentation.
-    Variables are grouped by their functional category for clarity.
-    """
+    """Application settings with comprehensive validation and documentation."""
 
-    model_config = SettingsConfigDict(case_sensitive=True, env_file=".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        case_sensitive=True,
+        env_file=".env",
+        env_file_encoding="utf-8",
+        extra="ignore",
+    )
 
     # ==== Core API Configuration ====
-    PROJECT_NAME: str = "JSquared"
+    PROJECT_NAME: str = "IOTA"
     VERSION: str = "1.0.0"
     API_V1_STR: str = "/api/v1"
     ENVIRONMENT: EnvironmentType = Field(
-        default=EnvironmentType.DEVELOPMENT, description="Current environment type"
+        default=EnvironmentType.DEVELOPMENT,
+        description="Current environment type",
     )
     DEBUG: bool = Field(
-        default=False, description="Enable debug mode. Should be False in production."
+        default=False,
+        description="Enable debug mode. Should be False in production.",
     )
 
     # ==== Security & Authentication ====
@@ -49,7 +47,10 @@ class Settings(BaseSettings):
         ...,  # Required field
         description="Secret key for JWT token generation and other cryptographic operations",
     )
-    ALGORITHM: str = Field(default="HS256", description="Algorithm used for JWT token generation")
+    ALGORITHM: str = Field(
+        default="HS256",
+        description="Algorithm used for JWT token generation",
+    )
     ACCESS_TOKEN_EXPIRE_MINUTES: int = Field(
         default=30,
         ge=5,  # Must be at least 5 minutes
@@ -62,116 +63,123 @@ class Settings(BaseSettings):
     )
 
     # ==== Database Configuration ====
-    POSTGRES_SERVER: str = Field(default="localhost", description="PostgreSQL server hostname")
-    POSTGRES_PORT: int = Field(default=5432, description="PostgreSQL server port")
-    POSTGRES_USER: str = Field(default="postgres", description="PostgreSQL username")
-    POSTGRES_PASSWORD: str = Field(default="postgres", description="PostgreSQL password")
-    POSTGRES_DB: str = Field(default="jsquared", description="PostgreSQL database name")
-    DATABASE_URL: Optional[PostgresDsn] = Field(
-        default=None, description="PostgreSQL connection string"
+    POSTGRES_SERVER: str = Field(
+        default="localhost",
+        description="PostgreSQL server hostname",
     )
-    SQL_ECHO: bool = Field(default=False, description="Enable SQL query logging")
+    POSTGRES_PORT: int = Field(
+        default=5432,
+        description="PostgreSQL server port",
+    )
+    POSTGRES_USER: str = Field(
+        default="postgres",
+        description="PostgreSQL username",
+    )
+    POSTGRES_PASSWORD: str = Field(
+        default="postgres",
+        description="PostgreSQL password",
+    )
+    POSTGRES_DB: str = Field(
+        default="iota",
+        description="PostgreSQL database name",
+    )
+    DATABASE_URL: Optional[PostgresDsn] = Field(
+        default=None,
+        description="PostgreSQL connection string",
+    )
+    SQL_ECHO: bool = Field(
+        default=False,
+        description="Enable SQL query logging",
+    )
 
     @field_validator("DATABASE_URL", mode="before")
-    def assemble_db_url(cls, v: Optional[str], values: Dict[str, Any]) -> Any:
+    @classmethod
+    def assemble_db_url(cls, v: Optional[str], info: Dict[str, Any]) -> Any:
+        """Assemble database URL from components."""
         if isinstance(v, str):
             return v
 
+        values = info.data
+        db_name = values.get("POSTGRES_DB", "")
+
+        # Handle test database - don't append _test if it's already there
+        if values.get("ENVIRONMENT") == EnvironmentType.TESTING and not db_name.endswith("_test"):
+            db_name = f"{db_name}_test"
+
         return PostgresDsn.build(
-            scheme="postgresql+asyncpg",
+            scheme="postgresql",
             username=values.get("POSTGRES_USER"),
             password=values.get("POSTGRES_PASSWORD"),
             host=values.get("POSTGRES_SERVER"),
             port=values.get("POSTGRES_PORT"),
-            path=f"{values.get('POSTGRES_DB') or ''}",
+            path=db_name,
         )
 
     # ==== Redis Configuration ====
     REDIS_URL: RedisDsn = Field(
-        default="redis://localhost:6379/0", description="Redis connection string"
+        default="redis://localhost:6379/0",
+        description="Redis connection string",
     )
     REDIS_MAX_CONNECTIONS: int = Field(
-        default=10, ge=1, description="Maximum number of Redis connections"
+        default=10,
+        ge=1,
+        description="Maximum number of Redis connections",
     )
 
     # ==== Rate Limiting ====
     RATE_LIMIT_REQUESTS: int = Field(
-        default=100, ge=1, description="Number of requests allowed per window"
+        default=100,
+        ge=1,
+        description="Number of requests allowed per window",
     )
     RATE_LIMIT_WINDOW: int = Field(
-        default=60, ge=1, description="Time window for rate limiting in seconds"
+        default=60,
+        ge=1,
+        description="Time window for rate limiting in seconds",
     )
 
-    # ==== CORS & Security Headers ====
+    # ==== CORS & Security ====
     BACKEND_CORS_ORIGINS: List[AnyHttpUrl] = Field(
-        default=[], description="List of allowed CORS origins"
+        default=[],
+        description="List of allowed CORS origins",
     )
     ALLOWED_HOSTS: List[str] = Field(
-        default=["localhost", "127.0.0.1"], description="List of allowed hosts"
+        default=["localhost", "127.0.0.1"],
+        description="List of allowed hosts",
     )
 
-    # ==== AWS Configuration ====
-    AWS_ACCESS_KEY_ID: Optional[str] = Field(
-        default=None, description="AWS access key ID for S3 storage"
-    )
-    AWS_SECRET_ACCESS_KEY: Optional[SecretStr] = Field(
-        default=None, description="AWS secret access key for S3 storage"
-    )
-    AWS_BUCKET_NAME: Optional[str] = Field(default=None, description="AWS S3 bucket name")
-    AWS_REGION: str = Field(default="us-east-1", description="AWS region for S3 bucket")
-
-    # ==== Logging Configuration ====
-    LOG_LEVEL: str = Field(
-        default="INFO", description="Logging level (DEBUG, INFO, WARNING, ERROR, CRITICAL)"
-    )
-    LOG_FORMAT: str = Field(
-        default="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        description="Log message format",
-    )
-
-    # ==== Email Configuration ====
-    SMTP_TLS: bool = Field(default=True, description="Enable TLS for SMTP")
-    SMTP_HOST: Optional[str] = Field(default=None, description="SMTP server host")
-    SMTP_PORT: Optional[int] = Field(default=587, description="SMTP server port")
-    SMTP_USER: Optional[EmailStr] = Field(default=None, description="SMTP username")
-    SMTP_PASSWORD: Optional[SecretStr] = Field(default=None, description="SMTP password")
-    EMAILS_FROM_EMAIL: Optional[EmailStr] = Field(default=None, description="Email sender address")
-    EMAILS_FROM_NAME: Optional[str] = Field(default=None, description="Email sender name")
-
-    # ==== Validators ====
-    @field_validator("BACKEND_CORS_ORIGINS")
-    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> Union[List[str], str]:
+    @field_validator("BACKEND_CORS_ORIGINS", mode="before")
+    @classmethod
+    def assemble_cors_origins(cls, v: Union[str, List[str]]) -> List[str]:
+        """Assemble CORS origins from string or list."""
         if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
-        elif isinstance(v, (list, str)):
+        elif isinstance(v, list):
             return v
         raise ValueError(v)
 
-    @field_validator("ALLOWED_HOSTS")
+    @field_validator("ALLOWED_HOSTS", mode="before")
+    @classmethod
     def assemble_allowed_hosts(cls, v: Union[str, List[str]]) -> List[str]:
-        if isinstance(v, str):
+        """Assemble allowed hosts from string or list."""
+        if isinstance(v, str) and not v.startswith("["):
             return [i.strip() for i in v.split(",")]
-        return v
-
-    @field_validator("LOG_LEVEL")
-    def validate_log_level(cls, v: str) -> str:
-        valid_levels = ["DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"]
-        upper_v = v.upper()
-        if upper_v not in valid_levels:
-            raise ValueError(f"Log level must be one of {valid_levels}")
-        return upper_v
+        elif isinstance(v, list):
+            return v
+        raise ValueError(v)
 
     def validate_production_settings(self) -> None:
         """Validate that production environment has secure settings."""
         if self.ENVIRONMENT == EnvironmentType.PRODUCTION:
-            assert not self.DEBUG, "DEBUG must be False in production"
-            assert len(str(self.SECRET_KEY)) >= 32, "SECRET_KEY too short"
-            assert self.ALLOWED_HOSTS, "ALLOWED_HOSTS must be set in production"
-
-    @property
-    def SQLALCHEMY_DATABASE_URI(self) -> str:
-        """Get SQLAlchemy database URI"""
-        return str(self.DATABASE_URL)
+            assert not self.DEBUG, "Debug mode must be disabled in production"
+            assert self.SECRET_KEY, "Secret key must be set in production"
+            assert self.ALLOWED_HOSTS, "Allowed hosts must be set in production"
 
 
-settings = Settings()
+@lru_cache()
+def get_settings() -> Settings:
+    """Get settings instance with caching."""
+    return Settings()
+
+
+settings = get_settings()

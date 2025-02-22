@@ -15,7 +15,7 @@ from locust import HttpUser, task, between
 
 class RateLimitUser(HttpUser):
     wait_time = between(0.1, 1.0)
-    
+
     @task
     def test_endpoint(self):
         self.client.get("/api/test")
@@ -25,7 +25,7 @@ Test Parameters:
 - Users: 100-1000 concurrent
 - Ramp-up: 10 users/second
 - Duration: 5 minutes
-- Success Criteria: 
+- Success Criteria:
   - 99th percentile latency < 100ms
   - Error rate < 0.1%
 
@@ -100,12 +100,12 @@ from server.app.core.rate_limiter import RateLimiter
 def benchmark_rate_limiter():
     settings = create_settings()
     limiter = RateLimiter(settings.rate_limit_config, redis_client)
-    
+
     start = time.perf_counter()
     for _ in range(10000):
         limiter.check_rate_limit("test-user")
     end = time.perf_counter()
-    
+
     return end - start
 ```
 
@@ -148,7 +148,7 @@ def save_benchmark(results: dict):
 ```python
 def check_regression(current_results: dict, baseline: dict):
     max_regression = 0.1  # 10% degradation threshold
-    
+
     for metric, value in current_results.items():
         if value > baseline[metric] * (1 + max_regression):
             raise PerformanceRegression(f"{metric} degraded by {value/baseline[metric]}")

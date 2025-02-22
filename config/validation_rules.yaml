@@ -1,0 +1,68 @@
+# Configuration Validation Rules
+# Version: 1.0.0
+# Last Updated: 2025-02-21
+
+validation_rules:
+  environment:
+    enabled: true
+    allowed_values:
+      - development
+      - testing
+      - staging
+      - production
+    case_sensitive: false
+    error_message: "Invalid ENVIRONMENT value: {value}"
+    production_rules:
+      - rule: debug_disabled
+        error_message: "DEBUG should not be enabled in production"
+        severity: security
+
+  security:
+    secret_key:
+      enabled: true
+      min_length: 32
+      error_message: "SECRET_KEY is too short (minimum 32 characters)"
+      severity: security
+      validation_type: length
+
+    allowed_hosts:
+      enabled: true
+      format: json_array
+      production_rules:
+        - rule: no_wildcards
+          error_message: "Wildcard ALLOWED_HOSTS should not be used in production"
+          severity: security
+      validation_type: format
+
+  sentry:
+    enabled: true
+    rules:
+      - rule: dsn_required_if_enabled
+        condition: "SENTRY_ENABLED == true"
+        error_message: "SENTRY_DSN is required when Sentry is enabled"
+        severity: error
+      - rule: dsn_format
+        pattern: "^https?://"
+        error_message: "SENTRY_DSN must start with http:// or https://"
+        severity: error
+    validation_type: conditional
+
+metrics:
+  collect_timing: true
+  track_errors: true
+  track_warnings: true
+  track_security: true
+  aggregation_window: 3600  # 1 hour
+
+notifications:
+  security_alerts:
+    enabled: true
+    channels:
+      - type: slack
+        severity: security
+      - type: email
+        severity: error
+  error_alerts:
+    enabled: true
+    threshold: 10  # Alert after 10 errors
+    window: 300    # Within 5 minutes

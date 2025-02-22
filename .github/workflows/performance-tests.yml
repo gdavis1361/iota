@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Set up Python 3.9
         uses: actions/setup-python@v3
         with:
@@ -49,12 +49,12 @@ jobs:
           import json
           with open("benchmark.json") as f:
               data = json.load(f)
-          
+
           failed = False
           for bench in data["benchmarks"]:
               name = bench["name"]
               mean = bench["stats"]["mean"]
-              
+
               if "single_thread" in name and mean > 0.001:
                   print(f"❌ {name}: {mean:.6f}s exceeds 1ms threshold")
                   failed = True
@@ -66,7 +66,7 @@ jobs:
                   failed = True
               else:
                   print(f"✅ {name}: {mean:.6f}s within threshold")
-          
+
           exit(1 if failed else 0)
           '
 

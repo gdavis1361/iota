@@ -4,7 +4,7 @@ setup() {
     # Get the containing directory of this file
     TEST_DIR="$BATS_TEST_DIRNAME"
     SCRIPT_DIR="$TEST_DIR/../../scripts"
-    
+
     # Create test log files
     cat > "$TEST_DIR/config1.log" << EOL
 {"timestamp": "2025-02-21T09:28:02-05:00", "level": "ERROR", "message": "Configuration validation error", "category": "CONFIG_VALIDATION", "extra": {"field": "SENTRY_DSN", "error": "Invalid format"}}

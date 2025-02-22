@@ -61,6 +61,8 @@ class UserUpdate(UserBase):
 
 # Properties to return via API
 class UserResponse(UserBase):
+    """User response schema."""
+
     id: int
     email: EmailStr
     full_name: str
@@ -70,8 +72,7 @@ class UserResponse(UserBase):
     updated_at: datetime
     last_login: Optional[datetime] = None
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)
 
 
 # Properties for token response

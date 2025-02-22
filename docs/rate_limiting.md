@@ -21,49 +21,78 @@ This document details the implementation of rate limiting in the JSquared API.
 ### Rate Limit Categories
 
 1. **Authentication Rate Limit**
-   ```python
-   @auth_rate_limit()  # 5 requests/minute
-   async def login_access_token():
-       ...
-   ```
+```python
+from fastapi import Depends
+from server.core.rate_limit import auth_rate_limit
+from typing import Dict
+
+@auth_rate_limit()  # 5 requests/minute
+async def login_access_token(
+    form_data: OAuth2PasswordRequestForm = Depends()
+) -> Dict[str, str]:
+    """Handle user login and token generation."""
+    return await process_login(form_data)
+```
 
 2. **Standard API Rate Limit**
-   ```python
-   @api_rate_limit()  # 60 requests/minute
-   async def standard_endpoint():
-       ...
-   ```
+```python
+from fastapi import APIRouter
+from server.core.rate_limit import api_rate_limit
+from typing import Dict, Any
+
+@api_rate_limit()  # 60 requests/minute
+async def standard_endpoint() -> Dict[str, Any]:
+    """Handle standard API request."""
+    return {"status": "success"}
+```
 
 3. **Heavy Operation Rate Limit**
-   ```python
-   @heavy_operation_rate_limit()  # 10 requests/minute
-   async def resource_intensive_operation():
-       ...
-   ```
+```python
+from server.core.rate_limit import heavy_operation_rate_limit
+from typing import Dict, Any
+
+@heavy_operation_rate_limit()  # 10 requests/minute
+async def resource_intensive_operation() -> Dict[str, Any]:
+    """Handle resource-intensive operation."""
+    return await process_heavy_task()
+```
 
 ## Code Structure
 
 ### Rate Limit Module (`rate_limit.py`)
 
 ```python
-def rate_limit(calls: int, period: str):
-    """Base rate limit decorator"""
-    def decorator(func: Callable):
+from typing import Callable, Dict, Any
+from functools import wraps
+from fastapi import Request
+import redis
+
+def rate_limit(calls: int, period: str) -> Callable:
+    """Base rate limit decorator.
+
+    Args:
+        calls: Number of allowed calls per period
+        period: Time period for rate limit (e.g., "1m", "1h")
+
+    Returns:
+        Decorator function
+    """
+    def decorator(func: Callable) -> Callable:
         @wraps(func)
-        async def wrapper(*args, **kwargs):
+        async def wrapper(*args: Any, **kwargs: Any) -> Any:
             # Extract request object
             request = next((arg for arg in args if isinstance(arg, Request)), None)
             if not request:
                 return await func(*args, **kwargs)
-            
+
             # Generate unique key
             key = f"rate_limit:{request.client.host}:{func.__name__}"
-            
+
             # Check and update rate limit
             current = int(redis_client.get(key) or 0)
             if current >= calls:
                 return rate_limit_exceeded_response()
-            
+
             # Update counter
             pipe = redis_client.pipeline()
             if current == 0:
@@ -71,7 +100,7 @@ def rate_limit(calls: int, period: str):
             else:
                 pipe.incr(key)
             pipe.execute()
-            
+
             return await func(*args, **kwargs)
         return wrapper
     return decorator

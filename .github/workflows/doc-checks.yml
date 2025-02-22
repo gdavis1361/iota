@@ -1,0 +1,49 @@
+name: Documentation Checks
+
+on:
+  push:
+    paths:
+      - '**.md'
+      - 'docs/**'
+      - '.github/workflows/doc-checks.yml'
+      - 'scripts/doc_checker.py'
+  pull_request:
+    paths:
+      - '**.md'
+      - 'docs/**'
+      - '.github/workflows/doc-checks.yml'
+      - 'scripts/doc_checker.py'
+  schedule:
+    - cron: '0 0 * * 0'  # Weekly on Sunday
+
+jobs:
+  check-docs:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyyaml rich
+
+    - name: Run documentation checks
+      run: python scripts/doc_checker.py
+
+    - name: Generate documentation report
+      if: always()
+      run: |
+        echo "## Documentation Check Results" >> $GITHUB_STEP_SUMMARY
+        python scripts/doc_checker.py >> $GITHUB_STEP_SUMMARY
+
+    - name: Check for critical issues
+      if: failure()
+      run: |
+        echo "::error::Documentation check failed - critical issues found"
+        exit 1

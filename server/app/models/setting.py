@@ -1,23 +1,16 @@
-from datetime import datetime
-
-from app.db.base import BaseModel
-from sqlalchemy import Column, DateTime, ForeignKey, Integer, String, UniqueConstraint
-from sqlalchemy.dialects.postgresql import JSONB
+from sqlalchemy import Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
+from app.db.base_class import Base
 
-class Setting(BaseModel):
-    """Settings model for user and system configuration"""
 
-    __tablename__ = "settings"
-    __table_args__ = (UniqueConstraint("user_id", "key", name="uq_settings_user_key"),)
+class Setting(Base):
+    """Setting model."""
 
-    id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=True)
+    id = Column(Integer, primary_key=True, index=True)
     key = Column(String, nullable=False)
-    value = Column(JSONB, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    value = Column(String)
+    user_id = Column(Integer, ForeignKey("users.id"))
 
     # Relationships
     user = relationship("User", back_populates="settings")

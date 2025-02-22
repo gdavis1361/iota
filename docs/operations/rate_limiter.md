@@ -190,50 +190,71 @@ def cleanup_expired_metrics(redis_client):
             redis_client.delete(key)
 ```
 
-### Configuration Updates
-1. Update rate limits:
-   ```python
-   # Example configuration update
-   app.add_middleware(
-       RateLimitMiddleware,
-       endpoint_limits={
-           "/api/v1/auth/token": {
-               "window": 900,  # 15 minutes
-               "max_requests": 5
-           }
-       }
-   )
-   ```
+## Configuration Updates
 
-2. Update alert thresholds:
-   ```yaml
-   # prometheus/alerts.yml
-   - alert: HighRateLimitViolations
-     expr: rate(rate_limit_exceeded_total[1h]) > new_threshold
-   ```
+### Rate Limit Updates
+```python
+# Example configuration update
+app.add_middleware(
+    RateLimitMiddleware,
+    endpoint_limits={
+        "/api/v1/auth/token": {
+            "window": 900,  # 15 minutes
+            "max_requests": 5
+        }
+    }
+)
+```
+
+### Alert Threshold Updates
+```yaml
+# prometheus/alerts.yml
+- alert: HighRateLimitViolations
+  expr: rate(rate_limit_exceeded_total[1h]) > new_threshold
+```
 
 ## Best Practices
 
-1. **Monitoring**
-   - Keep metric cardinality under control
-   - Use appropriate time windows
-   - Monitor Redis memory usage
-   - Review alert thresholds regularly
+### Monitoring Best Practices
+- Keep metric cardinality under control
+- Use appropriate time windows
+- Monitor Redis memory usage
+- Review alert thresholds regularly
 
-2. **Performance**
-   - Use Redis pipelining
-   - Implement metric aggregation
-   - Clean up expired metrics
-   - Monitor latency trends
+### Performance Best Practices
+- Use Redis pipelining
+- Implement metric aggregation
+- Clean up expired metrics
+- Monitor latency trends
 
-3. **Security**
-   - Protect metrics endpoint
-   - Monitor failed logins
-   - Review IP patterns
-   - Update rate limits based on usage
+### Security Best Practices
+- Protect metrics endpoint
+- Monitor failed logins
+- Review IP patterns
+- Update rate limits based on usage
 
-4. **Documentation**
-   - Keep runbooks updated
-   - Document configuration changes
-   - Maintain troubleshooting guides
-   - Update dashboard documentation
+### Documentation Best Practices
+- Keep runbooks updated
+- Document configuration changes
+- Maintain troubleshooting guides
+- Update dashboard documentation
+
+## Rate Limiting Configuration
+
+### Algorithm Configuration
+#### Rate Limit Algorithm
+- Description: Leaky Bucket Algorithm
+- Parameters:
+  - `window`: Time window for rate limiting (seconds)
+  - `max_requests`: Maximum requests allowed in time window
+
+### Redis Configuration
+#### Redis Connection Settings
+- Host: `localhost`
+- Port: `6379`
+- Database: `0`
+
+### Monitoring and Alerts
+#### Prometheus Configuration
+- Scrape interval: `1m`
+- Evaluation interval: `1m`

@@ -151,38 +151,41 @@ Ensure tests cover:
 
 1. **Test Isolation**
    ```python
-   @pytest.fixture(autouse=True)
-   def reset_monitor():
-       ConfigurationMonitor._instance = None
-       yield
-   ```
+@pytest.fixture(autouse=True)
+def reset_monitor():
+    ConfigurationMonitor._instance = None
+    yield
+```
 
 2. **Environment Control**
    ```python
-   @pytest.fixture
-   def test_env():
-       original = dict(os.environ)
-       yield
-       os.environ.clear()
-       os.environ.update(original)
-   ```
+def test_version_validation():
+    config = {
+        "version": "1.0.0",
+        "settings": {
+            "timeout": 30,
+            "retries": 3
+        }
+    }
+    assert validate_config_version(config)
+```
 
 3. **Comprehensive Validation**
    ```python
-   def test_full_validation():
-       """Test complete configuration validation."""
-       settings = Settings(
-           SECRET_KEY="x" * 32,
-           ENVIRONMENT="test",
-           version=ConfigVersion.V2_0.value
-       )
-       monitor = ConfigurationMonitor.get_instance()
-       metrics = monitor.get_metrics()
+def test_full_validation():
+    """Test complete configuration validation."""
+    settings = Settings(
+        SECRET_KEY="x" * 32,
+        ENVIRONMENT="test",
+        version=ConfigVersion.V2_0.value
+    )
+    monitor = ConfigurationMonitor.get_instance()
+    metrics = monitor.get_metrics()
 
-       assert metrics["total_validations"] > 0
-       assert metrics["total_errors"] == 0
-       assert metrics["config_version"] == ConfigVersion.V2_0.value
-   ```
+    assert metrics["total_validations"] > 0
+    assert metrics["total_errors"] == 0
+    assert metrics["config_version"] == ConfigVersion.V2_0.value
+```
 
 ## Security Testing
 

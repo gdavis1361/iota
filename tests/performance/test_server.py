@@ -6,8 +6,25 @@ import time
 import uvicorn
 from fastapi import FastAPI, HTTPException, Request, Response
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_client import Counter, Histogram, Info
 
 import redis
+
+# Define metrics
+TEST_EXECUTION_COUNT = Counter(
+    "test_executions_total", "Total number of test executions", ["test_name", "status"]
+)
+
+TEST_EXECUTION_DURATION = Histogram(
+    "test_execution_duration_seconds", "Test execution duration in seconds", ["test_name"]
+)
+
+TEST_ERROR_COUNT = Counter(
+    "test_errors_total", "Total number of test errors", ["test_name", "error_type"]
+)
+
+TEST_SERVER_INFO = Info("test_server", "Information about the test server")
+TEST_SERVER_INFO.info({"version": "1.0.0", "description": "IOTA Rate Limiter Test Server"})
 
 app = FastAPI(title="IOTA Rate Limiter Test Server")
 
@@ -29,8 +46,11 @@ async def health_check():
     """Health check endpoint."""
     try:
         redis_client.ping()
+        TEST_EXECUTION_COUNT.labels(test_name="health_check", status="success").inc()
         return {"status": "healthy", "redis": "connected"}
-    except Exception as e:
+    except Exception:
+        TEST_EXECUTION_COUNT.labels(test_name="health_check", status="error").inc()
+        TEST_ERROR_COUNT.labels(test_name="health_check", error_type="redis_connection").inc()
         return Response(
             content=json.dumps({"status": "unhealthy", "redis": "disconnected"}),
             status_code=503,
@@ -41,17 +61,30 @@ async def health_check():
 @app.get("/api/v1/data")
 async def get_data(request: Request):
     """Test endpoint for data retrieval."""
-    return {"message": "Data retrieved successfully", "timestamp": time.time()}
+    with TEST_EXECUTION_DURATION.labels(test_name="get_data").time():
+        try:
+            TEST_EXECUTION_COUNT.labels(test_name="get_data", status="success").inc()
+            return {"message": "Data retrieved successfully", "timestamp": time.time()}
+        except Exception:
+            TEST_EXECUTION_COUNT.labels(test_name="get_data", status="error").inc()
+            TEST_ERROR_COUNT.labels(test_name="get_data", error_type="unknown").inc()
+            raise
 
 
 @app.post("/api/v1/data/create")
 async def create_data(request: Request):
     """Test endpoint for data creation."""
-    return Response(
-        content='{"message": "Data created successfully"}',
-        status_code=201,
-        media_type="application/json",
-    )
+    with TEST_EXECUTION_DURATION.labels(test_name="create_data").time():
+        try:
+            TEST_EXECUTION_COUNT.labels(test_name="create_data", status="success").inc()
+            return Response(
+                content='{"message": "Data created successfully"}',
+                media_type="application/json",
+            )
+        except Exception:
+            TEST_EXECUTION_COUNT.labels(test_name="create_data", status="error").inc()
+            TEST_ERROR_COUNT.labels(test_name="create_data", error_type="unknown").inc()
+            raise
 
 
 @app.get("/api/v1/metrics")
@@ -61,7 +94,7 @@ async def get_metrics():
         total_requests = redis_client.get("total_requests") or "0"
         rate_limited = redis_client.get("rate_limited_requests") or "0"
         return {"total_requests": total_requests, "rate_limited_requests": rate_limited}
-    except Exception as e:
+    except Exception:
         return {"total_requests": 0, "rate_limited_requests": 0}
 
 

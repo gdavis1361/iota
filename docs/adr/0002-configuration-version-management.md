@@ -131,6 +131,6 @@ class ConfigurationMonitor:
 
 ## References
 
-- [Configuration System README](/server/core/README.md)
-- [Version Compatibility Guide](/server/core/VERSION_COMPATIBILITY.md)
-- [Configuration Schema](/server/core/config_schema.py)
+- [Configuration System README](/Users/allan/Projects/iota/docs/adr/../../server/core/README.md)
+- [Version Compatibility Guide](/Users/allan/Projects/iota/docs/adr/../../server/core/VERSION_COMPATIBILITY.md)
+- [Configuration Schema](/Users/allan/Projects/iota/docs/adr/../../server/core/config_schema.py)

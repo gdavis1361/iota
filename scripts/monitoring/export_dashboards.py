@@ -6,12 +6,11 @@ Export Grafana dashboards to JSON files.
 This script exports all Grafana dashboards to JSON files for version control.
 """
 
-import argparse
 import json
-import os
+import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import requests
 
@@ -40,13 +39,11 @@ class GrafanaExporter:
 
     def export_dashboards(self, output_dir: str, backup: bool = True) -> None:
         """Export all dashboards to JSON files."""
-        os.makedirs(output_dir, exist_ok=True)
+        Path(output_dir).mkdir(parents=True, exist_ok=True)
 
         if backup:
-            backup_dir = os.path.join(
-                output_dir, f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
-            )
-            os.makedirs(backup_dir, exist_ok=True)
+            backup_dir = Path(output_dir) / f"backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+            backup_dir.mkdir(parents=True, exist_ok=True)
 
         dashboards = self.get_all_dashboards()
         for dash in dashboards:
@@ -59,7 +56,7 @@ class GrafanaExporter:
 
                 # Save current version
                 filename = f"{dash['uid']}.json"
-                filepath = os.path.join(output_dir, filename)
+                filepath = Path(output_dir) / filename
 
                 with open(filepath, "w") as f:
                     json.dump(dashboard, f, indent=2, sort_keys=True)
@@ -68,7 +65,7 @@ class GrafanaExporter:
 
                 # Create backup if enabled
                 if backup:
-                    backup_path = os.path.join(backup_dir, filename)
+                    backup_path = backup_dir / filename
                     with open(backup_path, "w") as f:
                         json.dump(dashboard, f, indent=2, sort_keys=True)
 
@@ -98,4 +95,6 @@ def main():
 
 
 if __name__ == "__main__":
+    import argparse
+
     main()

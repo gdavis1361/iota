@@ -1,0 +1,11 @@
+groups:
+  - name: test_latency
+    rules:
+      - alert: HighTestLatency
+        expr: rate(test_execution_duration_seconds_sum[5m]) / rate(test_execution_duration_seconds_count[5m]) > 1
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: High test latency detected
+          description: Test execution latency is above threshold for {{ $labels.test_name }}

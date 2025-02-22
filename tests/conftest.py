@@ -2,166 +2,150 @@
 Shared pytest fixtures and configuration.
 """
 
-import asyncio
+import logging
 import os
+from asyncio import AbstractEventLoop, new_event_loop
 from pathlib import Path
-from typing import AsyncGenerator, Generator
+from typing import Any, AsyncGenerator, Dict, Generator
 
 import pytest
-from playwright.async_api import Browser, Page, async_playwright
+import pytest_asyncio
+import structlog
+from fastapi import FastAPI
+from httpx import AsyncClient
+from sqlalchemy import event, text
+from sqlalchemy.engine import Engine
+from sqlalchemy.ext.asyncio import (
+    AsyncEngine,
+    AsyncSession,
+    async_sessionmaker,
+    create_async_engine,
+)
 
+# Configure logging
+logger = structlog.get_logger()
 
-@pytest.fixture(autouse=True)
-def test_env():
-    """Automatically set test environment for all tests."""
-    original_env = dict(os.environ)
-
-    # Set base test environment
-    test_env_vars = {
-        "ENVIRONMENT": "test",
-        "ENV_FILE": "tests/core/test_settings.env",
-        "APP_NAME": "iota-test",
-        "DEBUG": "true",
-        "LOG_LEVEL": "DEBUG",
-        "SECRET_KEY": "test-secret-key",
-        "SENTRY_ENABLED": "false",
-        "SENTRY_DSN": "",
-        "SENTRY_ENVIRONMENT": "test",
-        "SENTRY_TRACES_SAMPLE_RATE": "0.0",
-        "SENTRY_PROFILES_SAMPLE_RATE": "0.0",
-        "SENTRY_DEBUG": "false",
-        "SENTRY_METADATA": "{}",
+# Set test environment variables
+os.environ.update(
+    {
+        "ENVIRONMENT": "testing",
+        "SERVER_HOST": "http://test",
+        "SERVER_NAME": "IOTA Test Server",
+        "PROJECT_NAME": "IOTA",
+        "API_V1_STR": "/api/v1",
+        "POSTGRES_SERVER": "localhost",
+        "POSTGRES_DB": "jsquared_test",
+        "POSTGRES_USER": "postgres",
+        "POSTGRES_PASSWORD": "postgres",
+        "SECRET_KEY": "test_secret_key_for_testing_only",
+        "DATABASE_URL": "postgresql+asyncpg://postgres:postgres@localhost/jsquared_test",
     }
+)
 
-    os.environ.update(test_env_vars)
-
-    yield
-
-    # Restore original environment
-    os.environ.clear()
-    os.environ.update(original_env)
-
-
-@pytest.fixture
-def project_root() -> Path:
-    """Get project root directory."""
-    return Path(__file__).parent.parent
+from app.core.config import Settings, get_settings
+# Import all models to ensure they are registered with metadata
+from app.db.base import Base  # This imports all models
+from app.db.session import get_db
+from app.main import app as fastapi_app
 
 
-@pytest.fixture
-def server_dir(project_root: Path) -> Path:
-    """Get server directory."""
-    return project_root / "server"
-
-
-@pytest.fixture
-def test_dir(project_root: Path) -> Path:
-    """Get tests directory."""
-    return project_root / "tests"
-
-
-@pytest.fixture
-def test_data_dir(test_dir: Path) -> Path:
-    """Get test data directory."""
-    data_dir = test_dir / "data"
-    data_dir.mkdir(exist_ok=True)
-    return data_dir
-
-
-@pytest.fixture
-async def browser() -> AsyncGenerator[Browser, None]:
-    """Create a browser instance for UI testing."""
-    async with async_playwright() as p:
-        # Use chromium in headless mode
-        browser = await p.chromium.launch(headless=True, args=["--no-sandbox"])
-        yield browser
-        await browser.close()
-
-
-@pytest.fixture
-async def page(browser: Browser) -> AsyncGenerator[Page, None]:
-    """Create a new page for each test."""
-    page = await browser.new_page()
-    yield page
-    await page.close()
-
-
-@pytest.fixture
-def event_loop() -> Generator[asyncio.AbstractEventLoop, None, None]:
-    """Create an event loop for each test."""
-    loop = asyncio.new_event_loop()
+@pytest.fixture(scope="session")
+def event_loop() -> Generator[AbstractEventLoop, None, None]:
+    """Create an instance of the default event loop for each test case."""
+    loop = new_event_loop()
     yield loop
     loop.close()
 
 
-@pytest.fixture
-def mock_time(monkeypatch):
-    """Mock time.time() for consistent testing."""
-    MOCK_TIME = 1000.0
+@pytest_asyncio.fixture(scope="session")
+async def engine() -> AsyncGenerator[AsyncEngine, None]:
+    """Create a test database engine."""
+    logger.info("creating_test_database_engine")
 
-    class MockTime:
-        _time = MOCK_TIME
-
-        @classmethod
-        def time(cls):
-            return cls._time
-
-        @classmethod
-        def sleep(cls, seconds):
-            cls._time += seconds
-
-    monkeypatch.setattr("time.time", MockTime.time)
-    monkeypatch.setattr("time.sleep", MockTime.sleep)
-    return MockTime
-
-
-@pytest.fixture
-def base_test_settings():
-    """Create a base test settings instance."""
-    from server.core.config import Settings, initialize_settings
-
-    # Reset any existing settings
-    initialize_settings()
-
-    # Create and return new settings instance
-    return Settings()
-
-
-"""Test configuration and fixtures."""
-import os
-from typing import Generator
-
-import pytest
-
-from server.core.config import RateLimitConfig, Settings, create_test_settings
-from server.core.config.base import EnvironmentType
-from server.core.config.rate_limit import EndpointLimit
-
-
-@pytest.fixture(scope="session")
-def test_settings() -> Generator[Settings, None, None]:
-    """Create test settings."""
-    # Set test environment
-    os.environ["ENVIRONMENT"] = "testing"
-
-    # Create test settings
-    settings = create_test_settings()
-    assert settings.ENVIRONMENT == EnvironmentType.TESTING
-    assert settings.DEBUG is True
-
-    yield settings
-
-    # Cleanup
-    os.environ.pop("ENVIRONMENT", None)
-
-
-@pytest.fixture
-def rate_limit_config() -> RateLimitConfig:
-    """Create test rate limit configuration."""
-    return RateLimitConfig(
-        default_window=60,
-        default_max_requests=100,
-        endpoint_limits={"/test/endpoint": EndpointLimit(window=30, max_requests=50)},
-        redis_host="localhost",
-        redis_port=6379,
+    test_engine = create_async_engine(
+        os.environ["DATABASE_URL"],
+        echo=True,
+        future=True,
+        pool_pre_ping=True,  # Enable connection health checks
     )
+
+    # Create all tables
+    async with test_engine.begin() as conn:
+        logger.info("dropping_existing_tables")
+        await conn.run_sync(Base.metadata.drop_all)
+        logger.info("creating_test_tables")
+        await conn.run_sync(Base.metadata.create_all)
+
+    yield test_engine
+
+    # Clean up
+    async with test_engine.begin() as conn:
+        logger.info("cleaning_up_test_database")
+        await conn.run_sync(Base.metadata.drop_all)
+
+    await test_engine.dispose()
+    logger.info("test_database_engine_disposed")
+
+
+@pytest_asyncio.fixture
+async def db_session(engine: AsyncEngine) -> AsyncSession:
+    """Create a nested transaction and rollback after the test."""
+    # Create a connection
+    async with engine.connect() as connection:
+        # Begin a transaction
+        await connection.begin()
+
+        # Begin a nested transaction (SAVEPOINT)
+        await connection.begin_nested()
+
+        # Create session with the nested transaction
+        session = AsyncSession(bind=connection, expire_on_commit=False)
+
+        try:
+            yield session
+        finally:
+            await session.close()
+
+
+@pytest_asyncio.fixture
+async def async_client(db_session: AsyncSession) -> AsyncGenerator[AsyncClient, None]:
+    """Create async test client with database session injection."""
+    try:
+        # Override the get_db dependency
+        async def get_test_db():
+            yield db_session
+
+        fastapi_app.dependency_overrides[get_db] = get_test_db
+
+        # Use test server host without API prefix since FastAPI adds it
+        base_url = os.environ["SERVER_HOST"]
+
+        async with AsyncClient(
+            app=fastapi_app,
+            base_url=base_url,
+            follow_redirects=True,
+        ) as test_client:
+            yield test_client
+
+    finally:
+        # Always clean up dependency override
+        fastapi_app.dependency_overrides.clear()
+
+
+@pytest.fixture
+def settings() -> Settings:
+    """Get test settings."""
+    return get_settings()
+
+
+# Add SQL query logging for debugging
+@event.listens_for(Engine, "before_cursor_execute")
+def before_cursor_execute(conn, cursor, statement, parameters, context, executemany):
+    """Log SQL query before execution."""
+    logger.debug("sql_query_starting", statement=statement, parameters=parameters)
+
+
+@event.listens_for(Engine, "after_cursor_execute")
+def after_cursor_execute(conn, cursor, statement, parameters, context, executemany):
+    """Log SQL query after execution."""
+    logger.debug("sql_query_completed", statement=statement, parameters=parameters)

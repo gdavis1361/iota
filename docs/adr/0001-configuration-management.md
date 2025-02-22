@@ -133,6 +133,7 @@ rate_limit = EndpointLimit(
 ## References
 - [Pydantic v2 Documentation](https://docs.pydantic.dev/latest/)
 - [Python Testing Best Practices](https://docs.pytest.org/en/stable/explanation/good-practices.html)
-- [Pre-commit Configuration](/docs/pre-commit.md)
-- [Contributing Guidelines](/docs/contributing.md)
-- [Development Setup](/docs/development.md)
+For more information, see:
+- [Contributing Guidelines](/Users/allan/Projects/iota/docs/adr/../contributing.md)
+- [Pre-commit Setup](/Users/allan/Projects/iota/docs/adr/../pre-commit.md)
+- [Development Guide](/Users/allan/Projects/iota/docs/adr/../development.md)

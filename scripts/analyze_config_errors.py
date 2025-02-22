@@ -2,7 +2,7 @@
 """Analyze configuration errors from log files."""
 import json
 import sys
-from collections import Counter, defaultdict
+from collections import Counter
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from typing import Dict, List, Optional

@@ -129,6 +129,38 @@ services:
       timeout: 3s
       retries: 3
 
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./provisioning/prometheus:/etc/prometheus
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/usr/share/prometheus/console_libraries'
+      - '--web.console.templates=/usr/share/prometheus/consoles'
+    ports:
+      - "9091:9090"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:9090/-/healthy"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  grafana:
+    image: grafana/grafana:latest
+    volumes:
+      - ./provisioning:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_AUTH_ANONYMOUS_ENABLED=true
+      - GF_FEATURE_TOGGLES_ENABLE=alertingProvisioning
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+
   nginx:
     image: nginx:alpine
     volumes:
@@ -145,3 +177,5 @@ volumes:
   sentinel1_data:
   sentinel2_data:
   sentinel3_data:
+  grafana_data:
+  prometheus_data:

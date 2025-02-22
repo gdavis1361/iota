@@ -130,6 +130,9 @@ from app.core.config import settings
 
 if settings.FEATURE_AUTH_2FA_ENABLED:
     # 2FA logic here
+    def enable_2fa(user_id: str) -> bool:
+        # Implementation
+        pass
 ```
 
 #### Frontend (Next.js / React)
@@ -210,7 +213,7 @@ Our `docker-compose.yml` is configured to load both `.env` and `.env.test`:
 ```yaml
 services:
   server:
-    env_file: 
+    env_file:
       - server/.env
       - server/.env.test
 ```

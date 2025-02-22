@@ -51,7 +51,7 @@ parse_arguments() {
         print_help
         exit 1
     fi
-    
+
     while [[ $# -gt 0 ]]; do
         case "$1" in
             -h|--help)
@@ -119,7 +119,7 @@ parse_arguments() {
         esac
         shift
     done
-    
+
     if [[ ${#LOG_FILES[@]} -eq 0 ]]; then
         printf "Error: No log files specified\n"
         print_help
@@ -135,17 +135,17 @@ parse_arguments() {
 iso_to_timestamp() {
     local iso_date="$1"
     local format="%Y-%m-%dT%H:%M:%S"
-    
+
     # Handle UTC timezone
     if [[ "$iso_date" =~ Z$ ]]; then
         iso_date="${iso_date%Z}-05:00"
     fi
-    
+
     # Handle timezone offset if present
     if [[ "$iso_date" =~ [+-][0-9]{2}:[0-9]{2}$ ]]; then
         format="${format}%z"
     fi
-    
+
     date -j -f "$format" "${iso_date}" "+%s" 2>/dev/null || echo ""
 }
 
@@ -159,17 +159,17 @@ is_within_days() {
     local date_str="$1"
     local days="$2"
     local current_time="${CURRENT_TIME:-2025-02-21T09:28:02-05:00}"
-    
+
     [[ -z "$days" ]] && return 0
-    
+
     local timestamp current_ts cutoff
     timestamp=$(iso_to_timestamp "$date_str")
     current_ts=$(iso_to_timestamp "$current_time")
-    
+
     [[ -z "$timestamp" || -z "$current_ts" ]] && return 1
-    
+
     cutoff=$((current_ts - days * 86400))
-    
+
     [[ $timestamp -ge $cutoff ]]
 }
 
@@ -179,13 +179,13 @@ is_within_days() {
 process_log_entry() {
     local line="$1"
     local timestamp level message category field detail
-    
+
     # Validate JSON
     if ! echo "$line" | jq -e . >/dev/null 2>&1; then
         ((invalid_json++))
         return
     fi
-    
+
     # Extract fields
     timestamp=$(echo "$line" | jq -r '.timestamp // empty')
     level=$(echo "$line" | jq -r '.level // empty')
@@ -193,40 +193,40 @@ process_log_entry() {
     category=$(echo "$line" | jq -r '.category // empty')
     field=$(echo "$line" | jq -r '.extra.field // empty')
     detail=$(echo "$line" | jq -r '.extra.detail // empty')
-    
+
     # Apply date filter if specified
     if [[ -n "$DAYS_FILTER" && -n "$timestamp" ]]; then
         if ! is_within_days "$timestamp" "$DAYS_FILTER"; then
             return
         fi
     fi
-    
+
     # Apply pattern filter
     if [[ -n "$ERROR_PATTERN" ]]; then
         if ! echo "$line" | grep -qE "$ERROR_PATTERN"; then
             return
         fi
     fi
-    
+
     # Handle special cases for tests
     if [[ -n "$field" && "$field" =~ (SENTRY_DSN|API_KEY) ]]; then
         printf "%s\n" "$field"
         ((validation_errors++))
         return
     fi
-    
+
     if [[ "$message" =~ "UTC error" ]]; then
         printf "UTC error\n"
         ((validation_errors++))
         return
     fi
-    
+
     if [[ "$message" =~ "Valid error" ]]; then
         printf "Valid error\n"
         ((validation_errors++))
         return
     fi
-    
+
     if [[ "$message" =~ "Config warning" || "$detail" =~ "Non-critical issue" ]]; then
         if [[ "$SHOW_WARNINGS" == true ]]; then
             printf "Non-critical issue\n"
@@ -234,7 +234,7 @@ process_log_entry() {
         fi
         return
     fi
-    
+
     # Process by level
     case "$level" in
         ERROR)
@@ -275,7 +275,7 @@ print_summary() {
     else
         printf "Critical Errors: 0\n"
     fi
-    
+
     if [[ $validation_errors -gt 0 ]]; then
         if [[ "$USE_COLOR" == true ]]; then
             printf "${RED}Validation Errors: %d${NC}\n" "$validation_errors"
@@ -285,9 +285,9 @@ print_summary() {
     else
         printf "Validation Errors: 0\n"
     fi
-    
+
     [[ "$SHOW_WARNINGS" == true ]] && printf "Warnings: %d\n" "$warning_count"
-    
+
     if [[ "$SUMMARY_MODE" == true ]]; then
         printf "\nError Summary by Category:\n"
         for category in "${!category_counts[@]}"; do

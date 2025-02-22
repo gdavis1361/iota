@@ -4,13 +4,13 @@ Below is a concise roadmap to restart the project with a solid foundation:
 
 ### **1. Environment & Infrastructure Setup**
 
-- **Docker & Environment Isolation:**  
-  - Create a clean Docker-based environment that mimics production.  
-  - Configure your Dockerfile and docker-compose to set the correct environment variables and PYTHONPATH.  
+- **Docker & Environment Isolation:**
+  - Create a clean Docker-based environment that mimics production.
+  - Configure your Dockerfile and docker-compose to set the correct environment variables and PYTHONPATH.
   - Ensure no local modules (e.g., a custom `logging.py`) shadow standard library modules.
 
-- **Environment Configuration:**  
-  - Use a dedicated configuration module (with Pydantic v2) to load and validate all environment variables from a clearly defined `.env` file.  
+- **Environment Configuration:**
+  - Use a dedicated configuration module (with Pydantic v2) to load and validate all environment variables from a clearly defined `.env` file.
   - Implement a bootstrap module that *first* loads your environment variables, then instantiates configuration as a singleton, and finally initializes logging and other services.
   - Include Sentry DSN and environment-specific settings in your configuration.
 
@@ -18,7 +18,7 @@ Below is a concise roadmap to restart the project with a solid foundation:
 
 ### **2. Core Foundation Components**
 
-- **Logging System:**  
+- **Logging System:**
   - Start by implementing and testing your logging system in isolation.
     - Integrate your asynchronous logging handler (AsyncLogHandler), ensuring proper instantiation of handlers (using lambdas or factory functions in your config).
     - Add structured logging with correlation IDs, sensitive data masking (SensitiveDataFilter), and optional output formats (JSON for production, human-readable for development).
@@ -37,22 +37,22 @@ Below is a concise roadmap to restart the project with a solid foundation:
   - Implement custom event processors for sensitive data scrubbing
   - Configure release tracking to correlate errors with deployments
 
-- **Resolve Dependencies:**  
-  - Refactor module relationships to remove circular dependencies (e.g., move shared utilities to a utils module).  
+- **Resolve Dependencies:**
+  - Refactor module relationships to remove circular dependencies (e.g., move shared utilities to a utils module).
   - Use dependency injection when possible so that logging and configuration modules do not implicitly pull in database dependencies.
 
 ---
 
 ### **3. Testing & Isolation**
 
-- **Test Infrastructure:**  
+- **Test Infrastructure:**
   - Set up your test configuration in `pytest.ini` (or similar) to ensure tests run in an isolated environment.
   - Mock external dependencies (like the database and Sentry) entirely during early testing to focus on core system stability.
   - Verify all logging tests pass (async, formatting, masking, etc.) before proceeding.
   - Include specific tests for error capturing and reporting workflows.
 
-- **Iterative Validation:**  
-  - Run your test suite inside the Docker container to simulate production.  
+- **Iterative Validation:**
+  - Run your test suite inside the Docker container to simulate production.
   - Use the detailed logging (with correlation IDs) to quickly pinpoint any initialization or configuration issues.
   - Validate error reporting pipeline with controlled test errors.
 
@@ -60,12 +60,12 @@ Below is a concise roadmap to restart the project with a solid foundation:
 
 ### **4. Incremental Feature Reintroduction**
 
-- **Stabilize Core Before Additional Features:**  
+- **Stabilize Core Before Additional Features:**
   - Once logging, configuration, and error monitoring are robust, reintroduce business logic features incrementally.
   - Validate each new component (e.g., database interactions, JWT authentication, CORS handling) independently, then integrate with the stable logging/config foundation.
   - Add appropriate error boundaries and Sentry transaction monitoring for each feature.
 
-- **Documentation & Monitoring:**  
+- **Documentation & Monitoring:**
   - Update your README or a dedicated internal document with detailed instructions for bootstrapping, configuration settings, and troubleshooting.
   - Document Sentry integration, including custom context setup and performance monitoring configuration.
   - Consider integrating additional external monitoring (ELK, Splunk, etc.) once the core logging and error reporting systems are proven in a production-like environment.

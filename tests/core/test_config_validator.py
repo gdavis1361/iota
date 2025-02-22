@@ -5,13 +5,13 @@ from pathlib import Path
 
 import pytest
 
-from scripts.validate_config import ConfigurationValidator
+from scripts.validate_config import TemplateConfigValidator
 
 
 @pytest.fixture
 def validator():
     """Create a fresh validator instance for each test."""
-    return ConfigurationValidator()
+    return TemplateConfigValidator()
 
 
 @pytest.fixture

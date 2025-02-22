@@ -87,6 +87,6 @@ If you see mypy errors about duplicate modules:
 3. Check for any remaining duplicate files
 
 ## Need Help?
-- Review the [Configuration Management ADR](/docs/adr/0001-configuration-management.md)
-- Check the [Contributing Guidelines](/docs/contributing.md)
+- Review the [Configuration Management ADR](/Users/allan/Projects/iota/docs/migration/../adr/0001-configuration-management.md)
+- Check the [Contributing Guidelines](/Users/allan/Projects/iota/docs/migration/../contributing.md)
 - Raise an issue if you encounter problems

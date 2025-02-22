@@ -1,0 +1,127 @@
+{
+  "version": "1.0.0",
+  "configuration_validation": {
+    "environment": {
+      "allowed_values": ["development", "testing", "staging", "production"],
+      "case_sensitive": false,
+      "error_message": "Invalid ENVIRONMENT value: {value}"
+    },
+    "security": {
+      "secret_key": {
+        "min_length": 32,
+        "error_message": "SECRET_KEY is too short (minimum 32 characters)"
+      },
+      "production_rules": {
+        "debug_disabled": {
+          "error_message": "DEBUG should not be enabled in production"
+        },
+        "allowed_hosts": {
+          "no_wildcards": true,
+          "error_message": "Wildcard ALLOWED_HOSTS should not be used in production"
+        }
+      }
+    },
+    "sentry": {
+      "dsn_required_if_enabled": true,
+      "dsn_format": "^https?://",
+      "error_messages": {
+        "missing_dsn": "SENTRY_DSN is required when Sentry is enabled",
+        "invalid_format": "SENTRY_DSN must start with http:// or https://"
+      }
+    }
+  },
+  "template_types": {
+    "runbook": {
+      "metadata_fields": {
+        "required": {
+          "Purpose": "ERROR",
+          "Dependencies": "ERROR",
+          "SLOs": "ERROR",
+          "Security Classification": "ERROR",
+          "Last Review Date": "ERROR",
+          "Team Owner": "ERROR"
+        },
+        "recommended": {
+          "Compliance Requirements": "WARNING",
+          "Cost Center": "WARNING",
+          "Service Tier": "WARNING"
+        }
+      },
+      "security_requirements": {
+        "required": {
+          "Access Management": "ERROR",
+          "Compliance Controls": "ERROR",
+          "Audit Logging": "ERROR"
+        },
+        "recommended": {
+          "Key Rotation": "WARNING",
+          "Vulnerability Scanning": "WARNING",
+          "Penetration Testing": "WARNING",
+          "Security Monitoring": "WARNING",
+          "Compliance Reporting": "WARNING"
+        }
+      },
+      "cloud_requirements": {
+        "required": {
+          "services": {
+            "compute": "ERROR",
+            "storage": "ERROR",
+            "networking": "ERROR"
+          },
+          "operations": {
+            "Backup Procedures": "ERROR",
+            "Scaling Procedures": "ERROR"
+          },
+          "monitoring": {
+            "Metric Collection": "ERROR",
+            "Alert Configuration": "ERROR"
+          }
+        },
+        "recommended": {
+          "operations": {
+            "Maintenance Windows": "WARNING"
+          },
+          "monitoring": {
+            "Dashboard Access": "WARNING"
+          },
+          "security": {
+            "Access Control": "WARNING",
+            "Network Security": "WARNING",
+            "Compliance Checks": "WARNING"
+          }
+        }
+      },
+      "cost_requirements": {
+        "required": {
+          "Estimated Costs": "ERROR",
+          "Budget Constraints": "ERROR",
+          "Cost Allocation Tags": "ERROR"
+        },
+        "recommended": {
+          "Resource Utilization": "WARNING",
+          "Reserved Instances": "WARNING",
+          "Spot Instances": "WARNING",
+          "Cost Breakdown": "WARNING"
+        }
+      },
+      "infrastructure_requirements": {
+        "required": {
+          "Instance Types": "ERROR",
+          "Storage Configuration": "ERROR",
+          "Network Setup": "ERROR"
+        },
+        "recommended": {
+          "Auto Scaling": "WARNING",
+          "Backup Configuration": "WARNING",
+          "Monitoring Setup": "WARNING",
+          "Resource Specifications": {
+            "CPU": "WARNING",
+            "Memory": "WARNING",
+            "Storage": "WARNING",
+            "Network": "WARNING"
+          }
+        }
+      }
+    }
+  }
+}

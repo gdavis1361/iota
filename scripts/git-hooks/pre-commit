@@ -1,0 +1,37 @@
+#!/bin/sh
+#
+# Pre-commit hook for IOTA validation framework
+# Copy this file to .git/hooks/pre-commit to enable
+
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+NC='\033[0m' # No Color
+
+echo "Running version validation checks..."
+
+# Check if validation_rules.json was modified
+if git diff --cached --name-only | grep -q "config/validation_rules.json"; then
+    echo "Validating schema version..."
+    python scripts/validate_config.py
+    RESULT=$?
+    if [ $RESULT -ne 0 ]; then
+        echo "${RED}❌ Version validation failed${NC}"
+        exit 1
+    fi
+    echo "${GREEN}✅ Version validation passed${NC}"
+fi
+
+# Run template tests if relevant files changed
+if git diff --cached --name-only | grep -q "server/core/config_schema.py\|scripts/validate_config.py\|tests/"; then
+    echo "Running template tests..."
+    python -m pytest tests/test_version_compatibility.py -v
+    RESULT=$?
+    if [ $RESULT -ne 0 ]; then
+        echo "${RED}❌ Tests failed${NC}"
+        exit 1
+    fi
+    echo "${GREEN}✅ Tests passed${NC}"
+fi
+
+exit 0

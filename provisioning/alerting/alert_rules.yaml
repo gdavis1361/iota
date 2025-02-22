@@ -1,0 +1,56 @@
+apiVersion: 1
+groups:
+  - name: test_latency
+    folder: Test Monitoring
+    interval: 1m
+    rules:
+      - alert: HighTestLatency
+        title: High Test Latency Alert
+        uid: high_test_latency
+        condition: C
+        for: 5m
+        annotations:
+          summary: High test latency detected
+          description: Test execution latency is above threshold
+        data:
+          - refId: A
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: 'rate(test_execution_duration_seconds_sum[5m]) / rate(test_execution_duration_seconds_count[5m]) > 1'
+              legendFormat: '{{test_name}}'
+              refId: A
+          - refId: B
+            relativeTimeRange:
+              from: 300
+              to: 0
+            datasourceUid: prometheus
+            model:
+              expr: 'vector(1)'
+          - refId: C
+            relativeTimeRange:
+              from: 300
+              to: 0
+            model:
+              conditions:
+                - evaluator:
+                    params:
+                      - 0
+                    type: gt
+                  operator:
+                    type: and
+                  query:
+                    params:
+                      - A
+                  reducer:
+                    type: last
+                  type: query
+              datasource:
+                type: __expr__
+                uid: __expr__
+              expression: A
+              type: math
+        labels:
+          severity: critical

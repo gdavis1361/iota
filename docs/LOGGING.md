@@ -89,15 +89,17 @@ Logs generated during configuration system initialization.
 #### Successful Initialization
 ```json
 {
+    "timestamp": "2025-02-21T09:14:45-05:00",
     "level": "INFO",
-    "message": "Settings initialized successfully",
+    "message": "Environment validation complete",
+    "category": "CONFIG_INIT",
     "extra": {
         "app_name": "iota",
-        "environment": "production",
         "debug_mode": false,
         "log_level": "INFO",
         "sentry_enabled": true,
-        "allowed_hosts": ["api.iota.com"]
+        "environment": "production",
+        "source": "sentry_validator"
     }
 }
 ```
@@ -105,6 +107,7 @@ Logs generated during configuration system initialization.
 #### Initialization Failure
 ```json
 {
+    "timestamp": "2025-02-21T09:14:45-05:00",
     "level": "CRITICAL",
     "message": "Failed to initialize settings",
     "extra": {
@@ -218,33 +221,44 @@ Example Elasticsearch query to find all configuration validation errors:
 
 During application startup, you'll see a sequence of validation and initialization logs:
 
+### Initialization Log Sequence
+
+#### Environment Validation
 ```json
-// Environment validation
 {
     "timestamp": "2025-02-21T09:14:45-05:00",
     "level": "INFO",
-    "message": "Environment validated",
-    "category": "CONFIG_VALIDATION",
+    "message": "Environment validation complete",
+    "category": "CONFIG_INIT",
     "extra": {
+        "app_name": "iota",
+        "debug_mode": false,
+        "log_level": "INFO",
+        "sentry_enabled": true,
         "environment": "production",
-        "source": "environment_validator"
+        "source": "sentry_validator"
     }
 }
+```
 
-// Sentry configuration
+#### Sentry Configuration
+```json
 {
     "timestamp": "2025-02-21T09:14:45-05:00",
     "level": "INFO",
     "message": "Sentry configuration validated",
     "category": "CONFIG_VALIDATION",
     "extra": {
-        "sentry_enabled": true,
+        "app_name": "iota",
         "environment": "production",
+        "sentry_enabled": true,
         "source": "sentry_validator"
     }
 }
+```
 
-// Final initialization
+#### Final Initialization
+```json
 {
     "timestamp": "2025-02-21T09:14:45-05:00",
     "level": "INFO",
@@ -353,11 +367,11 @@ class JSONFormatter(logging.Formatter):
             "message": record.getMessage(),
             "logger": record.name
         }
-        
+
         # Add extra fields if present
         if hasattr(record, "extra"):
             log_data.update(record.extra)
-            
+
         return json.dumps(log_data)
 
 def setup_logging(log_path: str):
@@ -368,10 +382,10 @@ def setup_logging(log_path: str):
         backupCount=10,
         encoding='utf-8'
     )
-    
+
     formatter = JSONFormatter()
     handler.setFormatter(formatter)
-    
+
     logger = logging.getLogger()
     logger.addHandler(handler)
     logger.setLevel(logging.INFO)
@@ -394,19 +408,19 @@ from typing import Dict, List, Optional
 
 class ConfigLogAnalyzer:
     """Analyzer for configuration logs."""
-    
+
     def __init__(self, log_file: str):
         self.log_file = log_file
         self.errors: List[Dict] = []
         self.error_counts = Counter()
         self.field_errors = Counter()
-        
+
     def load_logs(self, days: Optional[int] = None) -> None:
         """Load and parse log entries."""
         cutoff = None
         if days:
             cutoff = datetime.now() - timedelta(days=days)
-            
+
         with open(self.log_file) as f:
             for line in f:
                 try:
@@ -416,28 +430,28 @@ class ConfigLogAnalyzer:
                             log_time = datetime.fromisoformat(entry["timestamp"].replace("Z", "+00:00"))
                             if log_time < cutoff:
                                 continue
-                                
+
                         self.errors.append(entry)
                         self.error_counts[entry["message"]] += 1
                         if "field" in entry.get("extra", {}):
                             self.field_errors[entry["extra"]["field"]] += 1
                 except (json.JSONDecodeError, KeyError):
                     continue
-    
+
     def print_summary(self) -> None:
         """Print error analysis summary."""
         print("\n=== Configuration Error Analysis ===\n")
-        
+
         print("Total Errors:", len(self.errors))
-        
+
         print("\nTop Error Messages:")
         for msg, count in self.error_counts.most_common(5):
             print(f"  {count:3d}: {msg}")
-            
+
         print("\nMost Problematic Fields:")
         for field, count in self.field_errors.most_common(5):
             print(f"  {count:3d}: {field}")
-            
+
         print("\nRecent Error Examples:")
         for error in self.errors[-3:]:
             print(f"\n  Time: {error['timestamp']}")
@@ -449,10 +463,10 @@ def main():
     if len(sys.argv) < 2:
         print("Usage: analyze_config_errors.py <log_file> [days]")
         sys.exit(1)
-        
+
     log_file = sys.argv[1]
     days = int(sys.argv[2]) if len(sys.argv) > 2 else None
-    
+
     analyzer = ConfigLogAnalyzer(log_file)
     analyzer.load_logs(days)
     analyzer.print_summary()
@@ -555,4 +569,3 @@ Error Counts by Category:
 Missing Required Fields:
       3 "field":"SECRET_KEY"
       2 "field":"SENTRY_DSN"
-```

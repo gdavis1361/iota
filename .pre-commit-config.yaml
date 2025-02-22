@@ -1,6 +1,6 @@
 repos:
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v5.0.0
+    rev: v4.4.0
     hooks:
       - id: trailing-whitespace
       - id: end-of-file-fixer
@@ -10,19 +10,17 @@ repos:
       - id: detect-private-key
 
   - repo: https://github.com/psf/black
-    rev: 25.1.0
+    rev: 23.3.0
     hooks:
       - id: black
-        args: [--line-length=100]
 
   - repo: https://github.com/PyCQA/isort
-    rev: 6.0.0
+    rev: 5.12.0
     hooks:
       - id: isort
-        args: ["--profile", "black", "--line-length", "100"]
 
   - repo: https://github.com/PyCQA/flake8
-    rev: 7.1.2
+    rev: 6.0.0
     hooks:
       - id: flake8
         additional_dependencies:
@@ -34,7 +32,40 @@ repos:
     rev: v1.15.0
     hooks:
       - id: mypy
+        args: ["--explicit-package-bases"]
         additional_dependencies:
           - types-requests
           - types-PyYAML
           - types-redis
+
+  - repo: local
+    hooks:
+      - id: fix-docs
+        name: Documentation Auto-Fixer
+        entry: python scripts/verify_docs.py --fix
+        language: python
+        pass_filenames: false
+        types: [file]
+        additional_dependencies:
+          - rich>=13.0.0
+          - pyyaml>=6.0.0
+          - doc8>=1.1.1
+
+      - id: check-code-blocks
+        name: Code Block Validator
+        entry: python scripts/validate_code_blocks.py
+        language: python
+        pass_filenames: false
+        types: [file]
+        additional_dependencies:
+          - rich>=13.0.0
+
+      - id: validate-config
+        name: Configuration Validator
+        entry: python scripts/validate_config.py
+        language: python
+        pass_filenames: false
+        types: [file]
+        additional_dependencies:
+          - pyyaml>=6.0.0
+          - pydantic>=2.0.0

@@ -363,9 +363,9 @@ All integration tests passed!
 - Memory allocation
 
 For more detailed information on specific components, refer to their respective documentation:
-- [Config Parser Guide](../docs/config_parser.md)
-- [Error Logger Guide](../docs/error_logger.md)
-- [Performance Monitor Guide](../docs/perf_monitor.md)
+- [Config Parser Guide](/Users/allan/Projects/iota/tests/scripts/../../docs/config_parser.md)
+- [Error Logger Guide](/Users/allan/Projects/iota/tests/scripts/../../docs/error_logger.md)
+- [Performance Monitor Guide](/Users/allan/Projects/iota/tests/scripts/../../docs/perf_monitor.md)
 
 ## Future Enhancements
 

@@ -2,7 +2,7 @@
 
 import time
 from enum import Enum
-from typing import Any, ClassVar, Dict, Optional
+from typing import ClassVar, Dict, List, Optional, Union
 
 from pydantic import BaseModel, ConfigDict, Field
 
@@ -132,3 +132,142 @@ class ConfigurationMetrics(BaseModel):
         self.last_reload_timestamp = None
         self.average_validation_time_ms = 0.0
         self.peak_validation_time_ms = 0.0
+
+
+class ValidationSeverity(str, Enum):
+    """Validation severity levels."""
+
+    ERROR = "error"
+    WARNING = "warning"
+    INFO = "info"
+
+
+class ValidationRule(BaseModel):
+    """Base validation rule schema."""
+
+    severity: ValidationSeverity = Field(
+        default=ValidationSeverity.ERROR, description="Severity level for validation failures"
+    )
+
+
+class ResourceSpecification(BaseModel):
+    """Resource specification schema."""
+
+    model_config = ConfigDict(extra="allow")
+
+    pattern: str = Field(description="Regex pattern to match the resource specification")
+    severity: ValidationSeverity = Field(
+        default=ValidationSeverity.WARNING,
+        description="Severity level for missing resource specifications",
+    )
+
+
+class ValidationRequirements(BaseModel):
+    """Base requirements schema with required and recommended fields."""
+
+    required: Dict[str, ValidationSeverity] = Field(
+        default_factory=dict, description="Required fields and their severity levels"
+    )
+    recommended: Dict[str, Union[ValidationSeverity, Dict[str, ValidationSeverity]]] = Field(
+        default_factory=dict, description="Recommended fields and their severity levels"
+    )
+
+
+class CloudRequirements(BaseModel):
+    """Cloud service requirements schema."""
+
+    required: Dict[str, Dict[str, ValidationSeverity]] = Field(
+        default_factory=dict, description="Required cloud services, operations, and monitoring"
+    )
+    recommended: Dict[str, Dict[str, ValidationSeverity]] = Field(
+        default_factory=dict, description="Recommended cloud services, operations, and monitoring"
+    )
+
+
+class InfrastructureRequirements(ValidationRequirements):
+    """Infrastructure-specific requirements schema."""
+
+    resource_specifications: Dict[str, ResourceSpecification] = Field(
+        default_factory=dict, description="Resource specifications and their validation patterns"
+    )
+
+
+class TemplateValidationSchema(BaseModel):
+    """Schema for template validation rules."""
+
+    model_config = ConfigDict(extra="allow")
+
+    metadata_fields: ValidationRequirements = Field(
+        default_factory=ValidationRequirements, description="Metadata field validation requirements"
+    )
+    security_requirements: ValidationRequirements = Field(
+        default_factory=ValidationRequirements, description="Security validation requirements"
+    )
+    cloud_requirements: CloudRequirements = Field(
+        default_factory=CloudRequirements, description="Cloud service validation requirements"
+    )
+    cost_requirements: ValidationRequirements = Field(
+        default_factory=ValidationRequirements, description="Cost documentation requirements"
+    )
+    infrastructure_requirements: ValidationRequirements = Field(
+        default_factory=ValidationRequirements,
+        description="Infrastructure documentation requirements",
+    )
+
+
+class SchemaVersion(BaseModel):
+    major: int = Field(ge=0, description="Major version for breaking changes")
+    minor: int = Field(ge=0, description="Minor version for backward-compatible feature additions")
+    patch: int = Field(ge=0, description="Patch version for backward-compatible bug fixes")
+
+    def __str__(self) -> str:
+        return f"{self.major}.{self.minor}.{self.patch}"
+
+    @classmethod
+    def from_str(cls, version_str: str) -> "SchemaVersion":
+        try:
+            major, minor, patch = map(int, version_str.split("."))
+            return cls(major=major, minor=minor, patch=patch)
+        except ValueError:
+            raise ValueError(f"Invalid version string: {version_str}. Expected format: X.Y.Z")
+
+    def is_compatible_with(self, other: "SchemaVersion") -> bool:
+        """Check if this version is backward compatible with another version"""
+        return self.major == other.major and (
+            self.minor > other.minor or (self.minor == other.minor and self.patch >= other.patch)
+        )
+
+
+class ValidationRulesSchema(BaseModel):
+    """Top-level schema for validation rules configuration."""
+
+    model_config = ConfigDict(extra="allow")
+
+    version: SchemaVersion = Field(
+        default=SchemaVersion(major=1, minor=0, patch=0),
+        description="Schema version following semantic versioning",
+    )
+    template_types: Dict[str, TemplateValidationSchema] = Field(
+        default_factory=dict, description="Validation rules for each template type"
+    )
+
+    def validate_config_file(self) -> List[str]:
+        """Validate the entire configuration file and return any errors."""
+        errors = []
+
+        # Validate template types exist
+        if not self.template_types:
+            errors.append("No template types defined in configuration")
+
+        # Validate each template type has required sections
+        for template_type, schema in self.template_types.items():
+            if not schema.metadata_fields.required:
+                errors.append(f"Template type '{template_type}' missing required metadata fields")
+            if not schema.security_requirements.required:
+                errors.append(
+                    f"Template type '{template_type}' missing required security requirements"
+                )
+            if not schema.cloud_requirements.required:
+                errors.append(f"Template type '{template_type}' missing required cloud services")
+
+        return errors

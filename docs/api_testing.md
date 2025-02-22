@@ -39,8 +39,8 @@ Test using curl:
 ```bash
 # First, get a valid JWT token
 TOKEN=$(curl -s -X POST http://localhost:8000/api/v1/auth/token \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "username=test@example.com&password=testpassword123" | jq -r .access_token)
+- H "Content-Type: application/x-www-form-urlencoded" \
+- d "username=test@example.com&password=testpassword123" | jq -r .access_token)
 
 # Test /me endpoint rate limit
 for i in {1..61}; do
@@ -93,8 +93,8 @@ artillery run rate_limit_test.yml
 ```bash
 # Check headers for rate limit information
 curl -I -X POST http://localhost:8000/api/v1/auth/token \
--H "Content-Type: application/x-www-form-urlencoded" \
--d "username=test@example.com&password=testpassword123"
+- H "Content-Type: application/x-www-form-urlencoded" \
+- d "username=test@example.com&password=testpassword123"
 ```
 
 ### Rate Limit Headers

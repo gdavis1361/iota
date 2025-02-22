@@ -1,197 +1,167 @@
-import logging
-from datetime import datetime, timedelta
-from typing import List, Optional
+"""User management endpoints."""
+from typing import Any, List
 
-from app.core.security import get_current_user
-from app.db.session import get_db
+from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.core import security
+from app.core.config import settings
+from app.db.session import async_session_factory
 from app.models.user import User
-from app.schemas.user import UserCreate, UserResponse, UserToggleActive, UserUpdate
-from fastapi import APIRouter, Depends, HTTPException, Request, status
-from sqlalchemy.orm import Session
+from app.schemas.user import UserCreate, UserResponse, UserUpdate
 
-logger = logging.getLogger(__name__)
 router = APIRouter()
+
+# Constants
+DEFAULT_SKIP = 0
+DEFAULT_LIMIT = 100
+
+
+async def get_db() -> AsyncSession:
+    """Get database session."""
+    async with async_session_factory() as session:
+        yield session
 
 
 @router.get("/", response_model=List[UserResponse])
-async def get_users(
-    request: Request,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_user),
-    skip: int = 0,
-    limit: int = 100,
-):
-    """
-    Retrieve users.
-    """
-    logger.info(f"Getting users list. Current user: {current_user.email}")
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    users = db.query(User).offset(skip).limit(limit).all()
-    logger.info(f"Found {len(users)} users")
+async def read_users(
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(security.get_current_active_user),
+    skip: int = DEFAULT_SKIP,
+    limit: int = DEFAULT_LIMIT,
+) -> Any:
+    """Get list of users."""
+    if not current_user.is_superuser:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions",
+        )
+    stmt = select(User).offset(skip).limit(limit)
+    result = await db.execute(stmt)
+    users = result.scalars().all()
     return users
 
 
-@router.post("/", response_model=UserResponse, status_code=status.HTTP_201_CREATED)
+@router.post("/", response_model=UserResponse)
 async def create_user(
-    *,
-    db: Session = Depends(get_db),
     user_in: UserCreate,
-    current_user: User = Depends(get_current_user),
-):
-    """
-    Create new user.
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    user = db.query(User).filter(User.email == user_in.email).first()
-    if user:
-        raise HTTPException(status_code=400, detail="A user with this email already exists.")
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(security.get_current_active_user),
+) -> Any:
+    """Create new user."""
+    if not current_user.is_superuser:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions",
+        )
+    stmt = select(User).where(User.email == user_in.email)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
 
+    if user:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Email already registered",
+        )
     user = User(
         email=user_in.email,
+        hashed_password=security.get_password_hash(user_in.password),
         full_name=user_in.full_name,
-        role=user_in.role,
-        is_active=True,
-        password=user_in.password,  # This will be hashed in __init__
+        is_superuser=user_in.is_superuser,
+        is_active=user_in.is_active,
     )
-
     db.add(user)
-    db.commit()
-    db.refresh(user)
+    await db.commit()
+    await db.refresh(user)
     return user
 
 
-@router.get("/{user_id}/", response_model=UserResponse)
-async def get_user(
-    *, db: Session = Depends(get_db), user_id: int, current_user: User = Depends(get_current_user)
-):
-    """
-    Get user by ID.
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    user = db.query(User).filter(User.id == user_id).first()
+@router.get("/{user_id}", response_model=UserResponse)
+async def read_user_by_id(
+    user_id: int,
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(security.get_current_active_user),
+) -> Any:
+    """Get user by ID."""
+    stmt = select(User).where(User.id == user_id)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    if not current_user.is_superuser and user.id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions",
+        )
     return user
 
 
-@router.put("/{user_id}/", response_model=UserResponse)
+@router.put("/{user_id}", response_model=UserResponse)
 async def update_user(
-    *,
-    db: Session = Depends(get_db),
     user_id: int,
     user_in: UserUpdate,
-    current_user: User = Depends(get_current_user),
-):
-    """
-    Update a user.
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    user = db.query(User).filter(User.id == user_id).first()
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(security.get_current_active_user),
+) -> Any:
+    """Update user."""
+    stmt = select(User).where(User.id == user_id)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    if not current_user.is_superuser and user.id != current_user.id:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions",
+        )
 
-    update_data = user_in.dict(exclude_unset=True)
-    if "password" in update_data:
-        user.set_password(update_data["password"])
-        del update_data["password"]
+    if user_in.password:
+        user.hashed_password = security.get_password_hash(user_in.password)
+    if user_in.full_name:
+        user.full_name = user_in.full_name
+    if user_in.email:
+        user.email = user_in.email
+    if user_in.is_active is not None:
+        user.is_active = user_in.is_active
+    if user_in.is_superuser is not None:
+        user.is_superuser = user_in.is_superuser
 
-    for field, value in update_data.items():
-        setattr(user, field, value)
-
-    db.add(user)
-    db.commit()
-    db.refresh(user)
+    await db.commit()
+    await db.refresh(user)
     return user
 
 
-@router.delete("/{user_id}/", status_code=status.HTTP_204_NO_CONTENT)
+@router.delete("/{user_id}", response_model=UserResponse)
 async def delete_user(
-    *, db: Session = Depends(get_db), user_id: int, current_user: User = Depends(get_current_user)
-):
-    """
-    Delete a user.
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    user = db.query(User).filter(User.id == user_id).first()
-    if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    db.delete(user)
-    db.commit()
-    return None
-
-
-@router.put("/{user_id}/toggle-active/", response_model=UserResponse)
-async def toggle_user_active(
-    *,
-    db: Session = Depends(get_db),
     user_id: int,
-    current_user: User = Depends(get_current_user),
-    toggle_data: UserToggleActive,
-):
-    """
-    Toggle user active status.
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-    user = db.query(User).filter(User.id == user_id).first()
+    db: AsyncSession = Depends(get_db),
+    current_user: User = Depends(security.get_current_active_user),
+) -> Any:
+    """Delete user."""
+    stmt = select(User).where(User.id == user_id)
+    result = await db.execute(stmt)
+    user = result.scalar_one_or_none()
+
     if not user:
-        raise HTTPException(status_code=404, detail="User not found")
-    user.is_active = toggle_data.is_active
-    db.add(user)
-    db.commit()
-    db.refresh(user)
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="User not found",
+        )
+    if not current_user.is_superuser:
+        raise HTTPException(
+            status_code=status.HTTP_403_FORBIDDEN,
+            detail="Not enough permissions",
+        )
+
+    await db.delete(user)
+    await db.commit()
     return user
-
-
-@router.get("/activity/recent/", response_model=List[dict])
-async def get_recent_activity(
-    *, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
-):
-    """
-    Get recent user activity (last 24 hours).
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-
-    # For now, we'll just return recent logins based on last_login
-    yesterday = datetime.utcnow() - timedelta(days=1)
-    recent_logins = db.query(User).filter(User.last_login >= yesterday).all()
-
-    return [
-        {
-            "user_id": user.id,
-            "email": user.email,
-            "activity_type": "login",
-            "timestamp": user.last_login.isoformat() if user.last_login else None,
-        }
-        for user in recent_logins
-    ]
-
-
-@router.get("/sessions/active/", response_model=List[dict])
-async def get_active_sessions(
-    *, db: Session = Depends(get_db), current_user: User = Depends(get_current_user)
-):
-    """
-    Get currently active sessions.
-    """
-    if current_user.role != "ADMIN":
-        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Not enough permissions")
-
-    # For now, return users who have logged in within the last hour as "active"
-    one_hour_ago = datetime.utcnow() - timedelta(hours=1)
-    active_users = db.query(User).filter(User.last_login >= one_hour_ago).all()
-
-    return [
-        {
-            "user_id": user.id,
-            "email": user.email,
-            "started_at": user.last_login.isoformat() if user.last_login else None,
-        }
-        for user in active_users
-    ]

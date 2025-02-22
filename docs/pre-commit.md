@@ -107,6 +107,6 @@ Pre-commit hooks are also run in CI:
 - Same configuration as local
 
 ## Related Documentation
-- [Configuration Management](adr/0001-configuration-management.md)
-- [Contributing Guidelines](contributing.md)
-- [Development Setup](development.md)
+- [Configuration Management](/Users/allan/Projects/iota/docs/adr/0001-configuration-management.md)
+- [Contributing Guidelines](/Users/allan/Projects/iota/docs/contributing.md)
+- [Development Setup](/Users/allan/Projects/iota/docs/development.md)
