@@ -16,6 +16,7 @@ We decided to:
 2. Create dedicated factory functions for settings creation
 3. Implement test-specific configuration helpers
 4. Add proper validation using Pydantic v2 models
+5. Consolidate all configuration code into a single module to avoid duplication
 
 ### Key Components
 - `Settings` class using `pydantic_settings.BaseSettings`
@@ -40,11 +41,15 @@ test_settings = create_test_settings()
 - Clearer initialization patterns
 - Improved error messages
 - More maintainable codebase
+- Reduced code duplication
 
 ### Negative
 - Breaking change for direct settings access
 - Need to update existing tests
 - Additional boilerplate in test setup
+- Additional setup required for development
+- Need to maintain comprehensive validation rules
+- Potential for increased startup time due to validation
 
 ## Implementation Notes
 
@@ -76,6 +81,15 @@ Test configuration provides sensible defaults:
 test_settings = create_test_settings()
 assert test_settings.ENVIRONMENT == EnvironmentType.TESTING
 assert test_settings.DEBUG is True
+```
+
+## Module Structure
+```
+server/core/config/
+├── __init__.py
+├── base.py         # Base configuration class
+├── schema.py       # Pydantic models for config validation
+└── validators.py   # Custom validation functions
 ```
 
 ## Migration Guide
@@ -119,3 +133,6 @@ rate_limit = EndpointLimit(
 ## References
 - [Pydantic v2 Documentation](https://docs.pydantic.dev/latest/)
 - [Python Testing Best Practices](https://docs.pytest.org/en/stable/explanation/good-practices.html)
+- [Pre-commit Configuration](/docs/pre-commit.md)
+- [Contributing Guidelines](/docs/contributing.md)
+- [Development Setup](/docs/development.md)

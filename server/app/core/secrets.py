@@ -1,9 +1,11 @@
+import json
 from pathlib import Path
 from typing import Optional
-import json
-from pydantic import SecretStr
-from cryptography.fernet import Fernet
+
 from app.core.config import settings
+from cryptography.fernet import Fernet
+from pydantic import SecretStr
+
 
 class SecretsManager:
     """
@@ -13,7 +15,7 @@ class SecretsManager:
     2. Environment variable secrets
     3. In-memory secrets cache
     """
-    
+
     def __init__(self):
         self._secrets_cache = {}
         self._fernet = None
@@ -79,6 +81,7 @@ class SecretsManager:
         secret_file = Path(f"/run/secrets/{key}")
         if secret_file.exists():
             secret_file.unlink()
+
 
 # Global secrets manager instance
 secrets = SecretsManager()

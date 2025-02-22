@@ -1,14 +1,14 @@
 """Test Redis Sentinel security configuration."""
+
+import logging
 import os
 import time
-import redis
-import logging
-from typing import Dict, Any
+from typing import Any, Dict
 
-logging.basicConfig(
-    level=logging.INFO,
-    format='%(asctime)s - %(levelname)s - %(message)s'
-)
+import redis
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
+
 
 class RedisSentinelSecurityTester:
     """Test Redis Sentinel security configuration."""
@@ -37,42 +37,42 @@ class RedisSentinelSecurityTester:
     def test_master_security(self) -> bool:
         """Test master node security configuration."""
         master = redis.Redis(
-            host='localhost',
+            host="localhost",
             port=self.master_port,
             password=self.redis_password,
-            decode_responses=True
+            decode_responses=True,
         )
         info = self.check_redis_info(master, "Master")
         if not info:
             return False
-        
-        if info.get('role') != 'master':
+
+        if info.get("role") != "master":
             logging.error("Node is not in master role")
             return False
-        
+
         logging.info("Master security verification passed")
         return True
 
     def test_replica_security(self) -> bool:
         """Test replica node security configuration."""
         replica = redis.Redis(
-            host='localhost',
+            host="localhost",
             port=self.replica_port,
             password=self.redis_password,
-            decode_responses=True
+            decode_responses=True,
         )
         info = self.check_redis_info(replica, "Replica")
         if not info:
             return False
-        
-        if info.get('role') != 'slave':
+
+        if info.get("role") != "slave":
             logging.error("Node is not in replica role")
             return False
-        
-        if info.get('master_link_status') != 'up':
+
+        if info.get("master_link_status") != "up":
             logging.error("Replica is not connected to master")
             return False
-        
+
         logging.info("Replica security verification passed")
         return True
 
@@ -80,15 +80,15 @@ class RedisSentinelSecurityTester:
         """Test sentinel security configuration."""
         try:
             sentinel = redis.Sentinel(
-                [('localhost', self.sentinel_port)],
-                sentinel_kwargs={'password': self.redis_password},
-                password=self.redis_password
+                [("localhost", self.sentinel_port)],
+                sentinel_kwargs={"password": self.redis_password},
+                password=self.redis_password,
             )
             master = sentinel.discover_master(self.master_name)
             if not master:
                 logging.error("Sentinel unable to discover master")
                 return False
-            
+
             logging.info(f"Sentinel discovered master at {master}")
             return True
         except Exception as e:
@@ -98,24 +98,26 @@ class RedisSentinelSecurityTester:
     def run_all_tests(self) -> bool:
         """Run all security tests."""
         logging.info("Starting Redis Sentinel security tests...")
-        
+
         master_ok = self.test_master_security()
         replica_ok = self.test_replica_security()
         sentinel_ok = self.test_sentinel_security()
-        
+
         all_passed = all([master_ok, replica_ok, sentinel_ok])
         if all_passed:
             logging.info("All security tests passed successfully!")
         else:
             logging.error("Some security tests failed")
-        
+
         return all_passed
+
 
 def main():
     """Main entry point for security testing."""
     tester = RedisSentinelSecurityTester()
     success = tester.run_all_tests()
     exit(0 if success else 1)
+
 
 if __name__ == "__main__":
     main()

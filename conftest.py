@@ -1,6 +1,7 @@
 """
 Root conftest.py for pytest configuration.
 """
+
 import os
 import sys
 from pathlib import Path

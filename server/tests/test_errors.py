@@ -1,8 +1,9 @@
 import pytest
-from fastapi.testclient import TestClient
 from app.main import app
+from fastapi.testclient import TestClient
 
 client = TestClient(app)
+
 
 def test_404_error():
     """Test not found error"""
@@ -12,16 +13,18 @@ def test_404_error():
     assert "detail" in data
     assert "not found" in data["detail"].lower()
 
+
 def test_validation_error():
     """Test validation error"""
-    response = client.post("/api/v1/auth/register", json={
-        "email": "not_an_email",  # Invalid email
-        "password": "short"  # Too short password
-    })
+    response = client.post(
+        "/api/v1/auth/register",
+        json={"email": "not_an_email", "password": "short"},  # Invalid email  # Too short password
+    )
     assert response.status_code == 422
     data = response.json()
     assert "detail" in data
     assert len(data["detail"]) > 0
+
 
 def test_unauthorized_error():
     """Test unauthorized error"""
@@ -30,6 +33,7 @@ def test_unauthorized_error():
     data = response.json()
     assert "detail" in data
     assert "not authenticated" in data["detail"].lower()
+
 
 def test_forbidden_error():
     """Test forbidden error"""
@@ -41,15 +45,16 @@ def test_forbidden_error():
     assert "detail" in data
     assert "forbidden" in data["detail"].lower()
 
+
 def test_rate_limit_error():
     """Test rate limit error"""
     # Make multiple requests to trigger rate limit
     for _ in range(10):
-        client.post("/api/v1/auth/token", 
-                   data={"username": "test@example.com", "password": "test"})
-    
-    response = client.post("/api/v1/auth/token", 
-                          data={"username": "test@example.com", "password": "test"})
+        client.post("/api/v1/auth/token", data={"username": "test@example.com", "password": "test"})
+
+    response = client.post(
+        "/api/v1/auth/token", data={"username": "test@example.com", "password": "test"}
+    )
     assert response.status_code == 429
     data = response.json()
     assert "detail" in data

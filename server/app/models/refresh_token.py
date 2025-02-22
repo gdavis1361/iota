@@ -1,10 +1,13 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
+
 from app.db.base import BaseModel
+from sqlalchemy import Column, DateTime, ForeignKey, Integer, String
+from sqlalchemy.orm import relationship
+
 
 class RefreshToken(BaseModel):
     """Refresh token model for JWT authentication"""
+
     __tablename__ = "refresh_tokens"
 
     id = Column(Integer, primary_key=True)

@@ -1,11 +1,14 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, JSON
+
+from app.db.base import BaseModel
+from sqlalchemy import JSON, Column, DateTime, ForeignKey, Integer, String
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.orm import relationship
-from app.db.base import BaseModel
+
 
 class AuditLog(BaseModel):
     """Audit log model for tracking system changes"""
+
     __tablename__ = "audit_logs"
 
     id = Column(Integer, primary_key=True)

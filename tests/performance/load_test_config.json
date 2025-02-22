@@ -1,0 +1,72 @@
+{
+    "server": {
+        "host": "http://localhost:8001"
+    },
+    "scenarios": {
+        "normal_load": {
+            "users": 50,
+            "spawn_rate": 10,
+            "duration": "10m",
+            "description": "Normal production load simulation"
+        },
+        "peak_load": {
+            "users": 200,
+            "spawn_rate": 20,
+            "duration": "15m",
+            "description": "Peak traffic simulation"
+        },
+        "stress_test": {
+            "users": 500,
+            "spawn_rate": 50,
+            "duration": "20m",
+            "description": "System stress test"
+        },
+        "endurance_test": {
+            "users": 100,
+            "spawn_rate": 10,
+            "duration": "60m",
+            "description": "Long-running endurance test"
+        }
+    },
+    "thresholds": {
+        "response_time_95th_percentile": 500,
+        "response_time_99th_percentile": 1000,
+        "error_rate": 1.0,
+        "requests_per_second": 1000,
+        "rate_limit_violations": 5
+    },
+    "redis_monitoring": {
+        "metrics": [
+            "used_memory",
+            "used_memory_peak",
+            "connected_clients",
+            "total_commands_processed",
+            "keyspace_hits",
+            "keyspace_misses"
+        ],
+        "thresholds": {
+            "max_memory_usage": "1GB",
+            "max_clients": 10000,
+            "min_hit_rate": 80.0,
+            "max_latency_ms": 100
+        },
+        "sample_interval": 60
+    },
+    "endpoints": {
+        "/api/v1/auth/login": {
+            "method": "POST",
+            "weight": 30,
+            "expected_status": 200
+        },
+        "/api/v1/data": {
+            "method": "GET",
+            "weight": 50,
+            "expected_status": 200
+        },
+        "/api/v1/data/create": {
+            "method": "POST",
+            "weight": 20,
+            "expected_status": 201
+        }
+    }
+}

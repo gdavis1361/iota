@@ -1,13 +1,14 @@
-from typing import List, Optional
 from datetime import datetime
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.future import select
-from sqlalchemy import update, delete
+from typing import List, Optional
 
-from app.models.user import User
-from app.schemas.user import UserCreate, UserUpdate
 from app.core.security import get_password_hash
 from app.models.enums import UserRole
+from app.models.user import User
+from app.schemas.user import UserCreate, UserUpdate
+from sqlalchemy import delete, update
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.future import select
+
 
 class UserRepository:
     def __init__(self, db: AsyncSession):
@@ -23,7 +24,7 @@ class UserRepository:
             is_active=True,
             is_verified=False,
             is_superuser=False,
-            role=UserRole.USER
+            role=UserRole.USER,
         )
         self.db.add(user)
         await self.db.commit()
@@ -32,16 +33,12 @@ class UserRepository:
 
     async def get_by_email(self, email: str) -> Optional[User]:
         """Get user by email"""
-        result = await self.db.execute(
-            select(User).where(User.email == email)
-        )
+        result = await self.db.execute(select(User).where(User.email == email))
         return result.scalar_one_or_none()
 
     async def get_by_id(self, id: int) -> Optional[User]:
         """Get user by id"""
-        result = await self.db.execute(
-            select(User).where(User.id == id)
-        )
+        result = await self.db.execute(select(User).where(User.id == id))
         return result.scalar_one_or_none()
 
     async def update(self, user: User, user_in: UserUpdate) -> User:
@@ -51,23 +48,25 @@ class UserRepository:
             hashed_password = get_password_hash(update_data["password"])
             del update_data["password"]
             update_data["hashed_password"] = hashed_password
-        
+
         # Update all fields in the database
         update_stmt = update(User).where(User.id == user.id)
         update_values = {}
-        
+
         # Always include all fields in the update
         update_values["full_name"] = update_data.get("full_name", user.full_name)
         update_values["is_active"] = bool(update_data.get("is_active", user.is_active))
         update_values["is_verified"] = bool(update_data.get("is_verified", user.is_verified))
-        update_values["role"] = UserRole(update_data["role"]) if "role" in update_data else user.role
+        update_values["role"] = (
+            UserRole(update_data["role"]) if "role" in update_data else user.role
+        )
         if "hashed_password" in update_data:
             update_values["hashed_password"] = update_data["hashed_password"]
-        
+
         update_values["updated_at"] = datetime.utcnow()
         await self.db.execute(update_stmt.values(**update_values))
         await self.db.commit()
-        
+
         # Refresh and return the updated user
         return await self.get_by_id(user.id)
 
@@ -81,7 +80,5 @@ class UserRepository:
 
     async def list(self, skip: int = 0, limit: int = 100) -> List[User]:
         """List users"""
-        result = await self.db.execute(
-            select(User).offset(skip).limit(limit)
-        )
+        result = await self.db.execute(select(User).offset(skip).limit(limit))
         return result.scalars().all()

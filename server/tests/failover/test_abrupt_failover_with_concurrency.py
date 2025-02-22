@@ -4,12 +4,11 @@ import subprocess
 import time
 from typing import Dict, Tuple
 
-import redis
 from redis.sentinel import Sentinel
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+import redis
+
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 
@@ -169,8 +168,7 @@ class RedisFailoverTest:
                     time.sleep(retry_delay)
                 else:
                     raise redis.ConnectionError(
-                        "Failed to verify master after "
-                        f"{max_retries} attempts: {last_error}"
+                        "Failed to verify master after " f"{max_retries} attempts: {last_error}"
                     )
 
 

@@ -7,10 +7,11 @@ and recovery processes.
 import time
 from typing import Generator
 
-import docker
 import pytest
-import redis
 from redis.sentinel import MasterNotFoundError, Sentinel
+
+import docker
+import redis
 
 
 @pytest.fixture(scope="module")
@@ -49,9 +50,7 @@ class TestRedisFailover:
             new_master = None
             while time.time() - start_time < 30:
                 try:
-                    new_master = redis_sentinel.discover_master(
-                        redis_config["master_name"]
-                    )
+                    new_master = redis_sentinel.discover_master(redis_config["master_name"])
                     if new_master != initial_master:
                         break
                 except MasterNotFoundError:
@@ -62,9 +61,7 @@ class TestRedisFailover:
             assert new_master != initial_master
 
             # Verify we can still write to the new master
-            master = redis_sentinel.master_for(
-                redis_config["master_name"], decode_responses=True
-            )
+            master = redis_sentinel.master_for(redis_config["master_name"], decode_responses=True)
             assert master.set("failover_test", "success")
             assert master.get("failover_test") == "success"
 
@@ -73,9 +70,7 @@ class TestRedisFailover:
             master_container.start()
 
     @pytest.mark.timeout(30)
-    def test_failover_speed(
-        self, redis_sentinel: Sentinel, docker_client: docker.DockerClient
-    ):
+    def test_failover_speed(self, redis_sentinel: Sentinel, docker_client: docker.DockerClient):
         """Measure failover timing."""
         start_time = time.time()
 
@@ -97,9 +92,7 @@ class TestRedisFailover:
             failover_time = time.time() - start_time
 
             # Assert failover happened within reasonable time (typically under 10 seconds)
-            assert (
-                failover_time < 10
-            ), f"Failover took too long: {failover_time} seconds"
+            assert failover_time < 10, f"Failover took too long: {failover_time} seconds"
             assert new_master is not None, "No new master was elected"
 
         finally:
@@ -113,9 +106,7 @@ class TestRedisFailover:
     ):
         """Test that clients can reconnect after failover"""
         # Get a master connection through sentinel
-        master = redis_sentinel.master_for(
-            redis_config["master_name"], decode_responses=True
-        )
+        master = redis_sentinel.master_for(redis_config["master_name"], decode_responses=True)
 
         # Write initial data
         assert master.set("reconnect_test", "before_failover")

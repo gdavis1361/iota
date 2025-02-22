@@ -1,8 +1,9 @@
+import time
+
+from app.core.config import settings
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from app.core.config import settings
-import time
 
 app = FastAPI(
     title=settings.PROJECT_NAME,
@@ -10,7 +11,7 @@ app = FastAPI(
     version=settings.VERSION,
     docs_url="/api/docs",
     redoc_url="/api/redoc",
-    openapi_url="/api/openapi.json"
+    openapi_url="/api/openapi.json",
 )
 
 # CORS middleware
@@ -22,6 +23,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+
 # Add request timing middleware
 @app.middleware("http")
 async def add_process_time_header(request: Request, call_next):
@@ -31,6 +33,7 @@ async def add_process_time_header(request: Request, call_next):
     response.headers["X-Process-Time"] = str(process_time)
     return response
 
+
 # Error handler
 @app.exception_handler(Exception)
 async def global_exception_handler(request: Request, exc: Exception):
@@ -38,18 +41,16 @@ async def global_exception_handler(request: Request, exc: Exception):
         status_code=500,
         content={
             "message": "Internal server error",
-            "detail": str(exc) if settings.DEBUG else "An error occurred"
-        }
+            "detail": str(exc) if settings.DEBUG else "An error occurred",
+        },
     )
+
 
 # Health check endpoint
 @app.get("/api/health")
 async def health_check():
-    return {
-        "status": "healthy",
-        "timestamp": time.time(),
-        "version": settings.VERSION
-    }
+    return {"status": "healthy", "timestamp": time.time(), "version": settings.VERSION}
+
 
 # Root endpoint
 @app.get("/")
@@ -58,8 +59,9 @@ async def root():
         "app_name": settings.PROJECT_NAME,
         "version": settings.VERSION,
         "docs_url": "/api/docs",
-        "health_check": "/api/health"
+        "health_check": "/api/health",
     }
+
 
 # Include routers
 # from app.api.v1 import auth, users, common
@@ -69,9 +71,5 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(
-        "main:app",
-        host=settings.HOST,
-        port=settings.PORT,
-        reload=settings.RELOAD
-    )
+
+    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=settings.RELOAD)

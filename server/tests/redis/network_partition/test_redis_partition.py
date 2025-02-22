@@ -2,11 +2,12 @@ import asyncio
 import logging
 from typing import List, Tuple
 
-import docker
 import pytest
 import redis.sentinel
 from docker.models.containers import Container
 from docker.models.networks import Network
+
+import docker
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -28,8 +29,7 @@ class TestNetworkPartition:
         master = docker_client.containers.get("redis-redis-master-1")
         replica = docker_client.containers.get("redis-redis-replica-1")
         sentinels = [
-            docker_client.containers.get(f"redis-redis-sentinel-{i}-1")
-            for i in range(1, 4)
+            docker_client.containers.get(f"redis-redis-sentinel-{i}-1") for i in range(1, 4)
         ]
         return master, replica, sentinels
 
@@ -38,15 +38,11 @@ class TestNetworkPartition:
         """Create Redis Sentinel clients"""
         sentinels = [(f"localhost", 26379 + i) for i in range(3)]
         return [
-            redis.sentinel.Sentinel(
-                sentinels, socket_timeout=0.1, retry_on_timeout=True
-            )
+            redis.sentinel.Sentinel(sentinels, socket_timeout=0.1, retry_on_timeout=True)
             for _ in range(3)
         ]
 
-    async def _wait_for_failover(
-        self, sentinel_client: redis.sentinel.Sentinel, timeout: int = 30
-    ):
+    async def _wait_for_failover(self, sentinel_client: redis.sentinel.Sentinel, timeout: int = 30):
         """Wait for failover to complete"""
         start_time = asyncio.get_event_loop().time()
         while True:
@@ -59,9 +55,7 @@ class TestNetworkPartition:
                     raise TimeoutError("Failover did not complete in time")
                 await asyncio.sleep(1)
 
-    def test_sentinel_partition_from_master(
-        self, redis_network, containers, sentinel_clients
-    ):
+    def test_sentinel_partition_from_master(self, redis_network, containers, sentinel_clients):
         """Test scenario where one sentinel is partitioned from master"""
         master, _, sentinels = containers
         sentinel = sentinels[0]
@@ -88,9 +82,7 @@ class TestNetworkPartition:
             redis_network.connect(sentinel, "redis-net")
             logger.info("Reconnected sentinel to network")
 
-    def test_master_partition_from_all_sentinels(
-        self, redis_network, containers, sentinel_clients
-    ):
+    def test_master_partition_from_all_sentinels(self, redis_network, containers, sentinel_clients):
         """Test scenario where master is partitioned from all sentinels"""
         master, replica, _ = containers
 
@@ -108,18 +100,14 @@ class TestNetworkPartition:
 
             # Verify new master is different
             new_master = sentinel_clients[0].discover_master("mymaster")
-            assert (
-                new_master != original_master
-            ), "Failover should occur when master is partitioned"
+            assert new_master != original_master, "Failover should occur when master is partitioned"
 
         finally:
             # Reconnect master
             redis_network.connect(master, "redis-net")
             logger.info("Reconnected master to network")
 
-    def test_replica_partition_from_master(
-        self, redis_network, containers, sentinel_clients
-    ):
+    def test_replica_partition_from_master(self, redis_network, containers, sentinel_clients):
         """Test scenario where replica is partitioned from master"""
         master, replica, _ = containers
 
@@ -159,9 +147,7 @@ class TestNetworkPartition:
 
             # No failover should occur as quorum cannot be reached
             new_master = sentinel_clients[2].discover_master("mymaster")
-            assert (
-                new_master == original_master
-            ), "Split-brain: Master changed without quorum"
+            assert new_master == original_master, "Split-brain: Master changed without quorum"
 
         finally:
             # Reconnect all sentinels

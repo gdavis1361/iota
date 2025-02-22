@@ -1,16 +1,22 @@
 from datetime import datetime
 from enum import Enum
-from sqlalchemy import Column, String, Boolean, Integer, DateTime, Enum as SQLAlchemyEnum
-from sqlalchemy.orm import relationship
+
+from app.core.password import get_password_hash, verify_password
 from app.db.base import BaseModel
-from app.core.password import verify_password, get_password_hash
+from sqlalchemy import Boolean, Column, DateTime
+from sqlalchemy import Enum as SQLAlchemyEnum
+from sqlalchemy import Integer, String
+from sqlalchemy.orm import relationship
+
 
 class UserRole(str, Enum):
     ADMIN = "ADMIN"
     USER = "USER"
 
+
 class User(BaseModel):
     """User model"""
+
     __tablename__ = "users"
 
     id = Column(Integer, primary_key=True)
@@ -26,7 +32,9 @@ class User(BaseModel):
     last_login = Column(DateTime, nullable=True)
 
     # Relationships
-    refresh_tokens = relationship("RefreshToken", back_populates="user", cascade="all, delete-orphan")
+    refresh_tokens = relationship(
+        "RefreshToken", back_populates="user", cascade="all, delete-orphan"
+    )
     audit_logs = relationship("AuditLog", back_populates="user")
     settings = relationship("Setting", back_populates="user", cascade="all, delete-orphan")
 

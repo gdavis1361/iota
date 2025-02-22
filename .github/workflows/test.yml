@@ -1,0 +1,146 @@
+name: IOTA Configuration Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allow manual triggering
+
+env:
+  BASH_MIN_VERSION: 5.0
+  TEST_TIMEOUT_MINUTES: 5
+
+jobs:
+  validate-environment:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false  # Continue with other OS tests even if one fails
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        bash-version: [5.0, 5.1, 5.2]
+
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0  # Full history for better debugging
+
+    - name: System Information
+      id: system-info
+      run: |
+        echo "OS: $(uname -a)"
+        echo "Current directory: $(pwd)"
+        echo "Bash version: $(bash --version | head -n1)"
+        echo "Available memory: $(free -h || vm_stat)"  # Works on both Linux and macOS
+
+    - name: Setup Dependencies
+      id: setup-deps
+      run: |
+        # Ensure script fails on any error
+        set -euo pipefail
+
+        echo "Installing core dependencies..."
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+          sudo apt-get update
+          sudo apt-get install -y bash="${{ matrix.bash-version }}.*" bc jq
+        else
+          brew install bash bc jq
+        fi
+
+        echo "Installing bats-core..."
+        git clone https://github.com/bats-core/bats-core.git
+        cd bats-core
+        sudo ./install.sh /usr/local
+        cd ..
+        rm -rf bats-core
+
+        echo "Installing shellcheck..."
+        if [[ "${{ matrix.os }}" == "ubuntu-latest" ]]; then
+          sudo apt-get install -y shellcheck
+        else
+          brew install shellcheck
+        fi
+
+    - name: Verify Dependencies
+      id: verify-deps
+      run: |
+        set -euo pipefail
+
+        echo "Verifying installed versions..."
+        bash --version
+        bats --version
+        jq --version
+        shellcheck --version
+        bc --version
+
+        echo "Checking script permissions..."
+        chmod +x scripts/check_config_errors.sh
+        test -x scripts/check_config_errors.sh || (echo "Script not executable" && exit 1)
+
+  test:
+    needs: validate-environment
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        bash-version: [5.0, 5.1, 5.2]
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Run Unit Tests
+      id: unit-tests
+      timeout-minutes: ${{ env.TEST_TIMEOUT_MINUTES }}
+      run: |
+        set -euo pipefail
+        cd tests/scripts
+        bats test_check_config_errors.sh
+
+    - name: Run Performance Tests (Minimal Dataset)
+      id: perf-tests
+      timeout-minutes: ${{ env.TEST_TIMEOUT_MINUTES }}
+      run: |
+        set -euo pipefail
+        cd tests/scripts
+        # Generate small test file (100 entries)
+        mkdir -p test_data
+        for i in {1..100}; do
+          echo "{\"timestamp\": \"2025-02-21T09:28:02-05:00\", \"level\": \"ERROR\", \"message\": \"Test error $i\", \"category\": \"CONFIG_VALIDATION\"}" >> test_data/small_test.log
+        done
+
+        # Run basic performance test
+        ./performance_test.sh test_data/small_test.log
+
+        # Cleanup
+        rm -rf test_data
+
+    - name: Run Security Checks
+      id: security-checks
+      run: |
+        set -euo pipefail
+        shellcheck scripts/check_config_errors.sh
+        shellcheck tests/scripts/performance_test.sh
+
+    - name: Upload Test Results
+      if: always()  # Upload even if tests fail
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.os }}-bash${{ matrix.bash-version }}
+        path: |
+          tests/scripts/test_results
+          tests/scripts/performance_results
+
+  notify:
+    needs: [test]
+    runs-on: ubuntu-latest
+    if: always()
+    steps:
+    - name: Check Test Results
+      run: |
+        if [[ "${{ needs.test.result }}" == "success" ]]; then
+          echo "All tests passed successfully!"
+        else
+          echo "Tests failed! Check the logs for details."
+          exit 1
+        fi

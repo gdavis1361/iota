@@ -1,21 +1,18 @@
 """
-Configuration management for the IOTA server.
+Configuration management for the application.
 
-This package provides a centralized configuration system with:
-1. Environment-based settings
-2. Strict validation rules
-3. Type-safe configuration access
-4. Performance monitoring
+This module provides centralized configuration management using Pydantic.
+It handles environment variables, validation, and type conversion.
 """
 
-from .base import Settings, EnvironmentType
-from .rate_limit import RateLimitConfig
-from .validation import ConfigurationSchema, ConfigurationMetrics
+from .base import EnvironmentType, Settings, create_settings, create_test_settings
+from .rate_limit import EndpointLimit, RateLimitConfig
 
 __all__ = [
-    'Settings',
-    'EnvironmentType',
-    'RateLimitConfig',
-    'ConfigurationSchema',
-    'ConfigurationMetrics',
+    "Settings",
+    "EnvironmentType",
+    "RateLimitConfig",
+    "EndpointLimit",
+    "create_settings",
+    "create_test_settings",
 ]

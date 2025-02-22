@@ -158,9 +158,7 @@ class TestAdvancedPartition:
             # Check write metrics
             metrics = writer.get_metrics()
             logger.info(f"Write metrics during majority partition: {metrics}")
-            assert (
-                metrics["success_rate"] > 90
-            ), "Write success rate should recover after failover"
+            assert metrics["success_rate"] > 90, "Write success rate should recover after failover"
 
         finally:
             # Cleanup

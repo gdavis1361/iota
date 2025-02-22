@@ -3,8 +3,9 @@
 import os
 
 import pytest
-import redis
 from redis.sentinel import Sentinel
+
+import redis
 
 
 @pytest.fixture(scope="session")

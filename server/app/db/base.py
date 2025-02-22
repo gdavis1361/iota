@@ -1,11 +1,14 @@
-from sqlalchemy.orm import declarative_base
-from sqlalchemy import Column, Integer, DateTime
 from datetime import datetime
+
+from sqlalchemy import Column, DateTime, Integer
+from sqlalchemy.orm import declarative_base
 
 Base = declarative_base()
 
+
 class BaseModel(Base):
     """Base model for all database models"""
+
     __abstract__ = True
 
     id = Column(Integer, primary_key=True, index=True)

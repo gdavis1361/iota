@@ -1,0 +1,31 @@
+{
+    "methods": {
+        "stdout": {
+            "enabled": true
+        },
+        "file": {
+            "enabled": true,
+            "path": "alerts.log"
+        },
+        "email": {
+            "enabled": false,
+            "smtp_server": "smtp.example.com",
+            "smtp_port": 587,
+            "username": "",
+            "password": "",
+            "from_address": "iota-monitor@example.com",
+            "to_addresses": ["admin@example.com"]
+        },
+        "slack": {
+            "enabled": false,
+            "webhook_url": "https://hooks.slack.com/services/your/webhook/url",
+            "channel": "#monitoring"
+        }
+    },
+    "aggregation": {
+        "enabled": true,
+        "window_seconds": 300,
+        "max_similar": 5
+    },
+    "retention_days": 30
+}

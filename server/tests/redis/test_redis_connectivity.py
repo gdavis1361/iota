@@ -5,8 +5,9 @@ relationships and sentinel monitoring.
 """
 
 import pytest
-import redis
 from redis.sentinel import Sentinel
+
+import redis
 
 
 @pytest.mark.redis

@@ -1,7 +1,9 @@
-from typing import Optional
-from datetime import datetime
-from pydantic import BaseModel, EmailStr, constr, Field, ConfigDict, validator
 import re
+from datetime import datetime
+from typing import Optional
+
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, constr, validator
+
 
 # Shared properties
 class UserBase(BaseModel):
@@ -10,14 +12,21 @@ class UserBase(BaseModel):
     role: Optional[str] = None
     is_active: Optional[bool] = True
 
+
 # Password validation regex patterns
 PASSWORD_PATTERN = re.compile(r"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$")
+
 
 # Properties to receive via API on creation
 class UserCreate(UserBase):
     """User creation schema"""
+
     email: EmailStr
-    password: str = Field(..., min_length=8, description="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number")
+    password: str = Field(
+        ...,
+        min_length=8,
+        description="Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number",
+    )
     role: str = "USER"
     confirm_password: str = Field(..., min_length=8)
     is_superuser: bool = False
@@ -43,10 +52,12 @@ class UserCreate(UserBase):
             raise ValueError("Role must be either 'ADMIN' or 'USER'")
         return v
 
+
 # Properties to receive via API on update
 class UserUpdate(UserBase):
     password: Optional[str] = None
     phone_number: Optional[str] = None
+
 
 # Properties to return via API
 class UserResponse(UserBase):
@@ -62,15 +73,18 @@ class UserResponse(UserBase):
     class Config:
         orm_mode = True
 
+
 # Properties for token response
 class Token(BaseModel):
     access_token: str
     refresh_token: str
     token_type: str = "bearer"
 
+
 # Properties for token data
 class TokenData(BaseModel):
     user_id: Optional[int] = None
+
 
 # Properties for password change
 class PasswordChange(BaseModel):
@@ -92,9 +106,11 @@ class PasswordChange(BaseModel):
             raise ValueError("Passwords do not match")
         return v
 
+
 # Properties for password reset request
 class PasswordResetRequest(BaseModel):
     email: EmailStr
+
 
 # Properties for password reset
 class PasswordReset(BaseModel):
@@ -106,9 +122,11 @@ class PasswordReset(BaseModel):
         if self.new_password != self.confirm_password:
             raise ValueError("Passwords do not match")
 
+
 # Properties for email verification
 class EmailVerification(BaseModel):
     token: str
+
 
 # Properties for toggling user active status
 class UserToggleActive(BaseModel):

@@ -53,12 +53,8 @@ class TestConcurrentPartition(TestNetworkPartition):
             assert new_master != original_master, "Failover should have occurred"
 
             # Success criteria
-            assert (
-                metrics["success_rate"] > 90
-            ), "Write success rate should be above 90%"
-            assert (
-                metrics["average_latency"] < 0.1
-            ), "Average write latency should be under 100ms"
+            assert metrics["success_rate"] > 90, "Write success rate should be above 90%"
+            assert metrics["average_latency"] < 0.1, "Average write latency should be under 100ms"
 
         finally:
             # Cleanup
@@ -106,12 +102,8 @@ class TestConcurrentPartition(TestNetworkPartition):
             ), "Master should not change during replica partition"
 
             # Success criteria
-            assert (
-                metrics["success_rate"] > 95
-            ), "Write success rate should be above 95%"
-            assert (
-                metrics["average_latency"] < 0.1
-            ), "Average write latency should be under 100ms"
+            assert metrics["success_rate"] > 95, "Write success rate should be above 95%"
+            assert metrics["average_latency"] < 0.1, "Average write latency should be under 100ms"
 
         finally:
             # Cleanup

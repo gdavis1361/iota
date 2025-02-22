@@ -1,8 +1,10 @@
-import pytest
 from datetime import datetime
-from app.models.user import User, UserRole
-from app.schemas.user import UserCreate, UserUpdate, PasswordChange
+
+import pytest
 from app.core.password import verify_password
+from app.models.user import User, UserRole
+from app.schemas.user import PasswordChange, UserCreate, UserUpdate
+
 
 @pytest.fixture
 def valid_user_data():
@@ -10,8 +12,9 @@ def valid_user_data():
         "email": "test@example.com",
         "password": "TestPass123",
         "full_name": "Test User",
-        "role": UserRole.USER
+        "role": UserRole.USER,
     }
+
 
 @pytest.fixture
 def valid_user_create_data():
@@ -20,8 +23,9 @@ def valid_user_create_data():
         "password": "TestPass123",
         "confirm_password": "TestPass123",
         "full_name": "Test User",
-        "role": "USER"
+        "role": "USER",
     }
+
 
 class TestUserModel:
     def test_create_user(self, valid_user_data):
@@ -48,6 +52,7 @@ class TestUserModel:
         assert isinstance(user.updated_at, datetime)
         assert user.last_login is None
 
+
 class TestUserSchemas:
     def test_valid_user_create(self, valid_user_create_data):
         """Test UserCreate schema with valid data."""
@@ -57,12 +62,10 @@ class TestUserSchemas:
         assert user_create.full_name == valid_user_create_data["full_name"]
         assert user_create.role == valid_user_create_data["role"]
 
-    @pytest.mark.parametrize("invalid_email", [
-        "not_an_email",
-        "missing@tld",
-        "@missing_local.com",
-        "spaces in@email.com"
-    ])
+    @pytest.mark.parametrize(
+        "invalid_email",
+        ["not_an_email", "missing@tld", "@missing_local.com", "spaces in@email.com"],
+    )
     def test_invalid_email(self, valid_user_create_data, invalid_email):
         """Test that invalid emails are rejected."""
         data = valid_user_create_data.copy()
@@ -70,13 +73,16 @@ class TestUserSchemas:
         with pytest.raises(ValueError):
             UserCreate(**data)
 
-    @pytest.mark.parametrize("invalid_password", [
-        "short",  # Too short
-        "onlylowercase123",  # No uppercase
-        "ONLYUPPERCASE123",  # No lowercase
-        "NoNumbers",  # No numbers
-        "Ab1"  # Too short with all required chars
-    ])
+    @pytest.mark.parametrize(
+        "invalid_password",
+        [
+            "short",  # Too short
+            "onlylowercase123",  # No uppercase
+            "ONLYUPPERCASE123",  # No lowercase
+            "NoNumbers",  # No numbers
+            "Ab1",  # Too short with all required chars
+        ],
+    )
     def test_invalid_password(self, valid_user_create_data, invalid_password):
         """Test that invalid passwords are rejected."""
         data = valid_user_create_data.copy()
@@ -104,7 +110,7 @@ class TestUserSchemas:
         data = {
             "current_password": "OldPass123",
             "new_password": "NewPass123",
-            "confirm_password": "NewPass123"
+            "confirm_password": "NewPass123",
         }
         password_change = PasswordChange(**data)
         assert password_change.current_password == data["current_password"]

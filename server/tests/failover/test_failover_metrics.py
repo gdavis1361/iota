@@ -11,9 +11,7 @@ import redis.asyncio as redis
 from redis.sentinel import MasterNotFoundError, Sentinel
 
 # Configure logging
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 # Redis configuration
@@ -135,9 +133,7 @@ class ConcurrentWriter:
             try:
                 if redis_client is None:
                     # Get current master
-                    master = await self.sentinel.discover_master(
-                        REDIS_CONFIG["master_name"]
-                    )
+                    master = await self.sentinel.discover_master(REDIS_CONFIG["master_name"])
                     redis_client = await redis.Redis(
                         host=master[0], port=master[1], decode_responses=True
                     )
@@ -225,9 +221,7 @@ class FailoverTestSuite:
                     if current_master and current_master != initial_master:
                         new_master = current_master
                         self.metrics.detection_time = time.time()
-                        self.metrics.add_event(
-                            "failover_detected", f"New master: {new_master}"
-                        )
+                        self.metrics.add_event("failover_detected", f"New master: {new_master}")
                         break
                 except Exception:
                     await asyncio.sleep(0.1)
@@ -247,8 +241,7 @@ class FailoverTestSuite:
             violations = self.metrics.validate_performance()
             if violations:
                 raise PerformanceValidationError(
-                    "Performance thresholds violated:\n"
-                    + "\n".join(f"- {v}" for v in violations)
+                    "Performance thresholds violated:\n" + "\n".join(f"- {v}" for v in violations)
                 )
 
             return True

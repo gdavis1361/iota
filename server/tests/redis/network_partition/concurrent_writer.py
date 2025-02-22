@@ -24,27 +24,17 @@ class WriteMetrics:
 
     @property
     def average_latency(self) -> float:
-        return (
-            self.total_latency / self.successful_writes
-            if self.successful_writes > 0
-            else 0
-        )
+        return self.total_latency / self.successful_writes if self.successful_writes > 0 else 0
 
     @property
     def success_rate(self) -> float:
-        return (
-            (self.successful_writes / self.total_writes * 100)
-            if self.total_writes > 0
-            else 0
-        )
+        return (self.successful_writes / self.total_writes * 100) if self.total_writes > 0 else 0
 
 
 class ConcurrentWriter:
     """Performs concurrent write operations to Redis with metrics collection"""
 
-    def __init__(
-        self, host: str = "localhost", port: int = 6381, write_interval: float = 0.1
-    ):
+    def __init__(self, host: str = "localhost", port: int = 6381, write_interval: float = 0.1):
         self.host = host
         self.port = port
         self.write_interval = write_interval

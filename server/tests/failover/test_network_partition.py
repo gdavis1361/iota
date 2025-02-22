@@ -6,9 +6,7 @@ from typing import Dict, List
 import redis.asyncio as redis
 from redis.sentinel import Sentinel
 
-logging.basicConfig(
-    level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s"
-)
+logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger(__name__)
 
 
@@ -26,9 +24,7 @@ class NetworkPartitionTest:
         try:
             logger.info("Shutting down master...")
             master_host, master_port = self.sentinel.discover_master("mymaster")
-            redis_client = redis.Redis(
-                host=master_host, port=master_port, socket_timeout=1.0
-            )
+            redis_client = redis.Redis(host=master_host, port=master_port, socket_timeout=1.0)
             redis_client.shutdown(nosave=True)
             return True
         except Exception as e:
@@ -130,9 +126,7 @@ class PartitionScenario:
         print("\n=== Master Failure Test Report ===")
         print(f"Total Duration: {time.time() - self.metrics['start_time']:.2f}s")
 
-        total_writes = (
-            self.metrics["write_stats"]["success"] + self.metrics["write_stats"]["fail"]
-        )
+        total_writes = self.metrics["write_stats"]["success"] + self.metrics["write_stats"]["fail"]
         if total_writes > 0:
             success_rate = (self.metrics["write_stats"]["success"] / total_writes) * 100
             print(f"Write Success Rate: {success_rate:.1f}%")

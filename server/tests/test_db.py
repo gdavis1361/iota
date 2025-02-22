@@ -1,8 +1,8 @@
 import pytest
-from sqlalchemy.ext.asyncio import AsyncSession
-
 from app.db.repositories.user import UserRepository
 from app.schemas.user import UserCreate, UserUpdate
+from sqlalchemy.ext.asyncio import AsyncSession
+
 
 @pytest.fixture
 async def db_session():
@@ -10,6 +10,7 @@ async def db_session():
     # Replace this with your actual implementation
     async with AsyncSession() as session:
         yield session
+
 
 @pytest.mark.asyncio
 async def test_create_user(db_session: AsyncSession):
@@ -19,7 +20,7 @@ async def test_create_user(db_session: AsyncSession):
         "email": "test@example.com",
         "password": "testpassword123",
         "full_name": "Test User",
-        "role": "USER"
+        "role": "USER",
     }
     user_in = UserCreate(**user_data)
     user = await user_repo.create(user_in)
@@ -31,6 +32,7 @@ async def test_create_user(db_session: AsyncSession):
     assert user.is_verified is False
     assert user.role == "USER"
 
+
 @pytest.mark.asyncio
 async def test_get_user_by_email(db_session: AsyncSession):
     """Test getting user by email"""
@@ -39,15 +41,16 @@ async def test_get_user_by_email(db_session: AsyncSession):
         "email": "test2@example.com",
         "password": "testpassword123",
         "full_name": "Test User 2",
-        "role": "USER"
+        "role": "USER",
     }
     user_in = UserCreate(**user_data)
     created_user = await user_repo.create(user_in)
-    
+
     found_user = await user_repo.get_by_email(user_data["email"])
     assert found_user is not None
     assert found_user.id == created_user.id
     assert found_user.email == user_data["email"]
+
 
 @pytest.mark.asyncio
 async def test_update_user(db_session: AsyncSession):
@@ -57,11 +60,11 @@ async def test_update_user(db_session: AsyncSession):
         "email": "test3@example.com",
         "password": "testpassword123",
         "full_name": "Test User 3",
-        "role": "USER"
+        "role": "USER",
     }
     user_in = UserCreate(**user_data)
     user = await user_repo.create(user_in)
-    
+
     update_data = UserUpdate(full_name="Updated Name")
     updated_user = await user_repo.update(user, update_data)
     assert updated_user.full_name == "Updated Name"

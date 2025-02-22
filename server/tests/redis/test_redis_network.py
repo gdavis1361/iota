@@ -8,10 +8,11 @@ import os
 import time
 from typing import Generator, List, Tuple
 
-import docker
 import pytest
-import redis
 from redis.sentinel import Sentinel
+
+import docker
+import redis
 
 
 @pytest.fixture(scope="module")
@@ -67,9 +68,7 @@ def network_cleanup(docker_client: docker.DockerClient) -> Generator[None, None,
 class TestNetworkPartition:
     """Test suite for network partition scenarios."""
 
-    def _wait_for_failover(
-        self, sentinel: Sentinel, timeout: int = 30
-    ) -> Tuple[str, int]:
+    def _wait_for_failover(self, sentinel: Sentinel, timeout: int = 30) -> Tuple[str, int]:
         """Wait for failover to complete and return new master."""
         start_time = time.time()
         while time.time() - start_time < timeout:
@@ -101,9 +100,7 @@ class TestNetworkPartition:
         try:
             # Disconnect sentinel-1 from network
             network = docker_client.networks.get("redis_redis-net")
-            sentinel_container = docker_client.containers.get(
-                "redis-redis-sentinel-1-1"
-            )
+            sentinel_container = docker_client.containers.get("redis-redis-sentinel-1-1")
             network.disconnect(sentinel_container)
 
             # Wait and verify no failover occurs (other sentinels still see master)
@@ -111,9 +108,7 @@ class TestNetworkPartition:
 
             # Check with second sentinel that master hasn't changed
             current_master = sentinel_clients[1].discover_master("mymaster")
-            assert (
-                current_master == original_master
-            ), "Failover occurred when it shouldn't have"
+            assert current_master == original_master, "Failover occurred when it shouldn't have"
 
             # Verify we can still write to master
             assert self._verify_write_to_master(

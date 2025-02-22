@@ -1,22 +1,23 @@
-from datetime import timedelta, datetime
+from datetime import datetime, timedelta
 from typing import Any
-from fastapi import APIRouter, Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordRequestForm
-from sqlalchemy.orm import Session
+
 from app.core import security
 from app.core.config import settings
 from app.core.security import get_current_user
 from app.db.session import get_db
+from app.models.user import User
 from app.schemas.token import Token
 from app.schemas.user import UserCreate, UserResponse
-from app.models.user import User
+from fastapi import APIRouter, Depends, HTTPException, status
+from fastapi.security import OAuth2PasswordRequestForm
+from sqlalchemy.orm import Session
 
 router = APIRouter()
 
+
 @router.post("/token", response_model=Token)
 async def login_access_token(
-    form_data: OAuth2PasswordRequestForm = Depends(),
-    db: Session = Depends(get_db)
+    form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)
 ) -> Any:
     user = db.query(User).filter(User.email == form_data.username).first()
     if not user or not user.verify_password(form_data.password):
@@ -26,15 +27,12 @@ async def login_access_token(
             headers={"WWW-Authenticate": "Bearer"},
         )
     elif not user.is_active:
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Inactive user"
-        )
-    
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Inactive user")
+
     # Update last_login timestamp
     user.last_login = datetime.utcnow()
     db.commit()
-    
+
     access_token_expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     return {
         "access_token": security.create_access_token(
@@ -43,11 +41,9 @@ async def login_access_token(
         "token_type": "bearer",
     }
 
+
 @router.post("/register", response_model=UserResponse)
-async def register(
-    user_in: UserCreate,
-    db: Session = Depends(get_db)
-) -> Any:
+async def register(user_in: UserCreate, db: Session = Depends(get_db)) -> Any:
     """Create new user."""
     user = await security.get_user_by_email(db, email=user_in.email)
     if user:
@@ -62,6 +58,7 @@ async def register(
         )
     user = await security.create_user(db, user_in)
     return user
+
 
 @router.get("/me", response_model=UserResponse)
 async def read_users_me(

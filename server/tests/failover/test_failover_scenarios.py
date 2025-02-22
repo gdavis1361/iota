@@ -3,8 +3,8 @@ import logging
 import subprocess
 import time
 from dataclasses import dataclass, field
-from typing import List, Tuple, Dict, Optional
 from datetime import datetime
+from typing import Dict, List, Optional, Tuple
 
 import pytest
 from prometheus_client import Counter, Gauge, Histogram
@@ -15,26 +15,22 @@ from prometheus_client import Counter, Gauge, Histogram
 
 # Prometheus metrics
 FAILOVER_DURATION = Histogram(
-    'redis_failover_duration_seconds',
-    'Time taken for failover to complete',
-    buckets=[0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 10.0]
+    "redis_failover_duration_seconds",
+    "Time taken for failover to complete",
+    buckets=[0.1, 0.5, 1.0, 2.0, 3.0, 5.0, 10.0],
 )
 
 FAILOVER_TOTAL = Counter(
-    'redis_failover_total',
-    'Total number of failovers',
-    ['result']  # success/failure
+    "redis_failover_total", "Total number of failovers", ["result"]  # success/failure
 )
 
 WRITE_SUCCESS_RATE = Gauge(
-    'redis_write_success_rate',
-    'Success rate of write operations during failover'
+    "redis_write_success_rate", "Success rate of write operations during failover"
 )
 
 # Enhanced logging
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s - %(levelname)s - [%(name)s] - %(message)s"
+    level=logging.INFO, format="%(asctime)s - %(levelname)s - [%(name)s] - %(message)s"
 )
 logger = logging.getLogger(__name__)
 
@@ -151,6 +147,7 @@ class PerformanceValidationError(Exception):
 @dataclass
 class ChaosEvent:
     """Represents a chaos engineering event."""
+
     event_type: str
     target: str
     start_time: float
@@ -162,11 +159,11 @@ class ChaosEvent:
 
 class ChaosOrchestrator:
     """Orchestrates chaos engineering scenarios."""
-    
+
     def __init__(self):
         self.events: List[ChaosEvent] = []
         self.active_scenarios = set()
-    
+
     async def network_delay(self, container: str, latency_ms: int = 100, duration: int = 30):
         """Introduce network latency to a container."""
         event = ChaosEvent(
@@ -174,18 +171,18 @@ class ChaosOrchestrator:
             target=container,
             start_time=time.time(),
             duration=duration,
-            description=f"Added {latency_ms}ms latency to {container}"
+            description=f"Added {latency_ms}ms latency to {container}",
         )
         self.events.append(event)
-        
+
         cmd = f"docker exec {container} tc qdisc add dev eth0 root netem delay {latency_ms}ms"
         success, _ = run_cmd(cmd)
         if not success:
             logger.error(f"Failed to add network delay to {container}")
             return False
-            
+
         await asyncio.sleep(duration)
-        
+
         cmd = f"docker exec {container} tc qdisc del dev eth0 root"
         success, _ = run_cmd(cmd)
         event.recovery_time = time.time()
@@ -198,36 +195,38 @@ class ChaosOrchestrator:
             target=container,
             start_time=time.time(),
             duration=duration,
-            description=f"Added {load}% CPU load to {container}"
+            description=f"Added {load}% CPU load to {container}",
         )
         self.events.append(event)
-        
+
         cmd = f"docker exec {container} stress-ng --cpu 1 --cpu-load {load} --timeout {duration}s"
         success, _ = run_cmd(cmd)
         if not success:
             logger.error(f"Failed to add CPU pressure to {container}")
             return False
-            
+
         event.recovery_time = time.time()
         return success
 
-    async def memory_pressure(self, container: str, bytes_to_fill: int = 1024*1024*100, duration: int = 30):
+    async def memory_pressure(
+        self, container: str, bytes_to_fill: int = 1024 * 1024 * 100, duration: int = 30
+    ):
         """Simulate memory pressure on a container."""
         event = ChaosEvent(
             event_type="memory_pressure",
             target=container,
             start_time=time.time(),
             duration=duration,
-            description=f"Added memory pressure ({bytes_to_fill} bytes) to {container}"
+            description=f"Added memory pressure ({bytes_to_fill} bytes) to {container}",
         )
         self.events.append(event)
-        
+
         cmd = f"docker exec {container} stress-ng --vm 1 --vm-bytes {bytes_to_fill} --timeout {duration}s"
         success, _ = run_cmd(cmd)
         if not success:
             logger.error(f"Failed to add memory pressure to {container}")
             return False
-            
+
         event.recovery_time = time.time()
         return success
 
@@ -241,7 +240,9 @@ class ChaosOrchestrator:
                 "duration": e.duration,
                 "description": e.description,
                 "metrics": e.metrics,
-                "recovery_time": datetime.fromtimestamp(e.recovery_time).isoformat() if e.recovery_time else None
+                "recovery_time": (
+                    datetime.fromtimestamp(e.recovery_time).isoformat() if e.recovery_time else None
+                ),
             }
             for e in self.events
         ]
@@ -249,7 +250,7 @@ class ChaosOrchestrator:
 
 class FailoverMetrics:
     """Enhanced metrics with threshold validation and Prometheus integration."""
-    
+
     def __init__(self):
         self.start_time: float = time.time()
         self.detection_time: float = 0.0
@@ -258,26 +259,28 @@ class FailoverMetrics:
         self.write_failures: int = 0
         self.events: List[dict] = []
         self.chaos_events: List[ChaosEvent] = []
-    
+
     def record_failover_completion(self, success: bool):
         """Record failover completion metrics."""
         duration = time.time() - self.start_time
         FAILOVER_DURATION.observe(duration)
         FAILOVER_TOTAL.labels(result="success" if success else "failure").inc()
-        
+
         if self.write_success + self.write_failures > 0:
             success_rate = (self.write_success / (self.write_success + self.write_failures)) * 100
             WRITE_SUCCESS_RATE.set(success_rate)
-    
+
     def add_chaos_event(self, event: ChaosEvent):
         """Add a chaos event to the metrics."""
         self.chaos_events.append(event)
-        self.events.append({
-            "type": "chaos",
-            "description": event.description,
-            "time": event.start_time,
-            "metrics": event.metrics
-        })
+        self.events.append(
+            {
+                "type": "chaos",
+                "description": event.description,
+                "time": event.start_time,
+                "metrics": event.metrics,
+            }
+        )
 
     def validate_performance(self) -> List[str]:
         """Validate metrics against defined thresholds."""
@@ -391,8 +394,7 @@ class FailoverTestSuite:
             violations = self.metrics.validate_performance()
             if violations:
                 raise PerformanceValidationError(
-                    "Performance thresholds violated:\n"
-                    + "\n".join(f"- {v}" for v in violations)
+                    "Performance thresholds violated:\n" + "\n".join(f"- {v}" for v in violations)
                 )
 
             return True
@@ -489,14 +491,14 @@ def test_graceful_master_shutdown():
 
 
 @pytest.mark.order(2)
-def test_concurrent_writes_during_failover():
+@pytest.mark.asyncio
+async def test_concurrent_writes_during_failover():
     """Test write operations during master failover"""
     print("\n=== Testing Concurrent Writes During Failover ===")
 
     # Start concurrent writes
     writer = ConcurrentWriter()
     write_task = asyncio.create_task(writer.write_loop())
-    print("Started concurrent writes...")
 
     time.sleep(2)  # Let some writes happen
 
@@ -557,9 +559,7 @@ def test_network_partition():
     start_service("redis-master")
     time.sleep(5)
 
-    assert (
-        new_master != initial_master
-    ), "Master should have changed after partition and kill"
+    assert new_master != initial_master, "Master should have changed after partition and kill"
 
     # Final stability check
     final_master = get_master_info()
@@ -632,50 +632,50 @@ async def test_chaos_network_partition():
     orchestrator = ChaosOrchestrator()
     metrics = FailoverMetrics()
     writer = ConcurrentWriter()
-    
+
     logger.info("Starting chaos network partition test")
-    
+
     # Start concurrent writes
     write_task = asyncio.create_task(writer.write_loop(duration=60))
-    
+
     try:
         # Add network delay to master
         await orchestrator.network_delay("redis-redis-master-1", latency_ms=200, duration=10)
-        
+
         # Partition master from network
         success, _ = partition_container("redis-redis-master-1")
         if not success:
             raise Exception("Failed to partition master container")
-        
+
         # Wait for failover
         await asyncio.sleep(5)
-        
+
         # Add CPU pressure to new master
         await orchestrator.cpu_pressure("redis-redis-replica-1", load=70, duration=10)
-        
+
         # Reconnect original master
         success, _ = reconnect_container("redis-redis-master-1")
         if not success:
             raise Exception("Failed to reconnect master container")
-        
+
         # Record metrics
         metrics.chaos_events = orchestrator.events
         metrics.record_failover_completion(success=True)
-        
+
     except Exception as e:
         logger.error(f"Chaos test failed: {str(e)}")
         metrics.record_failover_completion(success=False)
         raise
-    
+
     finally:
         writer.stop()
         await write_task
-        
+
     # Validate metrics
     metrics.write_success = writer.write_success
     metrics.write_failures = writer.write_failures
     metrics.validate_performance()
-    
+
     logger.info("Chaos test completed successfully")
     logger.info("Event History: %s", orchestrator.get_event_history())
 
@@ -686,47 +686,49 @@ async def test_chaos_resource_pressure():
     orchestrator = ChaosOrchestrator()
     metrics = FailoverMetrics()
     writer = ConcurrentWriter()
-    
+
     logger.info("Starting chaos resource pressure test")
-    
+
     # Start concurrent writes
     write_task = asyncio.create_task(writer.write_loop(duration=60))
-    
+
     try:
         # Add memory pressure to master
-        await orchestrator.memory_pressure("redis-redis-master-1", bytes_to_fill=1024*1024*200, duration=10)
-        
+        await orchestrator.memory_pressure(
+            "redis-redis-master-1", bytes_to_fill=1024 * 1024 * 200, duration=10
+        )
+
         # Add CPU pressure to master
         await orchestrator.cpu_pressure("redis-redis-master-1", load=90, duration=10)
-        
+
         # Kill master service
         success, _ = kill_service("redis-redis-master-1")
         if not success:
             raise Exception("Failed to kill master service")
-        
+
         # Wait for failover
         await asyncio.sleep(5)
-        
+
         # Add network delay to new master
         await orchestrator.network_delay("redis-redis-replica-1", latency_ms=150, duration=10)
-        
+
         # Record metrics
         metrics.chaos_events = orchestrator.events
         metrics.record_failover_completion(success=True)
-        
+
     except Exception as e:
         logger.error(f"Resource pressure test failed: {str(e)}")
         metrics.record_failover_completion(success=False)
         raise
-    
+
     finally:
         writer.stop()
         await write_task
-        
+
     # Validate metrics
     metrics.write_success = writer.write_success
     metrics.write_failures = writer.write_failures
     metrics.validate_performance()
-    
+
     logger.info("Resource pressure test completed successfully")
     logger.info("Event History: %s", orchestrator.get_event_history())
