@@ -415,100 +415,31 @@ def test_settings():
 
 The test settings provide sensible defaults and proper test isolation.
 
-## Development Guide
+## Documentation
 
-### Prerequisites
+### Development
+- [Contributing Guidelines](docs/contributing.md)
+- [Pre-commit Setup](docs/pre-commit.md)
+- [Development Setup](docs/development.md)
 
-- Python 3.11+
-- Redis
-- Prometheus
-- Grafana
+### Architecture & Design
+- [Configuration Management](docs/adr/0001-configuration-management.md)
+- [Module Organization](docs/migration/001-module-consolidation.md)
 
-### Local Setup
+### Security
+- [Security Guidelines](tests/scripts/SECURITY.md)
+- [Authentication](docs/authentication.md)
+- [Authorization](docs/authorization.md)
 
-1. Clone the repository:
-```bash
-git clone https://github.com/gdavis1361/iota.git
-cd iota
-```
-
-2. Install dependencies:
-```bash
-pip install -r requirements.txt
-pip install -r requirements-dev.txt
-```
-
-3. Set up pre-commit hooks:
-```bash
-pre-commit install
-```
-
-4. Configure environment variables:
-```bash
-cp .env.example .env
-# Edit .env with your configuration
-```
-
-### Running Tests
-
-We maintain comprehensive test coverage with pytest:
-
-```bash
-# Run all tests with coverage
-pytest
-
-# Run specific test file
-pytest tests/monitoring/test_performance_report.py
-
-# Run with verbose output
-pytest -v
-```
-
-### Code Quality
-
-We enforce strict code quality standards:
-
-- Black for code formatting
-- isort for import sorting
-- flake8 for linting
-- mypy for type checking
-
-These checks run automatically:
-- On pre-commit (local development)
-- In CI/CD pipeline (pull requests)
-
-### Documentation
-
+### Testing
 - [Testing Guide](docs/testing.md)
-- [Observability Guide](docs/observability.md)
-- [Incident Response](docs/incident_response.md)
-- [Architecture Decisions](docs/adr/)
+- [Performance Testing](tests/performance/README.md)
+- [Integration Testing](tests/integration/README.md)
 
-### Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Run tests and quality checks
-5. Submit a pull request
-
-Commit messages should follow [Conventional Commits](https://www.conventionalcommits.org/):
-```
-feat: add hat wobble
-^--^  ^------------^
-|     |
-|     +-> Summary in present tense
-|
-+-------> Type: feat, fix, docs, style, refactor, test, or chore
-```
-
-### Release Process
-
-1. Update version in pyproject.toml
-2. Create release notes
-3. Tag release in git
-4. Push to main branch
-5. CI/CD will handle deployment
+### Operations
+- [Monitoring](docs/operations/monitoring.md)
+- [Rate Limiting](docs/operations/rate_limiter.md)
+- [Alerts](docs/operations/alerts.md)
 
 ## Future Enhancements
 
